@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\offlinecomputer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\offlinecomputer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\phongcangua.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\phongcangua.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\onlinemultiplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\onlinemultiplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 373,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BangXepHang.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\BangXepHang.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\BangXepHang.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T18:51:43.453Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StartGame.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\StartGame.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\StartGame.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T18:49:53.789Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PhongCaNgua.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\PhongCaNgua.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\PhongCaNgua.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\PhongCaNgua.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\PhongCaNgua.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T17:15:07Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OfflineComputer.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\OfflineComputer.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\OfflineComputer.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\OfflineComputer.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\OfflineComputer.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T17:07:56.897Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OnlineMultiplayer.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\OnlineMultiplayer.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\OnlineMultiplayer.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\OnlineMultiplayer.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\OnlineMultiplayer.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T16:50:51.043Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Form1.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Form1.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Form1.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T15:52:49.495Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
