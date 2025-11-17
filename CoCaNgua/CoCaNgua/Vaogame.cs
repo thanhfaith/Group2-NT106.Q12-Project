@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace CoCaNgua
 {
-    public partial class OnlineMultiplayer: Form
+    public partial class Vaogame : Form
     {
-        public OnlineMultiplayer()
+        public Vaogame()
         {
             InitializeComponent();
+        }
+
+        private void Vaogame_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

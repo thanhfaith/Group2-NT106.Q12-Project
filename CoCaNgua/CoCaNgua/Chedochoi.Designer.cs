@@ -1,6 +1,6 @@
 ﻿namespace CoCaNgua
 {
-    partial class StartGame
+    partial class Chedochoi
     {
         /// <summary>
         /// Required designer variable.
@@ -30,54 +30,73 @@
         {
             button1 = new Button();
             button2 = new Button();
+            button3 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
             button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.Cursor = Cursors.No;
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(397, 232);
+            button1.Location = new Point(333, 109);
+            button1.Margin = new Padding(5, 4, 5, 4);
             button1.Name = "button1";
-            button1.Size = new Size(184, 61);
+            button1.Size = new Size(161, 65);
             button1.TabIndex = 0;
-            button1.Text = "Đăng nhập ";
+            button1.Text = "Luật chơi ";
             button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
             button2.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Cursor = Cursors.No;
             button2.FlatStyle = FlatStyle.Popup;
             button2.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(397, 312);
+            button2.Location = new Point(333, 187);
+            button2.Margin = new Padding(5, 4, 5, 4);
             button2.Name = "button2";
-            button2.Size = new Size(184, 61);
+            button2.Size = new Size(161, 65);
             button2.TabIndex = 1;
-            button2.Text = "Đăng kí ";
+            button2.Text = "Online ";
             button2.UseVisualStyleBackColor = true;
             // 
-            // StartGame
+            // button3
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            button3.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
+            button3.BackgroundImageLayout = ImageLayout.Stretch;
+            button3.FlatStyle = FlatStyle.Popup;
+            button3.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(333, 267);
+            button3.Margin = new Padding(5, 4, 5, 4);
+            button3.Name = "button3";
+            button3.Size = new Size(161, 65);
+            button3.TabIndex = 2;
+            button3.Text = "Offline ";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // Chedochoi
+            // 
+            AutoScaleDimensions = new SizeF(13F, 26F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.Screenshot_2025_11_15_005328;
+            BackgroundImage = Properties.Resources.Screenshot_2025_11_15_011613;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(940, 534);
+            ClientSize = new Size(797, 464);
+            Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
-            Cursor = Cursors.Default;
             DoubleBuffered = true;
-            Name = "StartGame";
-            Text = "StartGame";
+            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(5, 4, 5, 4);
+            Name = "Chedochoi";
+            Text = "Chedochoi";
             ResumeLayout(false);
         }
 
         #endregion
+
         private Button button1;
         private Button button2;
+        private Button button3;
     }
 }
