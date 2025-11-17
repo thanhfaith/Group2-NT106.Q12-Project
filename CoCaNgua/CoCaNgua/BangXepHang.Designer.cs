@@ -1,6 +1,6 @@
 ﻿namespace CoCaNgua
 {
-    partial class BangXepHang
+    partial class Bangxephang
     {
         /// <summary>
         /// Required designer variable.
@@ -28,67 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            label1 = new Label();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            listBox1 = new ListBox();
             SuspendLayout();
             // 
-            // dataGridView1
+            // listBox1
             // 
-            dataGridView1.BackgroundColor = Color.PaleGreen;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(93, 78);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(355, 376);
-            dataGridView1.TabIndex = 0;
+            listBox1.BackColor = Color.White;
+            listBox1.BorderStyle = BorderStyle.None;
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 26;
+            listBox1.Location = new Point(60, 92);
+            listBox1.Margin = new Padding(5, 4, 5, 4);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(617, 234);
+            listBox1.TabIndex = 0;
             // 
-            // label1
+            // Bangxephang
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.LightGoldenrodYellow;
-            label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.OrangeRed;
-            label1.Location = new Point(175, 23);
-            label1.Name = "label1";
-            label1.Size = new Size(201, 32);
-            label1.TabIndex = 1;
-            label1.Text = "Bảng xếp hạng ";
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.Pink;
-            button1.ForeColor = Color.MediumVioletRed;
-            button1.Location = new Point(212, 480);
-            button1.Name = "button1";
-            button1.Size = new Size(126, 56);
-            button1.TabIndex = 2;
-            button1.Text = "Quay lại ";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // BangXepHang
-            // 
-            AutoScaleDimensions = new SizeF(15F, 31F);
+            AutoScaleDimensions = new SizeF(13F, 26F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.LightGoldenrodYellow;
-            ClientSize = new Size(559, 560);
-            Controls.Add(button1);
-            Controls.Add(label1);
-            Controls.Add(dataGridView1);
-            Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(6, 5, 6, 5);
-            Name = "BangXepHang";
-            Text = "BangXepHang";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            BackgroundImage = Properties.Resources.Screenshot_2025_11_15_231600;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(754, 476);
+            Controls.Add(listBox1);
+            DoubleBuffered = true;
+            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(5, 4, 5, 4);
+            Name = "Bangxephang";
+            Text = "Bangxephang";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Label label1;
-        private Button button1;
+        private ListBox listBox1;
     }
 }

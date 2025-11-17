@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace CoCaNgua
 {
-    public partial class Bangxephang : Form
+    public partial class Chedochoi: Form
     {
-        public Bangxephang()
+        public Chedochoi()
         {
             InitializeComponent();
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

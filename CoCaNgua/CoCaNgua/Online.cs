@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CoCaNgua
 {
-    public partial class PhongCaNgua : Form
+    public partial class Online : Form
     {
-        public PhongCaNgua()
+        public Online()
         {
             InitializeComponent();
         }

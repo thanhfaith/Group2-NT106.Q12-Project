@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CoCaNgua
 {
-    public partial class OfflineComputer: Form
+    public partial class Taophong: Form
     {
-        public OfflineComputer()
+        public Taophong()
         {
             InitializeComponent();
         }
