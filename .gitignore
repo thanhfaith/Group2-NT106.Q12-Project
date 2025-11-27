@@ -1,0 +1,53 @@
+# Build results
+bin/
+obj/
+out/
+publish/
+
+# Visual Studio / user-specific files
+*.user
+*.suo
+*.userosscache
+*.userprefs
+*.pidb
+*.svclog
+*.sln.docstates
+
+# Visual Studio temporary files
+*.VC.db
+*.VC.VC.opendb
+*.dbmdl
+
+# Visual Studio Code settings
+.vscode/
+
+# Resharper / Rider
+_ReSharper*/
+*.ReSharper.*
+*.dotCover
+.idea/
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Environment files
+*.env
+
+# Other auto-generated files
+*.g.cs
+*.designer.cs
+*.g.i.cs
+*.vsix
