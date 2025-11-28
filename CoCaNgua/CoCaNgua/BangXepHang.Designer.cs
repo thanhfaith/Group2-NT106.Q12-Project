@@ -37,7 +37,7 @@
             listBox1.BorderStyle = BorderStyle.None;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 26;
-            listBox1.Location = new Point(60, 92);
+            listBox1.Location = new Point(60, 94);
             listBox1.Margin = new Padding(5, 4, 5, 4);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(617, 234);
