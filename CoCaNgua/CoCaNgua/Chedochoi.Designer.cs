@@ -39,10 +39,10 @@
             button1.BackgroundImageLayout = ImageLayout.Stretch;
             button1.FlatStyle = FlatStyle.Popup;
             button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(333, 109);
-            button1.Margin = new Padding(5, 4, 5, 4);
+            button1.Location = new Point(359, 130);
+            button1.Margin = new Padding(5, 5, 5, 5);
             button1.Name = "button1";
-            button1.Size = new Size(161, 65);
+            button1.Size = new Size(173, 78);
             button1.TabIndex = 0;
             button1.Text = "Luật chơi ";
             button1.UseVisualStyleBackColor = true;
@@ -53,10 +53,10 @@
             button2.BackgroundImageLayout = ImageLayout.Stretch;
             button2.FlatStyle = FlatStyle.Popup;
             button2.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(333, 187);
-            button2.Margin = new Padding(5, 4, 5, 4);
+            button2.Location = new Point(359, 223);
+            button2.Margin = new Padding(5, 5, 5, 5);
             button2.Name = "button2";
-            button2.Size = new Size(161, 65);
+            button2.Size = new Size(173, 78);
             button2.TabIndex = 1;
             button2.Text = "Online ";
             button2.UseVisualStyleBackColor = true;
@@ -67,27 +67,27 @@
             button3.BackgroundImageLayout = ImageLayout.Stretch;
             button3.FlatStyle = FlatStyle.Popup;
             button3.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(333, 267);
-            button3.Margin = new Padding(5, 4, 5, 4);
+            button3.Location = new Point(359, 318);
+            button3.Margin = new Padding(5, 5, 5, 5);
             button3.Name = "button3";
-            button3.Size = new Size(161, 65);
+            button3.Size = new Size(173, 78);
             button3.TabIndex = 2;
             button3.Text = "Offline ";
             button3.UseVisualStyleBackColor = true;
             // 
             // Chedochoi
             // 
-            AutoScaleDimensions = new SizeF(13F, 26F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_011613;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(797, 464);
+            ClientSize = new Size(858, 553);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
             DoubleBuffered = true;
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 4, 5, 4);
+            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "Chedochoi";
             Text = "Chedochoi";
             ResumeLayout(false);

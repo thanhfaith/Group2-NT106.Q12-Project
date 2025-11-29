@@ -38,28 +38,30 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Aqua;
-            label2.Location = new Point(156, 281);
+            label2.Location = new Point(161, 321);
             label2.Name = "label2";
-            label2.Size = new Size(112, 26);
+            label2.Size = new Size(121, 31);
             label2.TabIndex = 1;
             label2.Text = "Mã phòng ";
             // 
             // textBox1
             // 
             textBox1.BackColor = Color.LightGoldenrodYellow;
-            textBox1.Location = new Point(336, 274);
+            textBox1.Location = new Point(362, 316);
+            textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(202, 43);
+            textBox1.Size = new Size(217, 50);
             textBox1.TabIndex = 2;
             // 
             // button1
             // 
             button1.BackColor = Color.Cyan;
             button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013600;
-            button1.Location = new Point(349, 200);
+            button1.Location = new Point(377, 219);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(177, 43);
+            button1.Size = new Size(191, 51);
             button1.TabIndex = 3;
             button1.Text = "Tạo phòng ";
             button1.UseVisualStyleBackColor = false;
@@ -68,27 +70,28 @@
             // 
             button2.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_214511;
             button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Location = new Point(407, 342);
+            button2.Location = new Point(438, 408);
+            button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
-            button2.Size = new Size(62, 50);
+            button2.Size = new Size(67, 60);
             button2.TabIndex = 4;
             button2.UseVisualStyleBackColor = true;
             // 
             // Online
             // 
-            AutoScaleDimensions = new SizeF(13F, 26F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013300;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(804, 471);
+            ClientSize = new Size(866, 562);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(label2);
             DoubleBuffered = true;
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 4, 5, 4);
+            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "Online";
             Text = "Online";
             ResumeLayout(false);

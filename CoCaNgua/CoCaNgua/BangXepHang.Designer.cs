@@ -36,24 +36,24 @@
             listBox1.BackColor = Color.White;
             listBox1.BorderStyle = BorderStyle.None;
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 26;
-            listBox1.Location = new Point(60, 94);
-            listBox1.Margin = new Padding(5, 4, 5, 4);
+            listBox1.ItemHeight = 31;
+            listBox1.Location = new Point(65, 112);
+            listBox1.Margin = new Padding(5, 5, 5, 5);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(617, 234);
+            listBox1.Size = new Size(664, 279);
             listBox1.TabIndex = 0;
             // 
             // Bangxephang
             // 
-            AutoScaleDimensions = new SizeF(13F, 26F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_231600;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(754, 476);
+            ClientSize = new Size(812, 568);
             Controls.Add(listBox1);
             DoubleBuffered = true;
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 4, 5, 4);
+            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "Bangxephang";
             Text = "Bangxephang";
             ResumeLayout(false);

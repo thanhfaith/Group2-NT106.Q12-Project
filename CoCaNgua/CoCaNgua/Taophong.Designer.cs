@@ -42,29 +42,32 @@
             label1.BackColor = Color.MistyRose;
             label1.BorderStyle = BorderStyle.FixedSingle;
             label1.Cursor = Cursors.No;
-            label1.Location = new Point(121, 52);
+            label1.Location = new Point(130, 62);
             label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(114, 28);
+            label1.Size = new Size(123, 33);
             label1.TabIndex = 0;
             label1.Text = "Mã phòng ";
             // 
             // textBox1
             // 
             textBox1.BackColor = Color.FloralWhite;
-            textBox1.Location = new Point(260, 43);
+            textBox1.Location = new Point(280, 51);
+            textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(185, 41);
+            textBox1.Size = new Size(199, 48);
             textBox1.TabIndex = 1;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.MistyRose;
             groupBox1.Controls.Add(listBox1);
-            groupBox1.Location = new Point(86, 117);
+            groupBox1.Location = new Point(93, 140);
+            groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(438, 360);
+            groupBox1.Padding = new Padding(3, 4, 3, 4);
+            groupBox1.Size = new Size(472, 429);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách các thành viên";
@@ -72,10 +75,11 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 26;
-            listBox1.Location = new Point(17, 60);
+            listBox1.ItemHeight = 31;
+            listBox1.Location = new Point(18, 72);
+            listBox1.Margin = new Padding(3, 4, 3, 4);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(405, 264);
+            listBox1.Size = new Size(436, 314);
             listBox1.TabIndex = 0;
             // 
             // button1
@@ -84,29 +88,29 @@
             button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             button1.BackgroundImageLayout = ImageLayout.Stretch;
             button1.FlatStyle = FlatStyle.Popup;
-            button1.Location = new Point(231, 487);
+            button1.Location = new Point(249, 581);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(128, 55);
+            button1.Size = new Size(138, 66);
             button1.TabIndex = 3;
             button1.Text = "Vào game ";
             button1.UseVisualStyleBackColor = false;
             // 
             // Taophong
             // 
-            AutoScaleDimensions = new SizeF(13F, 26F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_221556;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(589, 550);
+            ClientSize = new Size(634, 656);
             Controls.Add(button1);
             Controls.Add(groupBox1);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            Cursor = Cursors.Default;
             DoubleBuffered = true;
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ControlText;
-            Margin = new Padding(5, 4, 5, 4);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "Taophong";
             Text = "Taophong";
             groupBox1.ResumeLayout(false);
