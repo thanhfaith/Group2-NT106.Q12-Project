@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoCaNgua")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b15238a416e0b06e3e3a008854a8349d83d62a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+753e0f9c6d5dc5a8ad8dc04d1f73b72f7bf45405")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoCaNgua")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoCaNgua")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

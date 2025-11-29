@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ĐỒ ÁN LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj": {}
+    "C:\\Users\\THIS PC\\OneDrive\\Documents\\project vs2022\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj": {}
   },
   "projects": {
-    "D:\\ĐỒ ÁN LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj": {
+    "C:\\Users\\THIS PC\\OneDrive\\Documents\\project vs2022\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ĐỒ ÁN LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
+        "projectUniqueName": "C:\\Users\\THIS PC\\OneDrive\\Documents\\project vs2022\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
         "projectName": "CoCaNgua",
-        "projectPath": "D:\\ĐỒ ÁN LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\ĐỒ ÁN LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\obj\\",
+        "projectPath": "C:\\Users\\THIS PC\\OneDrive\\Documents\\project vs2022\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
+        "packagesPath": "C:\\Users\\THIS PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIS PC\\OneDrive\\Documents\\project vs2022\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIS PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -68,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
