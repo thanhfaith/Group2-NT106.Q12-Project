@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\chedochoi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\chedochoi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DangKi.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeToolTip": "CoCaNgua\\DangKi.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T08:43:21.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DangKi.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\DangKi.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T08:43:19.474Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Chedochoi.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Chedochoi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Chedochoi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Chedochoi.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Chedochoi.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T08:42:18.481Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
