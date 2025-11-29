@@ -51,3 +51,11 @@ $RECYCLE.BIN/
 *.designer.cs
 *.g.i.cs
 *.vsix
+
+# Temporary files
+.vs/
+*.user
+*.suo
+bin/
+obj/
+
