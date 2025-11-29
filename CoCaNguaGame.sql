@@ -1,17 +1,19 @@
 USE CoCaNguaGame;
 GO
 
--- 1. Bảng Users: lưu tài khoản + thống kê
+-- 1. Bảng Users: lưu tài khoản + thống kê + email
 CREATE TABLE Users (
     Id           INT IDENTITY(1,1) PRIMARY KEY,
     Username     NVARCHAR(50)  NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(200) NOT NULL,      -- tạm thời có thể lưu plain text, sau này đổi sang hash
+    PasswordHash NVARCHAR(200) NOT NULL,
     DisplayName  NVARCHAR(50)  NULL,
+
+    Email        NVARCHAR(100) NOT NULL,   -- THÊM DÒNG NÀY
 
     TotalGames   INT NOT NULL DEFAULT 0,
     Wins         INT NOT NULL DEFAULT 0,
     Losses       INT NOT NULL DEFAULT 0,
-    Score        INT NOT NULL DEFAULT 0,      -- dùng cho bảng xếp hạng
+    Score        INT NOT NULL DEFAULT 0,
 
     CreatedAt    DATETIME NOT NULL DEFAULT GETDATE(),
     LastLoginAt  DATETIME NULL
@@ -21,11 +23,11 @@ GO
 -- 2. Bảng Rooms: thông tin phòng chơi
 CREATE TABLE Rooms (
     Id         INT IDENTITY(1,1) PRIMARY KEY,
-    RoomCode   NVARCHAR(10)  NOT NULL UNIQUE,   -- mã phòng (vd: ABC123)
-    Name       NVARCHAR(50)  NULL,              -- tên phòng (nếu bạn muốn hiển thị)
-    HostUserId INT           NOT NULL,          -- chủ phòng (FK tới Users)
+    RoomCode   NVARCHAR(10)  NOT NULL UNIQUE,
+    Name       NVARCHAR(50)  NULL,
+    HostUserId INT           NOT NULL,
     MaxPlayers INT           NOT NULL DEFAULT 4,
-    Status     TINYINT       NOT NULL DEFAULT 0, -- 0: Chờ, 1: Đang chơi, 2: Kết thúc
+    Status     TINYINT       NOT NULL DEFAULT 0,
     CreatedAt  DATETIME      NOT NULL DEFAULT GETDATE()
 );
 GO
@@ -39,7 +41,7 @@ GO
 CREATE TABLE RoomPlayers (
     RoomId    INT NOT NULL,
     UserId    INT NOT NULL,
-    SeatIndex INT NOT NULL,                     -- 0..3 hoặc màu quân
+    SeatIndex INT NOT NULL,
     IsReady   BIT NOT NULL DEFAULT 0,
     IsHost    BIT NOT NULL DEFAULT 0,
     JoinedAt  DATETIME NOT NULL DEFAULT GETDATE(),
@@ -62,10 +64,10 @@ GO
 CREATE TABLE Matches (
     Id           INT IDENTITY(1,1) PRIMARY KEY,
     RoomId       INT        NOT NULL,
-    WinnerUserId INT        NULL,                -- có thể null nếu hòa / chưa kết thúc
+    WinnerUserId INT        NULL,
     StartedAt    DATETIME   NOT NULL DEFAULT GETDATE(),
     EndedAt      DATETIME   NULL,
-    Status       TINYINT    NOT NULL DEFAULT 0   -- 0: Đang chơi, 1: Hoàn thành
+    Status       TINYINT    NOT NULL DEFAULT 0
 );
 GO
 
