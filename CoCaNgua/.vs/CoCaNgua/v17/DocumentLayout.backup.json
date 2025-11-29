@@ -3,12 +3,52 @@
   "WorkspaceRootPath": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\online.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\online.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\vaogame.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\vaogame.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\dangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\chedochoi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\chedochoi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\taophong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\taophong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\chedochoi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\chedochoi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\dangki.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,44 +59,12 @@
       "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\cocangua.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\taophong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\taophong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\startgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\bangxephang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\vaogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\cocangua\\online.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\online.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\online.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\online.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\chedochoi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\chedochoi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|solutionrelative:cocangua\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C6755A92-DAFD-4520-A5F4-8427BC700988}|CoCaNgua\\CoCaNgua.csproj|d:\\\u0111\u1ED3 \u00E1n ltmcb\\group2-nt106.q12-project\\cocangua\\cocangua\\online.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -86,36 +94,72 @@
       "DocumentGroups": [
         {
           "DockedHeight": 373,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DangKi.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
-              "RelativeToolTip": "CoCaNgua\\DangKi.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAMwBYAAAACAAAAAAAAAA==",
+              "Title": "Online.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Online.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Online.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T15:09:28.929Z",
+              "WhenOpened": "2025-11-14T18:25:08.806Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Vaogame.Designer.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.Designer.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Vaogame.Designer.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.Designer.cs",
+              "RelativeToolTip": "CoCaNgua\\Vaogame.Designer.cs",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAMwK4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T07:40:52.576Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DangKi.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\DangKi.cs [Design]",
+              "DocumentIndex": 3,
+              "Title": "BangXepHang.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\BangXepHang.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\BangXepHang.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T15:01:43.612Z",
+              "WhenOpened": "2025-11-15T16:11:15.02Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StartGame.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\StartGame.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\StartGame.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T17:42:05.842Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Vaogame.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Vaogame.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Vaogame.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T15:21:31.448Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "DangNhap.cs [Design]",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangNhap.cs",
               "RelativeDocumentMoniker": "CoCaNgua\\DangNhap.cs",
@@ -128,106 +172,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "BangXepHang.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\BangXepHang.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\BangXepHang.cs [Design]",
+              "Title": "DangKi.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\DangKi.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T16:11:15.02Z",
+              "WhenOpened": "2025-11-28T15:01:43.612Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "StartGame.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\StartGame.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\StartGame.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\StartGame.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T17:42:05.842Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Taophong.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Taophong.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Taophong.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Taophong.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\Taophong.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T14:53:16.003Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CoCaNgua.csproj",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
-              "RelativeDocumentMoniker": "CoCaNgua\\CoCaNgua.csproj",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
-              "RelativeToolTip": "CoCaNgua\\CoCaNgua.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAmwAcAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-14T17:40:14.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Vaogame.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Vaogame.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\Vaogame.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T15:21:31.448Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Online.Designer.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.Designer.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Online.Designer.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.Designer.cs",
-              "RelativeToolTip": "CoCaNgua\\Online.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T15:50:10.547Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Vaogame.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Vaogame.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
-              "RelativeToolTip": "CoCaNgua\\Vaogame.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAMwBUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T15:54:21.388Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "BangXepHang.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\BangXepHang.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
-              "RelativeToolTip": "CoCaNgua\\BangXepHang.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAtwBUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-15T16:18:39.254Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "Chedochoi.Designer.cs",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Chedochoi.Designer.cs",
               "RelativeDocumentMoniker": "CoCaNgua\\Chedochoi.Designer.cs",
@@ -240,7 +196,107 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Taophong.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Taophong.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Taophong.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Taophong.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Taophong.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T14:53:16.003Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Chedochoi.cs [Design]",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Chedochoi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Chedochoi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Chedochoi.cs [Design]",
+              "RelativeToolTip": "CoCaNgua\\Chedochoi.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T07:43:46.66Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Vaogame.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Vaogame.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Vaogame.cs",
+              "RelativeToolTip": "CoCaNgua\\Vaogame.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T15:54:21.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Program.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Program.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Program.cs",
+              "RelativeToolTip": "CoCaNgua\\Program.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAgwA0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T17:40:43.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DangKi.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\DangKi.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\DangKi.cs",
+              "RelativeToolTip": "CoCaNgua\\DangKi.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAMwBYAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T15:09:28.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CoCaNgua.csproj",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
+              "RelativeDocumentMoniker": "CoCaNgua\\CoCaNgua.csproj",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
+              "RelativeToolTip": "CoCaNgua\\CoCaNgua.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAmwAcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-14T17:40:14.755Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Online.Designer.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.Designer.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\Online.Designer.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.Designer.cs",
+              "RelativeToolTip": "CoCaNgua\\Online.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T15:50:10.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 14,
+              "Title": "BangXepHang.cs",
+              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
+              "RelativeDocumentMoniker": "CoCaNgua\\BangXepHang.cs",
+              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\BangXepHang.cs",
+              "RelativeToolTip": "CoCaNgua\\BangXepHang.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAtwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T16:18:39.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "Online.cs",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.cs",
               "RelativeDocumentMoniker": "CoCaNgua\\Online.cs",
@@ -253,43 +309,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Online.cs [Design]",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Online.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Online.cs [Design]",
-              "RelativeToolTip": "CoCaNgua\\Online.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T18:25:08.806Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "CoCaNgua",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
               "RelativeDocumentMoniker": "CoCaNgua\\CoCaNgua.csproj",
               "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\CoCaNgua.csproj",
               "RelativeToolTip": "CoCaNgua\\CoCaNgua.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-14T17:46:01.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T17:46:01.818Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Program.cs",
-              "RelativeDocumentMoniker": "CoCaNgua\\Program.cs",
-              "ToolTip": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Program.cs",
-              "RelativeToolTip": "CoCaNgua\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T17:40:43.759Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "Resources.resx",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Properties\\Resources.resx",
               "RelativeDocumentMoniker": "CoCaNgua\\Properties\\Resources.resx",
@@ -301,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "Screenshot 2025-11-15 005328.png",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Resources\\Screenshot 2025-11-15 005328.png",
               "RelativeDocumentMoniker": "CoCaNgua\\Resources\\Screenshot 2025-11-15 005328.png",
@@ -312,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "Screenshot 2025-11-15 010051.png",
               "DocumentMoniker": "D:\\\u0110\u1ED2 \u00C1N LTMCB\\Group2-NT106.Q12-Project\\CoCaNgua\\CoCaNgua\\Resources\\Screenshot 2025-11-15 010051.png",
               "RelativeDocumentMoniker": "CoCaNgua\\Resources\\Screenshot 2025-11-15 010051.png",

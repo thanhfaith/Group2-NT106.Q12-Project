@@ -73,6 +73,16 @@ namespace CoCaNgua.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Đỏ {
+            get {
+                object obj = ResourceManager.GetObject("Đỏ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2025_11_15_005328 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2025-11-15 005328", resourceCulture);
@@ -226,6 +236,36 @@ namespace CoCaNgua.Properties {
         internal static System.Drawing.Bitmap Screenshot_2025_11_28_222956 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2025-11-28 222956", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Vang {
+            get {
+                object obj = ResourceManager.GetObject("Vang", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Xanhduong {
+            get {
+                object obj = ResourceManager.GetObject("Xanhduong", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Xanhla {
+            get {
+                object obj = ResourceManager.GetObject("Xanhla", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
