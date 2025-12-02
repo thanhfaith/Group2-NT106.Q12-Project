@@ -4,13 +4,13 @@
     <Compile Update="Bangxephang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Chedochoi.cs">
+    <Compile Update="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DangKi.cs">
+    <Compile Update="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DangNhap.cs">
+    <Compile Update="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Online.cs">

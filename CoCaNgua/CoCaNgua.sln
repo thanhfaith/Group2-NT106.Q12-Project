@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoCaNgua", "CoCaNgua\CoCaNgua.csproj", "{C6755A92-DAFD-4520-A5F4-8427BC700988}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCoCaNgua", "ServerCoCaNgua\ServerCoCaNgua.csproj", "{0B71C506-033D-4044-BDB1-1E983420CF5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoCaNguaServer", "CoCaNguaServer\CoCaNguaServer.csproj", "{C379439E-C9E5-4325-AD8D-A77C75AB9070}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C6755A92-DAFD-4520-A5F4-8427BC700988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6755A92-DAFD-4520-A5F4-8427BC700988}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6755A92-DAFD-4520-A5F4-8427BC700988}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B71C506-033D-4044-BDB1-1E983420CF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B71C506-033D-4044-BDB1-1E983420CF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B71C506-033D-4044-BDB1-1E983420CF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B71C506-033D-4044-BDB1-1E983420CF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C379439E-C9E5-4325-AD8D-A77C75AB9070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C379439E-C9E5-4325-AD8D-A77C75AB9070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C379439E-C9E5-4325-AD8D-A77C75AB9070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C379439E-C9E5-4325-AD8D-A77C75AB9070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
