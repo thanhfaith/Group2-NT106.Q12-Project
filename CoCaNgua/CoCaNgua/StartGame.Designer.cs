@@ -28,59 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
+            btnLogin = new Button();
+            btnRegister = new Button();
             SuspendLayout();
             // 
-            // button1
+            // btnLogin
             // 
-            button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.Cursor = Cursors.No;
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(405, 242);
-            button1.Margin = new Padding(5, 5, 5, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(198, 74);
-            button1.TabIndex = 0;
-            button1.Text = "Đăng nhập ";
-            button1.UseVisualStyleBackColor = true;
+            btnLogin.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
+            btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
+            btnLogin.Cursor = Cursors.No;
+            btnLogin.FlatStyle = FlatStyle.Popup;
+            btnLogin.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogin.Location = new Point(361, 216);
+            btnLogin.Margin = new Padding(5);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(198, 74);
+            btnLogin.TabIndex = 4;
+            btnLogin.Text = "Đăng nhập";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
-            // button2
+            // btnRegister
             // 
-            button2.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
-            button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Cursor = Cursors.No;
-            button2.FlatStyle = FlatStyle.Popup;
-            button2.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(405, 336);
-            button2.Margin = new Padding(5, 5, 5, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(198, 74);
-            button2.TabIndex = 1;
-            button2.Text = "Đăng kí ";
-            button2.UseVisualStyleBackColor = true;
+            btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
+            btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
+            btnRegister.Cursor = Cursors.No;
+            btnRegister.FlatStyle = FlatStyle.Popup;
+            btnRegister.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRegister.Location = new Point(361, 300);
+            btnRegister.Margin = new Padding(5);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(198, 74);
+            btnRegister.TabIndex = 3;
+            btnRegister.Text = "Đăng kí ";
+            btnRegister.UseVisualStyleBackColor = true;
+            btnRegister.Click += btnRegister_Click;
             // 
             // StartGame
             // 
-            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_005328;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(916, 581);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            DoubleBuffered = true;
-            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 5, 5, 5);
+            ClientSize = new Size(929, 527);
+            Controls.Add(btnLogin);
+            Controls.Add(btnRegister);
             Name = "StartGame";
             Text = "StartGame";
             ResumeLayout(false);
         }
 
         #endregion
-        private Button button1;
-        private Button button2;
+
+        private Button btnLogin;
+        private Button btnRegister;
     }
 }
