@@ -107,5 +107,12 @@ namespace CoCaNgua
                 return sb.ToString();
             }
         }
+
+        private void linkToLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LoginForm f = new LoginForm();
+            f.Show();
+            this.Hide();
+        }
     }
 }

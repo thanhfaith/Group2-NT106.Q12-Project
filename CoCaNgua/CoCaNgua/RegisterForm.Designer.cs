@@ -30,22 +30,23 @@
         {
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             txtPasswordConfirm = new TextBox();
             btnRegister = new Button();
             txtEmail = new TextBox();
             label5 = new Label();
-            linkToLogin = new LinkLabel();
+            label3 = new Label();
+            label4 = new Label();
+            linkToLog = new LinkLabel();
+            label6 = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(107, 26);
+            label1.Location = new Point(105, 26);
             label1.Name = "label1";
             label1.Size = new Size(167, 31);
             label1.TabIndex = 0;
@@ -55,34 +56,16 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Location = new Point(107, 111);
+            label2.Location = new Point(105, 99);
             label2.Name = "label2";
             label2.Size = new Size(122, 31);
             label2.TabIndex = 1;
             label2.Text = "Mật khẩu:";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Location = new Point(107, 196);
-            label3.Name = "label3";
-            label3.Size = new Size(215, 31);
-            label3.TabIndex = 2;
-            label3.Text = "Nhập lại mật khẩu:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(124, 228);
-            label4.Name = "label4";
-            label4.Size = new Size(0, 31);
-            label4.TabIndex = 3;
-            // 
             // txtUsername
             // 
             txtUsername.BackColor = Color.LavenderBlush;
-            txtUsername.Location = new Point(345, 23);
+            txtUsername.Location = new Point(343, 23);
             txtUsername.Margin = new Padding(3, 4, 3, 4);
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
@@ -92,7 +75,7 @@
             // txtPassword
             // 
             txtPassword.BackColor = Color.LavenderBlush;
-            txtPassword.Location = new Point(345, 108);
+            txtPassword.Location = new Point(343, 96);
             txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
@@ -102,7 +85,7 @@
             // txtPasswordConfirm
             // 
             txtPasswordConfirm.BackColor = Color.LavenderBlush;
-            txtPasswordConfirm.Location = new Point(345, 193);
+            txtPasswordConfirm.Location = new Point(343, 170);
             txtPasswordConfirm.Margin = new Padding(3, 4, 3, 4);
             txtPasswordConfirm.Multiline = true;
             txtPasswordConfirm.Name = "txtPasswordConfirm";
@@ -114,10 +97,10 @@
             btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222956;
             btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
             btnRegister.FlatStyle = FlatStyle.Popup;
-            btnRegister.Location = new Point(345, 366);
+            btnRegister.Location = new Point(343, 316);
             btnRegister.Margin = new Padding(3, 4, 3, 4);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(156, 63);
+            btnRegister.Size = new Size(271, 63);
             btnRegister.TabIndex = 7;
             btnRegister.Text = "Đăng kí ";
             btnRegister.UseVisualStyleBackColor = true;
@@ -126,7 +109,7 @@
             // txtEmail
             // 
             txtEmail.BackColor = Color.LavenderBlush;
-            txtEmail.Location = new Point(345, 278);
+            txtEmail.Location = new Point(343, 245);
             txtEmail.Margin = new Padding(3, 4, 3, 4);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
@@ -137,18 +120,51 @@
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
-            label5.Location = new Point(107, 281);
+            label5.Location = new Point(105, 248);
             label5.Name = "label5";
             label5.Size = new Size(77, 31);
             label5.TabIndex = 9;
             label5.Text = "Email:";
             // 
-            // linkToLogin
+            // label3
             // 
-            linkToLogin.Location = new Point(0, 0);
-            linkToLogin.Name = "linkToLogin";
-            linkToLogin.Size = new Size(100, 23);
-            linkToLogin.TabIndex = 0;
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Location = new Point(105, 173);
+            label3.Name = "label3";
+            label3.Size = new Size(215, 31);
+            label3.TabIndex = 2;
+            label3.Text = "Nhập lại mật khẩu:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(122, 205);
+            label4.Name = "label4";
+            label4.Size = new Size(0, 31);
+            label4.TabIndex = 3;
+            // 
+            // linkToLog
+            // 
+            linkToLog.AutoSize = true;
+            linkToLog.BackColor = Color.Transparent;
+            linkToLog.Location = new Point(490, 402);
+            linkToLog.Name = "linkToLog";
+            linkToLog.Size = new Size(124, 31);
+            linkToLog.TabIndex = 10;
+            linkToLog.TabStop = true;
+            linkToLog.Text = "Đăng nhập";
+            linkToLog.LinkClicked += linkToLog_LinkClicked;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Location = new Point(293, 402);
+            label6.Name = "label6";
+            label6.Size = new Size(191, 31);
+            label6.TabIndex = 11;
+            label6.Text = "Đã có tài khoản?";
             // 
             // RegisterForm
             // 
@@ -157,7 +173,8 @@
             BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222745;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(724, 442);
-            Controls.Add(linkToLogin);
+            Controls.Add(label6);
+            Controls.Add(linkToLog);
             Controls.Add(label5);
             Controls.Add(txtEmail);
             Controls.Add(btnRegister);
@@ -182,14 +199,15 @@
 
         private Label label1;
         private Label label2;
-        private Label label3;
-        private Label label4;
         private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtPasswordConfirm;
         private Button btnRegister;
         private TextBox txtEmail;
         private Label label5;
-        private LinkLabel linkToLogin;
+        private Label label3;
+        private Label label4;
+        private LinkLabel linkToLog;
+        private Label label6;
     }
 }

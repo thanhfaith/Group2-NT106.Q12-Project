@@ -32,13 +32,14 @@
             textBox1 = new TextBox();
             button1 = new Button();
             button2 = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.Aqua;
-            label2.Location = new Point(161, 321);
+            label2.BackColor = Color.Transparent;
+            label2.Location = new Point(166, 233);
             label2.Name = "label2";
             label2.Size = new Size(121, 31);
             label2.TabIndex = 1;
@@ -47,7 +48,7 @@
             // textBox1
             // 
             textBox1.BackColor = Color.LightGoldenrodYellow;
-            textBox1.Location = new Point(362, 316);
+            textBox1.Location = new Point(322, 222);
             textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
@@ -58,7 +59,7 @@
             // 
             button1.BackColor = Color.Cyan;
             button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013600;
-            button1.Location = new Point(377, 219);
+            button1.Location = new Point(582, 222);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(191, 51);
@@ -70,14 +71,24 @@
             // 
             button2.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_214511;
             button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Location = new Point(438, 408);
+            button2.Location = new Point(391, 310);
             button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
             button2.Size = new Size(67, 60);
             button2.TabIndex = 4;
             button2.UseVisualStyleBackColor = true;
             // 
-            // Online
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Location = new Point(365, 374);
+            label1.Name = "label1";
+            label1.Size = new Size(116, 31);
+            label1.TabIndex = 5;
+            label1.Text = "BẮT ĐẦU";
+            // 
+            // CodeRoom
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -85,14 +96,15 @@
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013300;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(866, 562);
+            Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(label2);
             DoubleBuffered = true;
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 5, 5, 5);
-            Name = "Online";
+            Margin = new Padding(5);
+            Name = "CodeRoom";
             Text = "Online";
             ResumeLayout(false);
             PerformLayout();
@@ -103,5 +115,6 @@
         private TextBox textBox1;
         private Button button1;
         private Button button2;
+        private Label label1;
     }
 }

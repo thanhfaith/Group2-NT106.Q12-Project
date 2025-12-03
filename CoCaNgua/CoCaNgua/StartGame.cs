@@ -20,7 +20,6 @@ namespace CoCaNgua
         private void btnLogin_Click(object sender, EventArgs e)
         {
             LoginForm login = new LoginForm();
-            login.FormClosed += (s, args) => this.Show(); // hiện lại StartGame khi LoginForm đóng
             login.Show();
             this.Hide();
         }
@@ -28,7 +27,6 @@ namespace CoCaNgua
         private void btnRegister_Click(object sender, EventArgs e)
         {
             RegisterForm register = new RegisterForm();
-            register.FormClosed += (s, args) => this.Show(); // hiện lại StartGame khi RegisterForm đóng
             register.Show();
             this.Hide();
         }

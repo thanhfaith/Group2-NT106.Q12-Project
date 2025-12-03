@@ -81,5 +81,12 @@ namespace CoCaNgua
                 return sb.ToString();
             }
         }
+
+        private void linkToRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RegisterForm f = new RegisterForm();
+            f.Show();
+            this.Hide();
+        }
     }
 }
