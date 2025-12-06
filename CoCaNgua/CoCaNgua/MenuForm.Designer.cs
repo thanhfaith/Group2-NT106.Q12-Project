@@ -36,7 +36,7 @@
             // 
             btnRule.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnRule.BackgroundImageLayout = ImageLayout.Stretch;
-            btnRule.Cursor = Cursors.No;
+            btnRule.Cursor = Cursors.Hand;
             btnRule.FlatStyle = FlatStyle.Popup;
             btnRule.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRule.Location = new Point(367, 219);
@@ -46,12 +46,13 @@
             btnRule.TabIndex = 6;
             btnRule.Text = "Luật chơi";
             btnRule.UseVisualStyleBackColor = true;
+            btnRule.Click += btnRule_Click;
             // 
             // btnPlay
             // 
             btnPlay.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnPlay.BackgroundImageLayout = ImageLayout.Stretch;
-            btnPlay.Cursor = Cursors.No;
+            btnPlay.Cursor = Cursors.Hand;
             btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnPlay.Location = new Point(367, 303);
@@ -61,6 +62,7 @@
             btnPlay.TabIndex = 5;
             btnPlay.Text = "Chơi online";
             btnPlay.UseVisualStyleBackColor = true;
+            btnPlay.Click += btnPlay_Click;
             // 
             // MenuForm
             // 

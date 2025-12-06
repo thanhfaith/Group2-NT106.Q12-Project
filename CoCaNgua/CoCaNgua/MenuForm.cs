@@ -16,5 +16,17 @@ namespace CoCaNgua
         {
             InitializeComponent();
         }
+
+        private void btnRule_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            StartGame start = new StartGame();
+            start.Show();
+            this.Hide();
+        }
     }
 }

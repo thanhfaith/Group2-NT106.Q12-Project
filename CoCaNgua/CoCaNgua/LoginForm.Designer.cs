@@ -61,6 +61,7 @@
             // 
             btnLogin.BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222956;
             btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
+            btnLogin.Cursor = Cursors.Hand;
             btnLogin.FlatStyle = FlatStyle.Popup;
             btnLogin.Location = new Point(343, 162);
             btnLogin.Name = "btnLogin";

@@ -47,11 +47,11 @@
             yellow1 = new PictureBox();
             blue1 = new PictureBox();
             red4 = new PictureBox();
-            button1 = new Button();
+            btnDice = new Button();
             groupBox1 = new GroupBox();
-            button2 = new Button();
-            textBox1 = new TextBox();
-            richTextBox1 = new RichTextBox();
+            btnSend = new Button();
+            txtMessage = new TextBox();
+            rtbChatLog = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)green4).BeginInit();
@@ -317,24 +317,24 @@
             red4.TabIndex = 1;
             red4.TabStop = false;
             // 
-            // button1
+            // btnDice
             // 
-            button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225802;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Location = new Point(1076, 55);
-            button1.Margin = new Padding(4);
-            button1.Name = "button1";
-            button1.Size = new Size(70, 59);
-            button1.TabIndex = 2;
-            button1.UseVisualStyleBackColor = true;
+            btnDice.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225802;
+            btnDice.BackgroundImageLayout = ImageLayout.Stretch;
+            btnDice.FlatStyle = FlatStyle.Popup;
+            btnDice.Location = new Point(1076, 55);
+            btnDice.Margin = new Padding(4);
+            btnDice.Name = "btnDice";
+            btnDice.Size = new Size(70, 59);
+            btnDice.TabIndex = 2;
+            btnDice.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.LavenderBlush;
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(richTextBox1);
+            groupBox1.Controls.Add(btnSend);
+            groupBox1.Controls.Add(txtMessage);
+            groupBox1.Controls.Add(rtbChatLog);
             groupBox1.Location = new Point(733, 170);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(522, 495);
@@ -342,33 +342,34 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Chat";
             // 
-            // button2
+            // btnSend
             // 
-            button2.BackColor = Color.PaleTurquoise;
-            button2.Location = new Point(457, 437);
-            button2.Name = "button2";
-            button2.Size = new Size(46, 42);
-            button2.TabIndex = 2;
-            button2.Text = "Gửi";
-            button2.UseVisualStyleBackColor = false;
+            btnSend.BackColor = Color.PaleTurquoise;
+            btnSend.Location = new Point(457, 437);
+            btnSend.Name = "btnSend";
+            btnSend.Size = new Size(46, 42);
+            btnSend.TabIndex = 2;
+            btnSend.Text = "Gửi";
+            btnSend.UseVisualStyleBackColor = false;
+            btnSend.Click += btnSend_Click;
             // 
-            // textBox1
+            // txtMessage
             // 
-            textBox1.BackColor = Color.FloralWhite;
-            textBox1.Location = new Point(14, 437);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(437, 42);
-            textBox1.TabIndex = 1;
+            txtMessage.BackColor = Color.FloralWhite;
+            txtMessage.Location = new Point(14, 437);
+            txtMessage.Multiline = true;
+            txtMessage.Name = "txtMessage";
+            txtMessage.Size = new Size(437, 42);
+            txtMessage.TabIndex = 1;
             // 
-            // richTextBox1
+            // rtbChatLog
             // 
-            richTextBox1.BackColor = Color.FloralWhite;
-            richTextBox1.Location = new Point(14, 36);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(489, 383);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
+            rtbChatLog.BackColor = Color.FloralWhite;
+            rtbChatLog.Location = new Point(14, 36);
+            rtbChatLog.Name = "rtbChatLog";
+            rtbChatLog.Size = new Size(489, 383);
+            rtbChatLog.TabIndex = 0;
+            rtbChatLog.Text = "";
             // 
             // ChessBoard
             // 
@@ -378,7 +379,7 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1283, 678);
             Controls.Add(groupBox1);
-            Controls.Add(button1);
+            Controls.Add(btnDice);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             DoubleBuffered = true;
@@ -386,7 +387,6 @@
             Margin = new Padding(4);
             Name = "ChessBoard";
             Text = "Vaogame";
-            Load += Vaogame_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)green4).EndInit();
@@ -413,7 +413,7 @@
         #endregion
         private PictureBox pictureBox1;
         private Panel panel1;
-        private Button button1;
+        private Button btnDice;
         private PictureBox red4;
         private PictureBox blue1;
         private PictureBox yellow1;
@@ -431,8 +431,8 @@
         private PictureBox green3;
         private PictureBox green2;
         private GroupBox groupBox1;
-        private Button button2;
-        private TextBox textBox1;
-        private RichTextBox richTextBox1;
+        private Button btnSend;
+        private TextBox txtMessage;
+        private RichTextBox rtbChatLog;
     }
 }
