@@ -79,6 +79,7 @@
             txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(271, 47);
             txtPassword.TabIndex = 5;
             // 
@@ -89,6 +90,7 @@
             txtPasswordConfirm.Margin = new Padding(3, 4, 3, 4);
             txtPasswordConfirm.Multiline = true;
             txtPasswordConfirm.Name = "txtPasswordConfirm";
+            txtPasswordConfirm.PasswordChar = '*';
             txtPasswordConfirm.Size = new Size(271, 47);
             txtPasswordConfirm.TabIndex = 6;
             // 
