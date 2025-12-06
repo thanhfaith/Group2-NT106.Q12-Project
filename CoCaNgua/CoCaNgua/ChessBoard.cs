@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 
 namespace CoCaNgua
 {
@@ -25,13 +25,21 @@ namespace CoCaNgua
             CheckForIllegalCrossThreadCalls = false;
 
             this.network = existingNetwork;
-            this.network.OnMessageReceived += HandleNetworkMessage;
+            if (this.network != null)
+            {
+                this.network.OnMessageReceived += HandleNetworkMessage;
+            }
 
             InitializeGame();
         }
 
         private void InitializeGame()
         {
+            foreach (var p in pieces)
+            {
+                p.UiControl.Click += (s, e) => Piece_Click(p);
+            }
+
             if (pieces == null) pieces = new List<QuanCo>();
             pieces.Clear();
 
@@ -110,7 +118,7 @@ namespace CoCaNgua
                             {
                                 AddToChat(">>> ĐẾN LƯỢT BẠN! Hãy tung xúc xắc. <<<");
                                 btnDice.Enabled = true;
-                                this.BackColor = Color.LightYellow; 
+                                this.BackColor = Color.LightYellow;
                             }
                             else
                             {
@@ -184,9 +192,6 @@ namespace CoCaNgua
                 }
             });
         }
-
-        // --- XỬ LÝ LOGIC CLICK QUÂN CỜ ---
-
         private async void Piece_Click(QuanCo piece)
         {
             // 1. Kiểm tra điều kiện
@@ -516,6 +521,47 @@ namespace CoCaNgua
             {
                 network.Send($"CHAT|{txtMessage.Text}");
                 txtMessage.Clear();
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void ShowDiceImage(int value)
+        {
+            Image img = null;
+            switch (value)
+            {
+                case 1: img = Properties.Resources.dice1; break;
+                case 2: img = Properties.Resources.dice2; break;
+                case 3: img = Properties.Resources.dice3; break;
+                case 4: img = Properties.Resources.dice4; break;
+                case 5: img = Properties.Resources.dice5; break;
+                case 6: img = Properties.Resources.dice6; break;
+            }
+
+            if (pictureBox1.InvokeRequired)
+            {
+                pictureBox1.Invoke(new Action(() => {
+                    pictureBox1.Image = img;
+                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                }));
+            }
+            else
+            {
+                pictureBox1.Image = img;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+        private void btnDice_Click_1(object sender, EventArgs e)
+        {
+            if (network != null)
+            {
+                network.Send("ROLL");
+
+                // Disable nút ngay để tránh spam click trong lúc chờ server
+                btnDice.Enabled = false;
             }
         }
     }

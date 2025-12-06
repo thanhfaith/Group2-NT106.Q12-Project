@@ -19,7 +19,9 @@ namespace CoCaNgua
 
         private void btnRule_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Rules f = new Rules();
+            f.Show();
         }
 
         private void btnPlay_Click(object sender, EventArgs e)

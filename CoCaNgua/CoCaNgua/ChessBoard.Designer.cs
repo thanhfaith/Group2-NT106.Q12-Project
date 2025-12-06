@@ -82,6 +82,7 @@
             pictureBox1.Size = new Size(142, 119);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // panel1
             // 
@@ -328,6 +329,7 @@
             btnDice.Size = new Size(70, 59);
             btnDice.TabIndex = 2;
             btnDice.UseVisualStyleBackColor = true;
+            btnDice.Click += btnDice_Click_1;
             // 
             // groupBox1
             // 
