@@ -22,7 +22,6 @@ namespace CoCaNgua
         {
             InitializeComponent();
 
-            // Tắt check cross-thread để thao tác UI nhanh
             CheckForIllegalCrossThreadCalls = false;
 
             this.network = existingNetwork;
@@ -66,7 +65,6 @@ namespace CoCaNgua
 
             btnDice.Click += btnDice_Click;
 
-            // Đưa về trạng thái ban đầu
             ResetGameVisuals();
         }
 
@@ -124,7 +122,7 @@ namespace CoCaNgua
 
                         case "DICE":
                             currentDiceValue = int.Parse(parts[1]);
-                            AddToChat($"🎲 Xúc xắc: {currentTurn} tung được [{currentDiceValue}] điểm.");
+                            AddToChat($"Xúc xắc: {currentTurn} tung được [{currentDiceValue}] điểm.");
 
                             if (currentTurn == myTeam)
                             {
@@ -143,9 +141,9 @@ namespace CoCaNgua
                             if (p != null)
                             {
                                 if (newState == PieceState.InHome && p.State != PieceState.InHome)
-                                    AddToChat($"🔥 Quân {p.Team} đã bị ĐÁ về chuồng!");
+                                    AddToChat($"Quân {p.Team} đã bị ĐÁ về chuồng!");
                                 else if (newState == PieceState.Finished && p.State != PieceState.Finished)
-                                    AddToChat($"🏆 Quân {p.Team} đã VỀ ĐÍCH thành công!");
+                                    AddToChat($"Quân {p.Team} đã VỀ ĐÍCH thành công!");
 
                                 p.CurrentPosition = newPos;
                                 p.State = newState;
@@ -162,7 +160,7 @@ namespace CoCaNgua
                             break;
 
                         case "RANK":
-                            AddToChat($"📢 KẾT QUẢ: Đội {parts[1]} về đích - Hạng {parts[2]}!");
+                            AddToChat($"KẾT QUẢ: Đội {parts[1]} về đích - Hạng {parts[2]}!");
                             break;
 
                         case "GAME_OVER":
@@ -176,7 +174,7 @@ namespace CoCaNgua
                             break;
 
                         case "ERROR":
-                            AddToChat($"❌ Lỗi: {parts[1]}");
+                            AddToChat($"Lỗi: {parts[1]}");
                             break;
                     }
                 }
@@ -196,7 +194,7 @@ namespace CoCaNgua
             if (piece.Team != myTeam) return;
             if (!hasRolled)
             {
-                AddToChat("⚠️ Bạn phải tung xúc xắc trước!");
+                AddToChat("Bạn phải tung xúc xắc trước!");
                 return;
             }
 
@@ -217,7 +215,7 @@ namespace CoCaNgua
                     {
                         if (blocker.Team == myTeam)
                         {
-                            AddToChat("⛔ Cửa chuồng đang bị quân mình chặn.");
+                            AddToChat("Cửa chuồng đang bị quân mình chặn.");
                             return;
                         }
                         enemyPiece = blocker; // Xác định đá
@@ -229,7 +227,7 @@ namespace CoCaNgua
                 }
                 else
                 {
-                    AddToChat("⚠️ Cần 6 điểm để ra quân.");
+                    AddToChat("Cần 6 điểm để ra quân.");
                     return;
                 }
             }
@@ -239,10 +237,10 @@ namespace CoCaNgua
                 int entryPos = GetFinishEntryPosition(myTeam);
                 int currentPos = piece.CurrentPosition;
 
-                // Tính khoảng cách đến cửa chuồng (Modulo 52)
+                // Tính khoảng cách đến cửa chuồng
                 int distanceToEntry = (entryPos - currentPos + 52) % 52;
 
-                // > Vào Chuồng Đích
+                // Vào Chuồng Đích
                 if (currentDiceValue > distanceToEntry && distanceToEntry < 12)
                 {
                     int stepsInFinish = currentDiceValue - distanceToEntry;
@@ -334,7 +332,7 @@ namespace CoCaNgua
 
                 if (currentDiceValue == 6)
                 {
-                    AddToChat("Bạn được đi tiếp (do tung được 6)!");
+                    AddToChat("Bạn được đi tiếp do tung được 6!");
                     hasRolled = false;
                     btnDice.Enabled = true;
                 }
@@ -412,25 +410,25 @@ namespace CoCaNgua
         // --- MẢNG TỌA ĐỘ 52 Ô ---
         private readonly Point[] trackPoints = new Point[52]
         {
-            // Đoạn 1 (Red -> Green): Index 0-12
+            // Red: Index 0-12
             new Point(71, 283), new Point(117, 282), new Point(158, 284), new Point(211, 280),
             new Point(249, 280), new Point(298, 238), new Point(291, 197), new Point(294, 154),
             new Point(291, 110), new Point(294, 68), new Point(293, 25), new Point(335, 22),
             new Point(380, 22),
 
-            // Đoạn 2 (Green -> Yellow): Index 13-25
+            // Green: Index 13-25
             new Point(382, 71), new Point(378, 114), new Point(379, 155), new Point(378, 197),
             new Point(380, 235), new Point(432, 280), new Point(467, 280), new Point(514, 279),
             new Point(566, 280), new Point(594, 276), new Point(647, 275), new Point(642, 321),
             new Point(651, 359),
 
-            // Đoạn 3 (Yellow -> Blue): Index 26-38
+            // Yellow: Index 26-38
             new Point(599, 365), new Point(559, 366), new Point(514, 362), new Point(463, 363),
             new Point(422, 365), new Point(376, 407), new Point(378, 445), new Point(378, 489),
             new Point(381, 530), new Point(377, 577), new Point(379, 613), new Point(328, 617),
             new Point(292, 619),
 
-            // Đoạn 4 (Blue -> Red): Index 39-51
+            // Blue: Index 39-51
             new Point(285, 576), new Point(290, 532), new Point(290, 498), new Point(281, 445),
             new Point(290, 410), new Point(240, 361), new Point(202, 357), new Point(154, 363),
             new Point(110, 363), new Point(58, 367),  new Point(16, 365),  new Point(16, 322),
