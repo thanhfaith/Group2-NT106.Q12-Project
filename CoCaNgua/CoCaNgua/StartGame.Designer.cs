@@ -36,7 +36,7 @@
             // 
             btnLogin.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
-            btnLogin.Cursor = Cursors.No;
+            btnLogin.Cursor = Cursors.Hand;
             btnLogin.FlatStyle = FlatStyle.Popup;
             btnLogin.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.Location = new Point(361, 216);
@@ -52,7 +52,7 @@
             // 
             btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
-            btnRegister.Cursor = Cursors.No;
+            btnRegister.Cursor = Cursors.Hand;
             btnRegister.FlatStyle = FlatStyle.Popup;
             btnRegister.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRegister.Location = new Point(361, 300);

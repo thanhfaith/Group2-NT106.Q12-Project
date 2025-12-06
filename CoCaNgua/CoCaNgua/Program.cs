@@ -1,4 +1,4 @@
-namespace CoCaNgua
+﻿namespace CoCaNgua
 {
     internal static class Program
     {
@@ -8,10 +8,8 @@ namespace CoCaNgua
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ChessBoard());
+            Application.Run(new MenuForm());
         }
     }
 }
