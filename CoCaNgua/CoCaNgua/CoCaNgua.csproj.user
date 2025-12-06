@@ -16,6 +16,9 @@
     <Compile Update="CodeRoom.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Rules.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="StartGame.cs">
       <SubType>Form</SubType>
     </Compile>
