@@ -135,6 +135,7 @@
             green3.SizeMode = PictureBoxSizeMode.StretchImage;
             green3.TabIndex = 22;
             green3.TabStop = false;
+            green3.Click += green3_Click;
             // 
             // green2
             // 
@@ -375,7 +376,7 @@
             // 
             // ChessBoard
             // 
-            AutoScaleDimensions = new SizeF(10F, 24F);
+            AutoScaleDimensions = new SizeF(17F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225524;
             BackgroundImageLayout = ImageLayout.Stretch;

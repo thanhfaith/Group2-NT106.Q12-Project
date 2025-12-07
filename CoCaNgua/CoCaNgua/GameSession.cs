@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace CoCaNgua
 {
     public static class GameSession
-    {
-        public static string CurrentUser_Name = "";
-        public static string Opponent_Name = "";
+    { 
+        public static string CurrentUser_Name = ""; 
+        public static string Opponent_Name = ""; 
     }
 }
