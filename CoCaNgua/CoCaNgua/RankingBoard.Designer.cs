@@ -38,12 +38,13 @@
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 31;
             listBox1.Location = new Point(65, 112);
-            listBox1.Margin = new Padding(5, 5, 5, 5);
+            listBox1.Margin = new Padding(5);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(664, 279);
             listBox1.TabIndex = 0;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
-            // Bangxephang
+            // RankingBoard
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -53,8 +54,8 @@
             Controls.Add(listBox1);
             DoubleBuffered = true;
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 5, 5, 5);
-            Name = "Bangxephang";
+            Margin = new Padding(5);
+            Name = "RankingBoard";
             Text = "Bangxephang";
             ResumeLayout(false);
         }

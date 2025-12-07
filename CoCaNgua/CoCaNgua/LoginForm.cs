@@ -39,7 +39,7 @@ namespace CoCaNgua
             if (response.Contains("thành công"))
             {
                 MessageBox.Show(response, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                GameSession.CurrentUser_Name = usernameOrEmail;
                 MenuForm f = new MenuForm();
                 f.Show();
                 this.Hide();
@@ -87,6 +87,11 @@ namespace CoCaNgua
             RegisterForm f = new RegisterForm();
             f.Show();
             this.Hide();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

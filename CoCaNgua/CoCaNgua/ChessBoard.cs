@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace CoCaNgua
 {
@@ -331,6 +332,7 @@ namespace CoCaNgua
                     {
                         network.Send("DONE");
                         hasRolled = false;
+                        XuLyKetThucGame();
                         return;
                     }
                 }
@@ -559,10 +561,46 @@ namespace CoCaNgua
             if (network != null)
             {
                 network.Send("ROLL");
-
-                // Disable nút ngay để tránh spam click trong lúc chờ server
                 btnDice.Enabled = false;
             }
+        }
+        private void XuLyKetThucGame()
+        {
+            List<Player> ketQua = new List<Player>();
+
+            foreach (TeamColor mauDoi in Enum.GetValues(typeof(TeamColor)))
+            {
+                int soQuan = pieces.Count(p => p.Team == mauDoi && p.State == PieceState.Finished);
+                string tenHienThi = "";
+
+                if (mauDoi == myTeam)
+                {
+                    tenHienThi = GameSession.CurrentUser_Name;
+                    soQuan = 4; 
+                }
+                else
+                {
+                    tenHienThi = "Team " + mauDoi.ToString();
+                }
+                ketQua.Add(new Player(tenHienThi, mauDoi, soQuan));
+            }
+
+            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich).ToList();
+
+            for (int i = 0; i < ketQua.Count; i++)
+            {
+                ketQua[i].ThuHang = i + 1;
+            }
+            if (network != null) network.Send("DONE");
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                RankingBoard frm = new RankingBoard();
+                frm.HienThiKetQua(ketQua); 
+                frm.ShowDialog();
+
+                this.Close(); 
+            });
         }
     }
 }

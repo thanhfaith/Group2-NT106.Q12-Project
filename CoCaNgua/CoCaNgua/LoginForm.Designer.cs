@@ -130,6 +130,7 @@
             Margin = new Padding(5);
             Name = "LoginForm";
             Text = "DangNhap";
+            Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
