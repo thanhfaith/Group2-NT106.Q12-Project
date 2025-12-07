@@ -40,7 +40,7 @@ namespace CoCaNgua
             {
                 MessageBox.Show(response, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GameSession.CurrentUser_Name = usernameOrEmail;
-                MenuForm f = new MenuForm();
+                CodeRoom f = new CodeRoom();
                 f.Show();
                 this.Hide();
             }
