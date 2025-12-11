@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace CoCaNguaServer
 {
@@ -82,18 +83,48 @@ namespace CoCaNguaServer
                 }
                 else if (request.StartsWith("LOGIN|"))
                 {
-                    string[] parts = request.Split('|');
-                    // LOGIN|usernameOrEmail|passwordHash
+                    var parts = request.Split('|');
                     if (parts.Length == 3)
                     {
-                        string usernameOrEmail = parts[1];
-                        string passwordHash = parts[2];
-
-                        bool ok = DatabaseHelper.CheckLogin(usernameOrEmail, passwordHash);
-                        response = ok ? "Đăng nhập thành công!" : "Sai tài khoản hoặc mật khẩu!";
+                        int userId = DatabaseHelper.GetUserId(parts[1], parts[2]);
+                        response = userId > 0
+                            ? $"LOGIN_OK|{userId}"
+                            : "LOGIN_FAIL";
                     }
-                    else response = "Dữ liệu đăng nhập không hợp lệ.";
                 }
+                else if (request.StartsWith("CREATE_ROOM|"))
+                {
+                    int userId = int.Parse(request.Split('|')[1]);
+                    string roomCode = DatabaseHelper.CreateRoom(userId);
+                    response = "ROOM_CREATED|" + roomCode;
+                }
+                else if (request.StartsWith("JOIN_ROOM|"))
+                {
+                    var p = request.Split('|');
+                    int userId = int.Parse(p[1]);
+                    string roomCode = p[2];
+
+                    bool ok = DatabaseHelper.JoinRoom(roomCode, userId);
+                    response = ok ? "JOIN_OK" : "JOIN_FAIL";
+                }
+                else if (request.StartsWith("GET_ROOM_PLAYERS|"))
+                {
+                    string roomCode = request.Split('|')[1];
+                    var players = DatabaseHelper.GetRoomPlayers(roomCode);
+                    response = string.Join(",", players);
+                }
+                else if (request.StartsWith("START_GAME|"))
+                {
+                    string roomCode = request.Split('|')[1];
+                    var players = DatabaseHelper.GetRoomPlayers(roomCode);
+
+                    // Gửi cho từng client ở phòng
+                    ServerBroadcaster.BroadcastToRoom(roomCode,
+                        "GAME_START|" + string.Join(",", players));
+
+                    response = "START_OK";
+                }
+
                 else
                 {
                     response = "Lệnh không hợp lệ.";
@@ -104,13 +135,46 @@ namespace CoCaNguaServer
             }
             catch (Exception ex)
             {
-                // Log lỗi nếu cần
+                string err = "ERROR|" + ex.Message;
+                byte[] errData = Encoding.UTF8.GetBytes(err);
+                client.GetStream().Write(errData, 0, errData.Length);
+
+
             }
             finally
             {
                 client.Close();
             }
         }
+        public static class ServerBroadcaster
+        {
+            public static Dictionary<string, List<TcpClient>> Rooms = new Dictionary<string, List<TcpClient>>();
+
+            public static void AddClientToRoom(string roomCode, TcpClient client)
+            {
+                if (!Rooms.ContainsKey(roomCode))
+                    Rooms[roomCode] = new List<TcpClient>();
+
+                Rooms[roomCode].Add(client);
+            }
+
+            public static void BroadcastToRoom(string roomCode, string msg)
+            {
+                if (!Rooms.ContainsKey(roomCode)) return;
+
+                byte[] data = Encoding.UTF8.GetBytes(msg);
+
+                foreach (var c in Rooms[roomCode])
+                {
+                    try
+                    {
+                        c.GetStream().Write(data, 0, data.Length);
+                    }
+                    catch { }
+                }
+            }
+        }
+
         private void Log(string message)
         {
             Invoke(new Action(() =>
@@ -135,7 +199,7 @@ namespace CoCaNguaServer
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void lstClients_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

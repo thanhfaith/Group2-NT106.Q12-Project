@@ -5,10 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
+using Microsoft.VisualBasic.ApplicationServices;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace CoCaNgua
@@ -33,20 +36,26 @@ namespace CoCaNgua
             }
 
             string hashedPassword = HashPassword(password);
-            string message = $"LOGIN|{usernameOrEmail}|{hashedPassword}";
-            string response = SendToServer(message);
 
-            if (response.Contains("thành công"))
+            // ✅ GỬI LOGIN
+            string response = SendToServer($"LOGIN|{usernameOrEmail}|{hashedPassword}");
+
+            // ✅ XỬ LÝ LOGIN ĐÚNG
+            if (response.StartsWith("LOGIN_OK|"))
             {
-                MessageBox.Show(response, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                GameSession.CurrentUser_Name = usernameOrEmail;
-                CodeRoom f = new CodeRoom();
-                f.Show();
+                Session.UserId = int.Parse(response.Split('|')[1]);
+
+                MessageBox.Show("Đăng nhập thành công!");
+
+                new CodeRoom().Show();
                 this.Hide();
             }
             else
             {
-                MessageBox.Show(response, "Đăng nhập thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu!",
+                    "Đăng nhập thất bại",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
         private string SendToServer(string data)
@@ -87,11 +96,6 @@ namespace CoCaNgua
             RegisterForm f = new RegisterForm();
             f.Show();
             this.Hide();
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

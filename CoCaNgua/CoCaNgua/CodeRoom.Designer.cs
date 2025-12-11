@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             label2 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            txtRoomCode = new TextBox();
+            btnCreateRoom = new Button();
+            btnJoinRoom = new Button();
             label1 = new Label();
             SuspendLayout();
             // 
@@ -41,42 +41,44 @@
             label2.BackColor = Color.Transparent;
             label2.Location = new Point(166, 233);
             label2.Name = "label2";
-            label2.Size = new Size(121, 31);
+            label2.Size = new Size(147, 39);
             label2.TabIndex = 1;
             label2.Text = "Mã phòng ";
             // 
-            // textBox1
+            // txtRoomCode
             // 
-            textBox1.BackColor = Color.LightGoldenrodYellow;
-            textBox1.Location = new Point(322, 222);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(217, 50);
-            textBox1.TabIndex = 2;
+            txtRoomCode.BackColor = Color.LightGoldenrodYellow;
+            txtRoomCode.Location = new Point(322, 222);
+            txtRoomCode.Margin = new Padding(3, 4, 3, 4);
+            txtRoomCode.Multiline = true;
+            txtRoomCode.Name = "txtRoomCode";
+            txtRoomCode.Size = new Size(217, 50);
+            txtRoomCode.TabIndex = 2;
             // 
-            // button1
+            // btnCreateRoom
             // 
-            button1.BackColor = Color.Cyan;
-            button1.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013600;
-            button1.Location = new Point(582, 222);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(191, 51);
-            button1.TabIndex = 3;
-            button1.Text = "Tạo phòng ";
-            button1.UseVisualStyleBackColor = false;
+            btnCreateRoom.BackColor = Color.Cyan;
+            btnCreateRoom.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013600;
+            btnCreateRoom.Location = new Point(582, 222);
+            btnCreateRoom.Margin = new Padding(3, 4, 3, 4);
+            btnCreateRoom.Name = "btnCreateRoom";
+            btnCreateRoom.Size = new Size(191, 51);
+            btnCreateRoom.TabIndex = 3;
+            btnCreateRoom.Text = "Tạo phòng ";
+            btnCreateRoom.UseVisualStyleBackColor = false;
+            btnCreateRoom.Click += btnCreateRoom_Click;
             // 
-            // button2
+            // btnJoinRoom
             // 
-            button2.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_214511;
-            button2.BackgroundImageLayout = ImageLayout.Stretch;
-            button2.Location = new Point(391, 310);
-            button2.Margin = new Padding(3, 4, 3, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(67, 60);
-            button2.TabIndex = 4;
-            button2.UseVisualStyleBackColor = true;
+            btnJoinRoom.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_214511;
+            btnJoinRoom.BackgroundImageLayout = ImageLayout.Stretch;
+            btnJoinRoom.Location = new Point(391, 310);
+            btnJoinRoom.Margin = new Padding(3, 4, 3, 4);
+            btnJoinRoom.Name = "btnJoinRoom";
+            btnJoinRoom.Size = new Size(67, 60);
+            btnJoinRoom.TabIndex = 4;
+            btnJoinRoom.UseVisualStyleBackColor = true;
+            btnJoinRoom.Click += btnJoinRoom_Click;
             // 
             // label1
             // 
@@ -84,22 +86,22 @@
             label1.BackColor = Color.Transparent;
             label1.Location = new Point(365, 374);
             label1.Name = "label1";
-            label1.Size = new Size(116, 31);
+            label1.Size = new Size(147, 39);
             label1.TabIndex = 5;
             label1.Text = "BẮT ĐẦU";
             // 
             // CodeRoom
             // 
-            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleDimensions = new SizeF(17F, 39F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013300;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(866, 562);
             Controls.Add(label1);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(btnJoinRoom);
+            Controls.Add(btnCreateRoom);
+            Controls.Add(txtRoomCode);
             Controls.Add(label2);
             DoubleBuffered = true;
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -112,9 +114,9 @@
 
         #endregion
         private Label label2;
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
+        private TextBox txtRoomCode;
+        private Button btnCreateRoom;
+        private Button btnJoinRoom;
         private Label label1;
     }
 }
