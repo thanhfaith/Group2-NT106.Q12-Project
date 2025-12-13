@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Sockets;
 using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
+using System.Net.Sockets;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.ApplicationServices;
-using static System.Collections.Specialized.BitVector32;
-
 
 namespace CoCaNgua
 {
@@ -37,16 +27,26 @@ namespace CoCaNgua
 
             string hashedPassword = HashPassword(password);
 
-            // ✅ GỬI LOGIN
-            string response = SendToServer($"LOGIN|{usernameOrEmail}|{hashedPassword}");
+            // Sử dụng SendQuick (one-shot) cho login -> server trả LOGIN_OK|userId
+            string response = SendQuick($"LOGIN|{usernameOrEmail}|{hashedPassword}");
 
-            // ✅ XỬ LÝ LOGIN ĐÚNG
             if (response.StartsWith("LOGIN_OK|"))
             {
                 Session.UserId = int.Parse(response.Split('|')[1]);
-
                 MessageBox.Show("Đăng nhập thành công!");
 
+                // Connect persistent network once here (if chưa)
+                if (!Session.Network.IsConnected)
+                {
+                    bool ok = Session.Network.Connect("127.0.0.1", 8888);
+                    if (!ok)
+                    {
+                        MessageBox.Show("Không thể kết nối tới server (persistent).");
+                        return;
+                    }
+                }
+
+                // Show next form
                 new CodeRoom().Show();
                 this.Hide();
             }
@@ -58,7 +58,8 @@ namespace CoCaNgua
                     MessageBoxIcon.Error);
             }
         }
-        private string SendToServer(string data)
+
+        private string SendQuick(string data)
         {
             try
             {
@@ -75,7 +76,7 @@ namespace CoCaNgua
             }
             catch (Exception ex)
             {
-                return $"Lỗi kết nối: {ex.Message}";
+                return $"ERROR|{ex.Message}";
             }
         }
 

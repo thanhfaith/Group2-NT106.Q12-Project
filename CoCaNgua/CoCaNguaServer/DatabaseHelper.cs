@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace CoCaNguaServer
 {
     internal class DatabaseHelper
     {
-        // TODO: sửa Data Source cho đúng tên SQL Server của bạn
         private static string connStr =
             @"Data Source=DESKTOP-9Q6P0AS\MSSQLSERVER01;
   Initial Catalog=GameDB;
   Integrated Security=True";
+
+        // ✅ THÊM LOCK ĐỂ TRÁNH RACE CONDITION
+        private static readonly object joinRoomLock = new object();
 
         private static bool IsUserExists(string username, string email)
         {
@@ -63,11 +62,13 @@ namespace CoCaNguaServer
                 return count > 0;
             }
         }
+
         private static string GenerateRoomCode()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
+            Random rand = new Random();
+            return rand.Next(1000, 9999).ToString(); 
         }
+
         public static string CreateRoom(int hostUserId)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -101,44 +102,84 @@ namespace CoCaNguaServer
                 return roomCode;
             }
         }
+
+        // ✅ FIX RACE CONDITION: Thêm lock + transaction + check số lượng người
         public static bool JoinRoom(string roomCode, int userId)
         {
-            using (SqlConnection conn = new SqlConnection(connStr))
+            // Lock để chỉ 1 thread xử lý JOIN_ROOM tại 1 thời điểm
+            lock (joinRoomLock)
             {
-                conn.Open();
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
 
-                // Kiểm tra phòng tồn tại và chưa chơi
-                string sql = "SELECT RoomId FROM Rooms WHERE RoomCode=@code AND Status=0";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@code", roomCode);
+                    // Bắt đầu transaction để đảm bảo atomic operation
+                    using (SqlTransaction transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 1. Kiểm tra phòng tồn tại và chưa chơi
+                            string sql = "SELECT RoomId FROM Rooms WHERE RoomCode=@code AND Status=0";
+                            SqlCommand cmd = new SqlCommand(sql, conn, transaction);
+                            cmd.Parameters.AddWithValue("@code", roomCode);
 
-                object result = cmd.ExecuteScalar();
-                if (result == null)
-                    return false;
+                            object result = cmd.ExecuteScalar();
+                            if (result == null)
+                            {
+                                transaction.Rollback();
+                                return false;
+                            }
 
-                int roomId = Convert.ToInt32(result);
+                            int roomId = Convert.ToInt32(result);
 
-                // Check đã trong phòng chưa
-                string checkSql = @"SELECT COUNT(*) FROM RoomPlayers 
-                            WHERE RoomId=@r AND UserId=@u";
-                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
-                checkCmd.Parameters.AddWithValue("@r", roomId);
-                checkCmd.Parameters.AddWithValue("@u", userId);
+                            // 2. Check đã trong phòng chưa
+                            string checkSql = @"SELECT COUNT(*) FROM RoomPlayers 
+                                        WHERE RoomId=@r AND UserId=@u";
+                            SqlCommand checkCmd = new SqlCommand(checkSql, conn, transaction);
+                            checkCmd.Parameters.AddWithValue("@r", roomId);
+                            checkCmd.Parameters.AddWithValue("@u", userId);
 
-                if ((int)checkCmd.ExecuteScalar() > 0)
-                    return true;
+                            if ((int)checkCmd.ExecuteScalar() > 0)
+                            {
+                                transaction.Commit();
+                                return true; // Đã trong phòng rồi
+                            }
 
-                // Thêm vào phòng
-                string joinSql = @"INSERT INTO RoomPlayers(RoomId, UserId)
-                           VALUES (@r, @u)";
-                SqlCommand joinCmd = new SqlCommand(joinSql, conn);
-                joinCmd.Parameters.AddWithValue("@r", roomId);
-                joinCmd.Parameters.AddWithValue("@u", userId);
-                joinCmd.ExecuteNonQuery();
+                            // ✅ 3. THÊM CHECK SỐ LƯỢNG NGƯỜI (ví dụ tối đa 4 người)
+                            string countSql = "SELECT COUNT(*) FROM RoomPlayers WHERE RoomId=@r";
+                            SqlCommand countCmd = new SqlCommand(countSql, conn, transaction);
+                            countCmd.Parameters.AddWithValue("@r", roomId);
 
-                return true;
+                            int currentPlayers = (int)countCmd.ExecuteScalar();
+
+                            if (currentPlayers >= 4) // Giới hạn 4 người
+                            {
+                                transaction.Rollback();
+                                return false; // Phòng đã đầy
+                            }
+
+                            // 4. Thêm vào phòng
+                            string joinSql = @"INSERT INTO RoomPlayers(RoomId, UserId)
+                                       VALUES (@r, @u)";
+                            SqlCommand joinCmd = new SqlCommand(joinSql, conn, transaction);
+                            joinCmd.Parameters.AddWithValue("@r", roomId);
+                            joinCmd.Parameters.AddWithValue("@u", userId);
+                            joinCmd.ExecuteNonQuery();
+
+                            // Commit transaction
+                            transaction.Commit();
+                            return true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            return false;
+                        }
+                    }
+                }
             }
         }
+
         public static List<string> GetRoomPlayers(string roomCode)
         {
             List<string> players = new List<string>();
@@ -165,6 +206,7 @@ namespace CoCaNguaServer
             }
             return players;
         }
+
         public static int GetUserId(string usernameOrEmail, string passwordHash)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -180,6 +222,5 @@ namespace CoCaNguaServer
                 return result == null ? -1 : Convert.ToInt32(result);
             }
         }
-
     }
 }

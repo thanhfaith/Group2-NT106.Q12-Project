@@ -60,7 +60,7 @@
             lstClients.FormattingEnabled = true;
             lstClients.Location = new Point(115, 12);
             lstClients.Name = "lstClients";
-            lstClients.Size = new Size(237, 144);
+            lstClients.Size = new Size(760, 144);
             lstClients.TabIndex = 2;
             // 
             // lb_status
@@ -75,16 +75,16 @@
             // lstLog
             // 
             lstLog.FormattingEnabled = true;
-            lstLog.Location = new Point(12, 203);
+            lstLog.Location = new Point(23, 201);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(340, 184);
+            lstLog.Size = new Size(863, 184);
             lstLog.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(363, 397);
+            ClientSize = new Size(898, 397);
             Controls.Add(lstLog);
             Controls.Add(lb_status);
             Controls.Add(lstClients);
@@ -92,7 +92,6 @@
             Controls.Add(btn_Start);
             Name = "Form1";
             Text = "Form1";
-           // Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -18,6 +18,7 @@ namespace CoCaNguaServer
     {
         TcpListener listener;
         bool isRunning = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace CoCaNguaServer
                 thread.Start();
             }
         }
+
         private void ListenForClients()
         {
             while (isRunning)
@@ -53,147 +55,251 @@ namespace CoCaNguaServer
                 }
             }
         }
+
         private void HandleClient(TcpClient client, string clientInfo)
         {
             try
             {
                 NetworkStream stream = client.GetStream();
                 byte[] buffer = new byte[2048];
-                int byteCount = stream.Read(buffer, 0, buffer.Length);
-                string request = Encoding.UTF8.GetString(buffer, 0, byteCount);
-                string response = "";
 
-                // Log ra listbox nếu muốn
-                // Log($"Từ {clientInfo}: {request}");
-
-                if (request.StartsWith("REGISTER|"))
+                // ✅ PERSISTENT CONNECTION - Đọc liên tục
+                while (client.Connected)
                 {
-                    string[] parts = request.Split('|');
-                    // REGISTER|username|email|passwordHash
-                    if (parts.Length == 4)
+                    int byteCount = stream.Read(buffer, 0, buffer.Length);
+                    if (byteCount == 0) break; // Client ngắt kết nối
+
+                    string request = Encoding.UTF8.GetString(buffer, 0, byteCount);
+                    string response = "";
+
+                    if (request.StartsWith("REGISTER|"))
                     {
-                        string username = parts[1];
-                        string email = parts[2];
-                        string passwordHash = parts[3];
+                        string[] parts = request.Split('|');
+                        if (parts.Length == 4)
+                        {
+                            string username = parts[1];
+                            string email = parts[2];
+                            string passwordHash = parts[3];
 
-                        bool success = DatabaseHelper.RegisterUser(username, email, passwordHash);
-                        response = success ? "Đăng ký thành công!" : "Username hoặc email đã tồn tại!";
+                            bool success = DatabaseHelper.RegisterUser(username, email, passwordHash);
+                            response = success ? "Đăng ký thành công!" : "Username hoặc email đã tồn tại!";
+                        }
+                        else response = "Dữ liệu đăng ký không hợp lệ.";
                     }
-                    else response = "Dữ liệu đăng ký không hợp lệ.";
-                }
-                else if (request.StartsWith("LOGIN|"))
-                {
-                    var parts = request.Split('|');
-                    if (parts.Length == 3)
+                    else if (request.StartsWith("LOGIN|"))
                     {
-                        int userId = DatabaseHelper.GetUserId(parts[1], parts[2]);
-                        response = userId > 0
-                            ? $"LOGIN_OK|{userId}"
-                            : "LOGIN_FAIL";
+                        var parts = request.Split('|');
+                        if (parts.Length == 3)
+                        {
+                            int userId = DatabaseHelper.GetUserId(parts[1], parts[2]);
+                            response = userId > 0
+                                ? $"LOGIN_OK|{userId}"
+                                : "LOGIN_FAIL";
+                        }
+                    }
+                    else if (request.StartsWith("CREATE_ROOM|"))
+                    {
+                        int userId = int.Parse(request.Split('|')[1]);
+                        string roomCode = DatabaseHelper.CreateRoom(userId);
+                        response = "ROOM_CREATED|" + roomCode;
+                    }
+                    else if (request.StartsWith("JOIN_ROOM|"))
+                    {
+                        var p = request.Split('|');
+                        int userId = int.Parse(p[1]);
+                        string roomCode = p[2];
+
+                        bool ok = DatabaseHelper.JoinRoom(roomCode, userId);
+                        response = ok ? "JOIN_OK" : "JOIN_FAIL";
+                    }
+                    else if (request.StartsWith("GET_ROOM_PLAYERS|"))
+                    {
+                        string roomCode = request.Split('|')[1];
+                        var players = DatabaseHelper.GetRoomPlayers(roomCode);
+                        response = string.Join(",", players);
+                    }
+                    // ✅ REGISTER_ROOM - Client thông báo đang ở phòng nào
+                    else if (request.StartsWith("REGISTER_ROOM|"))
+                    {
+                        var p = request.Split('|');
+                        int userId = int.Parse(p[1]);
+                        string roomCode = p[2];
+
+                        string clientEndpoint = client.Client.RemoteEndPoint.ToString();
+
+                        ServerBroadcaster.AddClientToRoom(roomCode, client);
+
+                        int clientCount = ServerBroadcaster.GetRoomClientCount(roomCode);
+
+                        response = "REGISTERED";
+
+                        Log($"REGISTER_ROOM -> user:{userId} room:{roomCode} endpoint:{clientEndpoint} (clients in room: {clientCount})");
+                    }
+
+                    // ✅ START_GAME - Broadcast cho tất cả trong phòng
+                    else if (request.StartsWith("START_GAME|"))
+                    {
+                        string roomCode = request.Split('|')[1];
+
+                        int clientCount = ServerBroadcaster.GetRoomClientCount(roomCode);
+                        Log($"START_GAME -> room:{roomCode} broadcasting to {clientCount} clients");
+
+                        // Gửi tín hiệu START cho tất cả clients trong phòng
+                        ServerBroadcaster.BroadcastToRoom(roomCode, "START");
+
+                        response = "START_OK";
+                    }
+
+                    else
+                    {
+                        response = "Lệnh không hợp lệ.";
+                    }
+
+                    // Gửi response
+                    if (!string.IsNullOrEmpty(response))
+                    {
+                        byte[] responseData = Encoding.UTF8.GetBytes(response);
+                        stream.Write(responseData, 0, responseData.Length);
                     }
                 }
-                else if (request.StartsWith("CREATE_ROOM|"))
-                {
-                    int userId = int.Parse(request.Split('|')[1]);
-                    string roomCode = DatabaseHelper.CreateRoom(userId);
-                    response = "ROOM_CREATED|" + roomCode;
-                }
-                else if (request.StartsWith("JOIN_ROOM|"))
-                {
-                    var p = request.Split('|');
-                    int userId = int.Parse(p[1]);
-                    string roomCode = p[2];
-
-                    bool ok = DatabaseHelper.JoinRoom(roomCode, userId);
-                    response = ok ? "JOIN_OK" : "JOIN_FAIL";
-                }
-                else if (request.StartsWith("GET_ROOM_PLAYERS|"))
-                {
-                    string roomCode = request.Split('|')[1];
-                    var players = DatabaseHelper.GetRoomPlayers(roomCode);
-                    response = string.Join(",", players);
-                }
-                else if (request.StartsWith("START_GAME|"))
-                {
-                    string roomCode = request.Split('|')[1];
-                    var players = DatabaseHelper.GetRoomPlayers(roomCode);
-
-                    // Gửi cho từng client ở phòng
-                    ServerBroadcaster.BroadcastToRoom(roomCode,
-                        "GAME_START|" + string.Join(",", players));
-
-                    response = "START_OK";
-                }
-
-                else
-                {
-                    response = "Lệnh không hợp lệ.";
-                }
-
-                byte[] responseData = Encoding.UTF8.GetBytes(response);
-                stream.Write(responseData, 0, responseData.Length);
             }
             catch (Exception ex)
             {
-                string err = "ERROR|" + ex.Message;
-                byte[] errData = Encoding.UTF8.GetBytes(err);
-                client.GetStream().Write(errData, 0, errData.Length);
-
-
+                Log($"Error: {ex.Message}");
             }
             finally
             {
+                // ✅ Xóa client khỏi tất cả các phòng khi disconnect
+                ServerBroadcaster.RemoveClient(client);
                 client.Close();
             }
         }
+
         public static class ServerBroadcaster
         {
-            public static Dictionary<string, List<TcpClient>> Rooms = new Dictionary<string, List<TcpClient>>();
+            // Dictionary: RoomCode -> Dictionary<string (endpoint), TcpClient>
+            public static Dictionary<string, Dictionary<string, TcpClient>> Rooms = new Dictionary<string, Dictionary<string, TcpClient>>();
+            public static HashSet<string> StartedRooms = new HashSet<string>();
+            private static object lockObj = new object();
 
             public static void AddClientToRoom(string roomCode, TcpClient client)
             {
-                if (!Rooms.ContainsKey(roomCode))
-                    Rooms[roomCode] = new List<TcpClient>();
+                lock (lockObj)
+                {
+                    if (!Rooms.ContainsKey(roomCode))
+                        Rooms[roomCode] = new Dictionary<string, TcpClient>();
 
-                Rooms[roomCode].Add(client);
+                    // ✅ DÙNG ENDPOINT LÀM KEY ĐỂ TRÁNH TRÙNG
+                    string endpoint = client.Client.RemoteEndPoint.ToString();
+
+                    if (!Rooms[roomCode].ContainsKey(endpoint))
+                    {
+                        Rooms[roomCode][endpoint] = client;
+                    }
+                    else
+                    {
+                        // Update reference nếu reconnect
+                        Rooms[roomCode][endpoint] = client;
+                    }
+                }
             }
 
             public static void BroadcastToRoom(string roomCode, string msg)
             {
-                if (!Rooms.ContainsKey(roomCode)) return;
-
-                byte[] data = Encoding.UTF8.GetBytes(msg);
-
-                foreach (var c in Rooms[roomCode])
+                lock (lockObj)
                 {
-                    try
+                    if (!Rooms.ContainsKey(roomCode)) return;
+
+                    // ✅ KIỂM TRA ĐÃ START CHƯA
+                    if (msg == "START")
                     {
-                        c.GetStream().Write(data, 0, data.Length);
+                        if (StartedRooms.Contains(roomCode))
+                        {
+                            return;
+                        }
+                        StartedRooms.Add(roomCode);
                     }
-                    catch { }
+
+                    byte[] data = Encoding.UTF8.GetBytes(msg);
+
+                    // ✅ LẤY DANH SÁCH CLIENT TỪ DICTIONARY
+                    List<string> toRemove = new List<string>();
+
+                    foreach (var kvp in Rooms[roomCode])
+                    {
+                        try
+                        {
+                            if (kvp.Value.Connected)
+                            {
+                                kvp.Value.GetStream().Write(data, 0, data.Length);
+                            }
+                            else
+                            {
+                                toRemove.Add(kvp.Key);
+                            }
+                        }
+                        catch
+                        {
+                            toRemove.Add(kvp.Key);
+                        }
+                    }
+
+                    // Xóa các clients đã disconnect
+                    foreach (var key in toRemove)
+                    {
+                        Rooms[roomCode].Remove(key);
+                    }
+                }
+            }
+
+            public static void RemoveClient(TcpClient client)
+            {
+                lock (lockObj)
+                {
+                    string endpoint = client.Client.RemoteEndPoint.ToString();
+
+                    foreach (var room in Rooms.Values)
+                    {
+                        if (room.ContainsKey(endpoint))
+                            room.Remove(endpoint);
+                    }
+                }
+            }
+
+            // ✅ HÀM HELPER ĐỂ ĐẾM CLIENT TRONG PHÒNG
+            public static int GetRoomClientCount(string roomCode)
+            {
+                lock (lockObj)
+                {
+                    if (!Rooms.ContainsKey(roomCode))
+                        return 0;
+
+                    return Rooms[roomCode].Count;
                 }
             }
         }
 
         private void Log(string message)
         {
-            Invoke(new Action(() =>
+            if (InvokeRequired)
             {
-                lstLog.Items.Add(message); // lstLog là ListBox
-                                           // Tự cuộn xuống item mới
-                lstLog.TopIndex = lstLog.Items.Count - 1;
+                Invoke(new Action(() => Log(message)));
+                return;
+            }
 
-                // Giới hạn số item tối đa (ví dụ 1000)
-                if (lstLog.Items.Count > 1000)
-                    lstLog.Items.RemoveAt(0);
-            }));
+            lstLog.Items.Add(message);
+            lstLog.TopIndex = lstLog.Items.Count - 1;
+
+            if (lstLog.Items.Count > 1000)
+                lstLog.Items.RemoveAt(0);
         }
+
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             if (isRunning)
             {
-                isRunning = false; // Dừng vòng lặp accept client
-                listener.Stop();   // Ngắt TcpListener
+                isRunning = false;
+                listener.Stop();
                 lb_status.Text = "🔴 Server đã dừng.";
                 Log("Server đã dừng.");
             }
@@ -201,7 +307,6 @@ namespace CoCaNguaServer
 
         private void lstClients_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

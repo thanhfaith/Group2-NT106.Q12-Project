@@ -26,13 +26,22 @@ namespace CoCaNgua
         {
             try
             {
-                if (client.Connected) return true;
+                if (client != null && client.Connected) return true;
+
+                // Nếu client đã bị đóng, tạo mới
+                if (client == null || !client.Connected)
+                    client = new TcpClient();
 
                 client.Connect(ip, port);
                 stream = client.GetStream();
-                receiveThread = new Thread(ReceiveLoop);
-                receiveThread.IsBackground = true; 
-                receiveThread.Start();
+
+                // Start receive loop once
+                if (receiveThread == null || !receiveThread.IsAlive)
+                {
+                    receiveThread = new Thread(ReceiveLoop);
+                    receiveThread.IsBackground = true;
+                    receiveThread.Start();
+                }
 
                 return true;
             }
@@ -47,7 +56,7 @@ namespace CoCaNgua
         {
             try
             {
-                if (client != null && client.Connected)
+                if (client != null && client.Connected && stream != null)
                 {
                     byte[] data = Encoding.UTF8.GetBytes(message);
                     stream.Write(data, 0, data.Length);
@@ -56,26 +65,26 @@ namespace CoCaNgua
             catch (Exception ex)
             {
                 Console.WriteLine("Send Error: " + ex.Message);
-                OnMessageReceived?.Invoke("ERROR|Mất kết nối tới Server");
+                try { OnMessageReceived?.Invoke("ERROR|Mất kết nối tới Server"); } catch { }
             }
         }
 
         private void ReceiveLoop()
         {
-            byte[] buffer = new byte[4096]; 
+            byte[] buffer = new byte[4096];
 
             while (client != null && client.Connected)
             {
                 try
                 {
-
                     int bytesRead = stream.Read(buffer, 0, buffer.Length);
 
                     if (bytesRead > 0)
                     {
                         string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
-                        OnMessageReceived?.Invoke(message);
+                        // Fire event (subscriber should marshal to UI thread if needed)
+                        try { OnMessageReceived?.Invoke(message); } catch { }
                     }
                     else
                     {
@@ -88,7 +97,7 @@ namespace CoCaNgua
                 }
             }
 
-            OnMessageReceived?.Invoke("ERROR|Đã ngắt kết nối với Server.");
+            try { OnMessageReceived?.Invoke("ERROR|Đã ngắt kết nối với Server."); } catch { }
         }
 
         public void Disconnect()
@@ -97,6 +106,8 @@ namespace CoCaNgua
             {
                 if (stream != null) stream.Close();
                 if (client != null) client.Close();
+                stream = null;
+                client = null;
             }
             catch { }
         }
