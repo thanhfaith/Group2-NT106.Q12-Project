@@ -11,7 +11,6 @@ namespace CoCaNguaServer
   Initial Catalog=GameDB;
   Integrated Security=True";
 
-        // ✅ THÊM LOCK ĐỂ TRÁNH RACE CONDITION
         private static readonly object joinRoomLock = new object();
 
         private static bool IsUserExists(string username, string email)
