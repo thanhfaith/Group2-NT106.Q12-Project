@@ -376,8 +376,8 @@
             // 
             // ChessBoard
             // 
-            AutoScaleDimensions = new SizeF(17F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
+            Font = new Font("Comic Sans MS", 10.2F);
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225524;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1283, 678);

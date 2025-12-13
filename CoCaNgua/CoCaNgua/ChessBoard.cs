@@ -36,11 +36,6 @@ namespace CoCaNgua
 
         private void InitializeGame()
         {
-            foreach (var p in pieces)
-            {
-                p.UiControl.Click += (s, e) => Piece_Click(p);
-            }
-
             if (pieces == null) pieces = new List<QuanCo>();
             pieces.Clear();
 
@@ -66,13 +61,15 @@ namespace CoCaNgua
             pieces.Add(new QuanCo(14, TeamColor.Blue, blue3));
             pieces.Add(new QuanCo(15, TeamColor.Blue, blue4));
 
-            // Gán sự kiện click cho từng quân cờ
+            // ✅ GÁN SỰ KIỆN CLICK CHO TỪNG QUÂN CỜ (CHỈ 1 LẦN)
             foreach (var p in pieces)
             {
-                p.UiControl.Click += (s, e) => Piece_Click(p);
+                var piece = p; // Capture variable trong lambda
+                p.UiControl.Click += (sender, e) => Piece_Click(piece);
             }
 
-            btnDice.Click += btnDice_Click;
+            // ✅ GÁN SỰ KIỆN CHO NÚT DICE
+            btnDice.Click += btnDice_Click_1;
 
             ResetGameVisuals();
         }
@@ -129,8 +126,14 @@ namespace CoCaNgua
                             }
                             break;
 
+                        // ✅ THÊM VÀO TRONG case "DICE" của HandleNetworkMessage
+
                         case "DICE":
                             currentDiceValue = int.Parse(parts[1]);
+
+                            // ✅ HIỂN THỊ HÌNH XÚC XẮC
+                            ShowDiceImage(currentDiceValue);
+
                             AddToChat($"Xúc xắc: {currentTurn} tung được [{currentDiceValue}] điểm.");
 
                             if (currentTurn == myTeam)
@@ -147,7 +150,6 @@ namespace CoCaNgua
                                     PieceState ns;
                                     QuanCo enemy;
 
-                                   
                                     if (TryComputeMove(pc, currentDiceValue,
                                                        out np, out ns, out enemy,
                                                        allowMessage: false))
@@ -156,12 +158,21 @@ namespace CoCaNgua
                                         break;
                                     }
                                 }
+
                                 if (!anyMovable)
                                 {
+                                    AddToChat("⚠️ Không có quân nào đi được! Bỏ lượt.");
                                     hasRolled = false;
-                                    network.Send("END_TURN");
-                                }
 
+                                    // ✅ ĐỢI 1 CHÚT RỒI TỰ ĐỘNG CHUYỂN LƯỢT
+                                    System.Threading.Tasks.Task.Delay(1500).ContinueWith(_ =>
+                                    {
+                                        if (this.InvokeRequired)
+                                            this.Invoke(new Action(() => network.Send("END_TURN")));
+                                        else
+                                            network.Send("END_TURN");
+                                    });
+                                }
                             }
                             break;
 
@@ -382,6 +393,10 @@ namespace CoCaNgua
         private void UpdatePieceUI(QuanCo piece)
         {
             Point centerPoint = GetPixelCoordinates(piece.Id, piece.CurrentPosition, piece.Team, piece.State);
+
+            // ✅ THÊM LOG ĐỂ DEBUG
+            System.Diagnostics.Debug.WriteLine($"UpdatePieceUI: Piece {piece.Id} ({piece.Team}) State={piece.State} Pos={piece.CurrentPosition} -> Pixel({centerPoint.X},{centerPoint.Y})");
+
             int newX = centerPoint.X - (piece.UiControl.Width / 2);
             int newY = centerPoint.Y - (piece.UiControl.Height / 2);
 

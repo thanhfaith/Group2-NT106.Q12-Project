@@ -15,10 +15,10 @@ namespace CoCaNgua
         private void btnCreateRoom_Click(object sender, EventArgs e)
         {
             string response = SendQuick($"CREATE_ROOM|{Session.UserId}");
-
             if (response.StartsWith("ROOM_CREATED|"))
             {
                 string roomCode = response.Split('|')[1];
+                // ✅ roomCode từ server đã là uppercase (vì database normalize)
                 new WaitingRoom(roomCode).Show();
                 this.Hide();
             }
@@ -36,11 +36,14 @@ namespace CoCaNgua
                 return;
             }
 
-            string response = SendQuick($"JOIN_ROOM|{Session.UserId}|{txtRoomCode.Text}");
+            // ✅ NORMALIZE ROOMCODE TRƯỚC KHI GỬI
+            string roomCode = txtRoomCode.Text.Trim().ToUpper();
+
+            string response = SendQuick($"JOIN_ROOM|{Session.UserId}|{roomCode}");
 
             if (response == "JOIN_OK")
             {
-                new WaitingRoom(txtRoomCode.Text).Show();
+                new WaitingRoom(roomCode).Show();
                 this.Hide();
             }
             else
@@ -51,17 +54,26 @@ namespace CoCaNgua
 
         private string SendQuick(string message)
         {
-            using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+            try
             {
-                NetworkStream stream = client.GetStream();
+                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                {
+                    client.ReceiveTimeout = 5000;
+                    client.SendTimeout = 5000;
 
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
+                    NetworkStream stream = client.GetStream();
+                    byte[] data = Encoding.UTF8.GetBytes(message);
+                    stream.Write(data, 0, data.Length);
 
-                byte[] buffer = new byte[2048];
-                int bytes = stream.Read(buffer, 0, buffer.Length);
-
-                return Encoding.UTF8.GetString(buffer, 0, bytes);
+                    byte[] buffer = new byte[2048];
+                    int bytes = stream.Read(buffer, 0, buffer.Length);
+                    return Encoding.UTF8.GetString(buffer, 0, bytes);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi kết nối: {ex.Message}");
+                return "";
             }
         }
     }

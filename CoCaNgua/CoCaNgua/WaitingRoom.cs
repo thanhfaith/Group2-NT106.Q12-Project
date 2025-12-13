@@ -16,7 +16,7 @@ namespace CoCaNgua
         public WaitingRoom(string code)
         {
             InitializeComponent();
-            roomCode = code;
+            roomCode = code.ToUpper(); // ✅ NORMALIZE NGAY TỪ ĐẦU
 
             // ✅ Tạo connection riêng
             network = new NetworkHelper();
@@ -105,7 +105,7 @@ namespace CoCaNgua
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine(text); // Debug log
+                System.Diagnostics.Debug.WriteLine(text);
 
                 if (this.Controls.ContainsKey("lstLog"))
                 {
@@ -138,6 +138,7 @@ namespace CoCaNgua
         {
             try
             {
+                // ✅ roomCode đã được normalize trong constructor
                 string res = SendQuick($"GET_ROOM_PLAYERS|{roomCode}");
                 if (string.IsNullOrEmpty(res)) return;
 
@@ -190,7 +191,7 @@ namespace CoCaNgua
 
             try
             {
-                // Gửi START qua persistent connection
+                // ✅ roomCode đã được normalize
                 network.Send($"START_GAME|{roomCode}");
             }
             catch (Exception ex)
@@ -206,7 +207,7 @@ namespace CoCaNgua
             {
                 using (TcpClient client = new TcpClient("127.0.0.1", 8888))
                 {
-                    client.ReceiveTimeout = 3000; // 3 seconds timeout
+                    client.ReceiveTimeout = 3000;
                     client.SendTimeout = 3000;
 
                     NetworkStream stream = client.GetStream();
@@ -229,12 +230,12 @@ namespace CoCaNgua
 
         private void WaitingRoom_Load(object sender, EventArgs e)
         {
+            // ✅ Hiển thị mã phòng đã normalize
             txtRoomCode.Text = roomCode;
             txtRoomCode.ReadOnly = true;
 
             AppendLog("[INFO] 🔌 Đang kết nối tới server...");
 
-            // ✅ KẾT NỐI VÀ ĐỢI 1 CHÚT ĐỂ ĐẢM BẢO CONNECTION ỔN ĐỊNH
             bool ok = network.Connect("127.0.0.1", 8888);
             if (!ok)
             {
@@ -245,14 +246,12 @@ namespace CoCaNgua
 
             AppendLog("[INFO] ✅ Đã kết nối! Đang đăng ký phòng...");
 
-            // ✅ ĐỢI 1 CHÚT ĐỂ CONNECTION ỔN ĐỊNH
             Thread.Sleep(100);
 
-            // Đăng ký vào phòng
+            // ✅ Gửi roomCode đã normalize
             network.Send($"REGISTER_ROOM|{Session.UserId}|{roomCode}");
             AppendLog($"[SENT] 📤 REGISTER_ROOM|{Session.UserId}|{roomCode}");
 
-            // Bắt đầu refresh danh sách người chơi
             timerRefresh.Interval = 1000;
             timerRefresh.Tick += TimerRefresh_Tick;
             timerRefresh.Start();
@@ -264,7 +263,6 @@ namespace CoCaNgua
         {
             timerRefresh.Stop();
 
-            // ✅ CHỈ ĐÓNG CONNECTION NẾU KHÔNG CHUYỂN SANG CHESSBOARD
             if (!hasStarted)
             {
                 AppendLog("[INFO] 🔌 Đang ngắt kết nối...");
