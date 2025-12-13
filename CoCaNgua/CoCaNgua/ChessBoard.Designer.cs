@@ -82,7 +82,6 @@
             pictureBox1.Size = new Size(142, 119);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // panel1
             // 
@@ -135,7 +134,6 @@
             green3.SizeMode = PictureBoxSizeMode.StretchImage;
             green3.TabIndex = 22;
             green3.TabStop = false;
-            green3.Click += green3_Click;
             // 
             // green2
             // 
@@ -330,7 +328,7 @@
             btnDice.Size = new Size(70, 59);
             btnDice.TabIndex = 2;
             btnDice.UseVisualStyleBackColor = true;
-            btnDice.Click += btnDice_Click_1;
+            btnDice.Click += btnDice_Click;
             // 
             // groupBox1
             // 
@@ -370,14 +368,15 @@
             rtbChatLog.BackColor = Color.FloralWhite;
             rtbChatLog.Location = new Point(14, 36);
             rtbChatLog.Name = "rtbChatLog";
+            rtbChatLog.ReadOnly = true;
             rtbChatLog.Size = new Size(489, 383);
             rtbChatLog.TabIndex = 0;
             rtbChatLog.Text = "";
             // 
             // ChessBoard
             // 
+            AutoScaleDimensions = new SizeF(10F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
-            Font = new Font("Comic Sans MS", 10.2F);
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225524;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1283, 678);
