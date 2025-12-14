@@ -60,13 +60,13 @@
             lstClients.FormattingEnabled = true;
             lstClients.Location = new Point(115, 12);
             lstClients.Name = "lstClients";
-            lstClients.Size = new Size(760, 144);
+            lstClients.Size = new Size(318, 144);
             lstClients.TabIndex = 2;
             // 
             // lb_status
             // 
             lb_status.AutoSize = true;
-            lb_status.Location = new Point(12, 170);
+            lb_status.Location = new Point(12, 169);
             lb_status.Name = "lb_status";
             lb_status.Size = new Size(47, 20);
             lb_status.TabIndex = 3;
@@ -75,16 +75,16 @@
             // lstLog
             // 
             lstLog.FormattingEnabled = true;
-            lstLog.Location = new Point(23, 201);
+            lstLog.Location = new Point(12, 202);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(863, 184);
+            lstLog.Size = new Size(421, 144);
             lstLog.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(898, 397);
+            ClientSize = new Size(445, 359);
             Controls.Add(lstLog);
             Controls.Add(lb_status);
             Controls.Add(lstClients);

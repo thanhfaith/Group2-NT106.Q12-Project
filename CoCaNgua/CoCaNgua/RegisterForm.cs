@@ -68,8 +68,24 @@ namespace CoCaNgua
             string message = $"REGISTER|{username}|{email}|{hashedPassword}";
             string response = SendToServer(message);
 
-            MessageBox.Show(string.IsNullOrWhiteSpace(response) ? "Không có phản hồi từ server!" : response,
-                "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!string.IsNullOrWhiteSpace(response) &&
+                response.Trim() == "Đăng ký thành công!")
+            {
+                MessageBox.Show(response,
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LoginForm f = new LoginForm();
+                f.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(
+                    string.IsNullOrWhiteSpace(response)
+                        ? "Không có phản hồi từ server!"
+                        : response,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private string SendToServer(string data)
         {

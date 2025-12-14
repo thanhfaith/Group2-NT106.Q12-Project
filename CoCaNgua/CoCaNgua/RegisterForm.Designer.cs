@@ -69,7 +69,7 @@
             txtUsername.Margin = new Padding(3, 4, 3, 4);
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(271, 47);
+            txtUsername.Size = new Size(347, 47);
             txtUsername.TabIndex = 4;
             // 
             // txtPassword
@@ -80,7 +80,7 @@
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(271, 47);
+            txtPassword.Size = new Size(347, 47);
             txtPassword.TabIndex = 5;
             // 
             // txtPasswordConfirm
@@ -91,7 +91,7 @@
             txtPasswordConfirm.Multiline = true;
             txtPasswordConfirm.Name = "txtPasswordConfirm";
             txtPasswordConfirm.PasswordChar = '*';
-            txtPasswordConfirm.Size = new Size(271, 47);
+            txtPasswordConfirm.Size = new Size(347, 47);
             txtPasswordConfirm.TabIndex = 6;
             // 
             // btnRegister
@@ -99,7 +99,7 @@
             btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222956;
             btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
             btnRegister.FlatStyle = FlatStyle.Popup;
-            btnRegister.Location = new Point(343, 316);
+            btnRegister.Location = new Point(419, 316);
             btnRegister.Margin = new Padding(3, 4, 3, 4);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(271, 63);
@@ -115,7 +115,7 @@
             txtEmail.Margin = new Padding(3, 4, 3, 4);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(271, 47);
+            txtEmail.Size = new Size(347, 47);
             txtEmail.TabIndex = 8;
             // 
             // label5
@@ -150,7 +150,7 @@
             // 
             linkToLog.AutoSize = true;
             linkToLog.BackColor = Color.Transparent;
-            linkToLog.Location = new Point(490, 402);
+            linkToLog.Location = new Point(566, 402);
             linkToLog.Name = "linkToLog";
             linkToLog.Size = new Size(124, 31);
             linkToLog.TabIndex = 10;
@@ -162,7 +162,7 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
-            label6.Location = new Point(293, 402);
+            label6.Location = new Point(369, 402);
             label6.Name = "label6";
             label6.Size = new Size(191, 31);
             label6.TabIndex = 11;
@@ -174,7 +174,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222745;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(724, 442);
+            ClientSize = new Size(809, 442);
             Controls.Add(label6);
             Controls.Add(linkToLog);
             Controls.Add(label5);

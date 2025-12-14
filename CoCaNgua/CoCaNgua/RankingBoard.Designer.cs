@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             listBox1 = new ListBox();
+            llblQuit = new LinkLabel();
             SuspendLayout();
             // 
             // listBox1
@@ -44,6 +45,18 @@
             listBox1.TabIndex = 0;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
+            // llblQuit
+            // 
+            llblQuit.AutoSize = true;
+            llblQuit.BackColor = Color.Transparent;
+            llblQuit.Location = new Point(311, 479);
+            llblQuit.Name = "llblQuit";
+            llblQuit.Size = new Size(160, 31);
+            llblQuit.TabIndex = 1;
+            llblQuit.TabStop = true;
+            llblQuit.Text = "Về Trang Chủ";
+            llblQuit.LinkClicked += llblQuit_LinkClicked;
+            // 
             // RankingBoard
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
@@ -51,6 +64,7 @@
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_231600;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(812, 568);
+            Controls.Add(llblQuit);
             Controls.Add(listBox1);
             DoubleBuffered = true;
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -58,10 +72,12 @@
             Name = "RankingBoard";
             Text = "Bangxephang";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private ListBox listBox1;
+        private LinkLabel llblQuit;
     }
 }

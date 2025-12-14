@@ -47,5 +47,12 @@ namespace CoCaNgua
                 listBox1.Items.Add(dongHienThi);
             }
         }
+
+        private void llblQuit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MenuForm f = new MenuForm();
+            f.Show();
+            this.Close();
+        }
     }
 }
