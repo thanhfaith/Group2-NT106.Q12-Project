@@ -154,7 +154,14 @@ namespace CoCaNguaServer
                         var clients = ServerBroadcaster.Rooms[roomCode].Values.ToList();
                         string[] teams = { "Red", "Green", "Yellow", "Blue" };
 
-                        for (int i = 0; i < Math.Min(clients.Count, 4); i++)
+                        // ✅ teamCount = số người thật (tối đa 4)
+                        int teamCount = Math.Min(clients.Count, 4);
+
+                        // ✅ Lưu danh sách team thật sự có trong phòng
+                        var activeTeams = teams.Take(teamCount).ToList();
+                        ServerBroadcaster.SetRoomTeams(roomCode, activeTeams);
+
+                        for (int i = 0; i < teamCount; i++)
                         {
                             try
                             {
@@ -168,11 +175,12 @@ namespace CoCaNguaServer
                             }
                         }
 
-                        // ✅ BẮT ĐẦU LƯỢT ĐẦU TIÊN (Red)
+                        // ✅ BẮT ĐẦU LƯỢT ĐẦU TIÊN = team đầu tiên trong activeTeams (thường là Red)
                         Thread.Sleep(200);
-                        ServerBroadcaster.BroadcastToRoom(roomCode, "TURN|Red");
-                        Log($"TURN -> room:{roomCode} first turn: Red");
-
+                        string firstTurn = activeTeams[0];
+                        ServerBroadcaster.SetRoomTurn(roomCode, firstTurn);
+                        ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{firstTurn}");
+                        Log($"TURN -> room:{roomCode} first turn: {firstTurn}");
                         response = "START_OK";
                     }
 
@@ -202,30 +210,31 @@ namespace CoCaNguaServer
                         }
                         response = "MOVE_OK";
                     }
-
                     else if (request.StartsWith("END_TURN"))
                     {
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            // ✅ LOGIC CHUYỂN LƯỢT: Red -> Green -> Yellow -> Blue -> Red
-                            string currentTurn = ServerBroadcaster.GetRoomTurn(roomCode);
-                            string nextTurn = "Red";
+                            // ✅ Lấy danh sách team thật sự có trong phòng (2-4 người)
+                            var teamOrder = ServerBroadcaster.GetRoomTeams(roomCode);
+                            if (teamOrder == null || teamOrder.Count == 0)
+                                teamOrder = new List<string> { "Red", "Green", "Yellow", "Blue" };
 
-                            switch (currentTurn)
-                            {
-                                case "Red": nextTurn = "Green"; break;
-                                case "Green": nextTurn = "Yellow"; break;
-                                case "Yellow": nextTurn = "Blue"; break;
-                                case "Blue": nextTurn = "Red"; break;
-                            }
+                            string currentTurn = ServerBroadcaster.GetRoomTurn(roomCode);
+
+                            int idx = teamOrder.IndexOf(currentTurn);
+                            if (idx < 0) idx = 0;
+
+                            int nextIdx = (idx + 1) % teamOrder.Count;
+                            string nextTurn = teamOrder[nextIdx];
 
                             ServerBroadcaster.SetRoomTurn(roomCode, nextTurn);
                             ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{nextTurn}");
-                            Log($"END_TURN -> room:{roomCode} next turn: {nextTurn}");
+                            Log($"END_TURN -> room:{roomCode} next turn: {nextTurn} (players={teamOrder.Count})");
                         }
                         response = "TURN_OK";
                     }
+
 
                     else if (request.StartsWith("DONE"))
                     {
@@ -239,11 +248,14 @@ namespace CoCaNguaServer
                             ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|Player|{rank}");
                             Log($"DONE -> room:{roomCode} rank:{rank}");
 
-                            // Nếu đã có 4 người về đích, kết thúc game
-                            if (rank >= 4)
+                            // Nếu đã có đủ số người về đích, kết thúc game
+                            int totalPlayers = ServerBroadcaster.GetRoomTeams(roomCode).Count;
+                            if (totalPlayers <= 0) totalPlayers = 4;
+
+                            if (rank >= totalPlayers)
                             {
                                 Thread.Sleep(1000);
-                                ServerBroadcaster.BroadcastToRoom(roomCode, "GAME_OVER");
+                                ServerBroadcaster.BroadcastToRoom(roomCode, "GAME_OVER");   
                                 Log($"GAME_OVER -> room:{roomCode}");
                             }
                         }
@@ -298,12 +310,33 @@ namespace CoCaNguaServer
 
             // ✅ THÊM: Track lượt hiện tại của từng phòng
             public static Dictionary<string, string> RoomTurns = new Dictionary<string, string>();
+            public static Dictionary<string, List<string>> RoomTeamOrders = new Dictionary<string, List<string>>();
 
             // ✅ THÊM: Track số người đã về đích
             public static Dictionary<string, int> RoomRanks = new Dictionary<string, int>();
 
             public static HashSet<string> StartedRooms = new HashSet<string>();
             private static object lockObj = new object();
+            // ✅ SET/GET danh sách team theo phòng
+            public static void SetRoomTeams(string roomCode, List<string> teams)
+            {
+                lock (lockObj)
+                {
+                    RoomTeamOrders[roomCode] = teams;
+                }
+            }
+
+            public static List<string> GetRoomTeams(string roomCode)
+            {
+                lock (lockObj)
+                {
+                    if (RoomTeamOrders.ContainsKey(roomCode))
+                        return RoomTeamOrders[roomCode];
+
+                    // mặc định nếu chưa set
+                    return new List<string> { "Red", "Green", "Yellow", "Blue" };
+                }
+            }
 
             public static void AddClientToRoom(string roomCode, TcpClient client)
             {
@@ -443,6 +476,7 @@ namespace CoCaNguaServer
                     return RoomRanks[roomCode];
                 }
             }
+
         }
 
         private void Log(string message)
