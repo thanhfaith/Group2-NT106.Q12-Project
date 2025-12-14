@@ -41,7 +41,7 @@
             label2.BackColor = Color.Transparent;
             label2.Location = new Point(166, 233);
             label2.Name = "label2";
-            label2.Size = new Size(147, 39);
+            label2.Size = new Size(121, 31);
             label2.TabIndex = 1;
             label2.Text = "Mã phòng ";
             // 
@@ -84,15 +84,15 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(365, 374);
+            label1.Location = new Point(367, 374);
             label1.Name = "label1";
-            label1.Size = new Size(147, 39);
+            label1.Size = new Size(116, 31);
             label1.TabIndex = 5;
             label1.Text = "BẮT ĐẦU";
             // 
             // CodeRoom
             // 
-            AutoScaleDimensions = new SizeF(17F, 39F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013300;

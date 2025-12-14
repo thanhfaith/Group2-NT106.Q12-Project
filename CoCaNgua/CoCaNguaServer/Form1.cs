@@ -504,7 +504,29 @@ namespace CoCaNguaServer
                 Log("Server đã dừng.");
             }
         }
+        static Random diceRand = new Random();
 
+        int RollDiceWeighted()
+        {
+            // Giá trị xúc xắc
+            int[] dice = { 1, 2, 3, 4, 5, 6 };
+
+            // Xác suất (%) – bạn có thể chỉnh số này
+            int[] weight = { 15, 15, 13, 12, 10, 35 };
+            // 1:5% | 2:10% | 3:15% | 4:20% | 5:20% | 6:30%
+            
+            int roll = diceRand.Next(1, 101); // 1 → 100
+            int sum = 0;
+
+            for (int i = 0; i < dice.Length; i++)
+            {
+                sum += weight[i];
+                if (roll <= sum)
+                    return dice[i];
+            }
+
+            return 1;
+        }
         private void lstClients_SelectedIndexChanged(object sender, EventArgs e)
         {
         }

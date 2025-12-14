@@ -366,6 +366,7 @@
             // rtbChatLog
             // 
             rtbChatLog.BackColor = Color.FloralWhite;
+            rtbChatLog.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rtbChatLog.Location = new Point(14, 36);
             rtbChatLog.Name = "rtbChatLog";
             rtbChatLog.ReadOnly = true;
