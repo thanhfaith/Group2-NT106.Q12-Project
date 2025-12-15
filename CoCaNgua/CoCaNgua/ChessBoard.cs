@@ -11,7 +11,6 @@ namespace CoCaNgua
     public partial class ChessBoard : Form
     {
         List<QuanCo> pieces = new List<QuanCo>();
-
         NetworkHelper network;
 
         TeamColor myTeam;
@@ -22,7 +21,6 @@ namespace CoCaNgua
         public ChessBoard(NetworkHelper existingNetwork)
         {
             InitializeComponent();
-
             this.network = existingNetwork;
             if (this.network != null)
             {
@@ -37,6 +35,7 @@ namespace CoCaNgua
             if (pieces == null) pieces = new List<QuanCo>();
             pieces.Clear();
 
+            // Khởi tạo quân cờ
             pieces.Add(new QuanCo(0, TeamColor.Red, red1));
             pieces.Add(new QuanCo(1, TeamColor.Red, red2));
             pieces.Add(new QuanCo(2, TeamColor.Red, red3));
@@ -80,8 +79,11 @@ namespace CoCaNgua
             currentDiceValue = 0;
             AddToChat("--- SẴN SÀNG VÁN MỚI ---");
         }
+
         private void HandleNetworkMessage(string msg)
         {
+            if (this.IsDisposed) return; 
+
             this.Invoke((MethodInvoker)delegate
             {
                 try
@@ -94,7 +96,7 @@ namespace CoCaNgua
                         case "ASSIGN":
                             myTeam = (TeamColor)Enum.Parse(typeof(TeamColor), parts[1]);
                             this.Text = $"Cờ Cá Ngựa - Bạn là đội: {myTeam}";
-                            AddToChat($"Hệ thống: Bạn tham gia đội {myTeam}");
+                            AddToChat($"[Hệ thống] Bạn tham gia đội {myTeam}");
                             break;
 
                         case "TURN":
@@ -118,7 +120,7 @@ namespace CoCaNgua
                         case "DICE":
                             currentDiceValue = int.Parse(parts[1]);
                             ShowDiceImage(currentDiceValue);
-                            AddToChat($"Xúc xắc: {currentTurn} tung được [{currentDiceValue}] điểm.");
+                            AddToChat($"[XÚC XẮC] {currentTurn} tung được [{currentDiceValue}] điểm.");
 
                             if (currentTurn == myTeam)
                             {
@@ -129,7 +131,6 @@ namespace CoCaNgua
                                 foreach (var pc in pieces)
                                 {
                                     if (pc.Team != myTeam) continue;
-
                                     // Kiểm tra xem quân này có đi được không
                                     if (TryComputeMove(pc, currentDiceValue, out _, out _, out _, allowMessage: false))
                                     {
@@ -140,15 +141,25 @@ namespace CoCaNgua
 
                                 if (!anyMovable)
                                 {
-                                    AddToChat("⚠️ Không có quân nào đi được! Bỏ lượt.");
-                                    hasRolled = false;
-
-                                    // Tự động chuyển lượt sau 1.5s
-                                    Task.Delay(1500).ContinueWith(_ =>
+                                    //  Xử lý logic tung được 6 nhưng không đi được ---
+                                    if (currentDiceValue == 6)
                                     {
-                                        if (this.IsHandleCreated) // Kiểm tra form còn tồn tại không
-                                            this.Invoke(new Action(() => network.Send("END_TURN")));
-                                    });
+                                        AddToChat("⚠️ Không có quân đi được. Nhưng tung được 6 BẠN ĐƯỢC TUNG TIẾP!");
+                                        hasRolled = false;
+                                        btnDice.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        AddToChat("⚠️ Không có quân nào đi được! Bỏ lượt.");
+                                        hasRolled = false;
+
+                                        // Tự động chuyển lượt sau 1.5s
+                                        Task.Delay(1500).ContinueWith(_ =>
+                                        {
+                                            if (this.IsHandleCreated && !this.IsDisposed)
+                                                this.Invoke(new Action(() => network.Send("END_TURN")));
+                                        });
+                                    }
                                 }
                             }
                             break;
@@ -164,20 +175,10 @@ namespace CoCaNgua
                             {
                                 if (newState == PieceState.InHome && p.State != PieceState.InHome)
                                     AddToChat($"Quân {p.Team} đã bị ĐÁ về chuồng!");
-                                else if (newState == PieceState.Finished && p.State != PieceState.Finished)
-                                    AddToChat($"Quân {p.Team} đã VỀ ĐÍCH thành công!");
 
                                 p.CurrentPosition = newPos;
                                 p.State = newState;
                                 UpdatePieceUI(p);
-
-                                int finishedCount = pieces.FindAll(x => x.Team == p.Team && x.State == PieceState.Finished).Count;
-                                if (finishedCount == 4 && p.Team == myTeam)
-                                {
-                                    AddToChat($"🎉 BẠN ĐÃ CHIẾN THẮNG! Đang xác nhận...");
-                                    network.Send("DONE");
-                                    btnDice.Enabled = false;
-                                }
                             }
                             break;
 
@@ -186,13 +187,29 @@ namespace CoCaNgua
                             break;
 
                         case "GAME_OVER":
-                            MessageBox.Show("Ván chơi đã kết thúc!", "Thông báo");
-                            ResetGameVisuals();
+                            string winnerTeam = "";
+                            if (parts.Length > 1) winnerTeam = parts[1];
+
+                            if (myTeam.ToString() == winnerTeam)
+                            {
+                                AddToChat("🎉 CHÚC MỪNG! BẠN ĐÃ CHIẾN THẮNG!");
+                                MessageBox.Show("Chúc mừng! Bạn đã chiến thắng!", "Kết quả");
+                            }
+                            else
+                            {
+                                AddToChat($"🏁 Đội {winnerTeam} đã giành chiến thắng!");
+                                MessageBox.Show($"Đội {winnerTeam} đã thắng ván này!", "Kết quả");
+                            }
+                            XuLyKetThucGame();
                             break;
 
                         case "CHAT":
                             if (parts.Length >= 3)
-                                AddToChat($"{parts[1]}: {parts[2]}");
+                            {
+                                string senderName = parts[1];
+                                string content = string.Join("|", parts.Skip(2));
+                                AddToChat($"[CHAT] {senderName}: {content}");
+                            }
                             break;
 
                         case "ERROR":
@@ -211,37 +228,47 @@ namespace CoCaNgua
         {
             if (currentTurn != myTeam) return;
             if (piece.Team != myTeam) return;
-            if (!hasRolled)
-            {
-                AddToChat("Bạn phải tung xúc xắc trước!");
-                return;
-            }
+            if (!hasRolled) { AddToChat("Bạn phải tung xúc xắc trước!"); return; }
 
             int nextPos;
             PieceState nextState;
             QuanCo enemyPiece;
 
+            // Kiểm tra nước đi
             if (TryComputeMove(piece, currentDiceValue, out nextPos, out nextState, out enemyPiece, allowMessage: true))
             {
                 btnDice.Enabled = false;
+
+                // Xử lý đá quân 
                 if (enemyPiece != null)
                 {
                     network.Send($"MOVE|{enemyPiece.Id}|-1|InHome");
                     AddToChat($"⚔️ Bạn đã đá quân đội {enemyPiece.Team}!");
+
+                    // Cập nhật giao diện quân bị đá ngay lập tức
+                    enemyPiece.CurrentPosition = -1;
+                    enemyPiece.State = PieceState.InHome;
+                    UpdatePieceUI(enemyPiece);
+
                     await Task.Delay(100);
                 }
+
+                // Gửi lệnh di chuyển quân mình
                 network.Send($"MOVE|{piece.Id}|{nextPos}|{nextState}");
-                if (nextState == PieceState.Finished)
+
+                // Cập nhật giao diện quân mình
+                piece.CurrentPosition = nextPos;
+                piece.State = nextState;
+                UpdatePieceUI(piece);
+
+                // --- SỬA 3: Kiểm tra điều kiện thắng ---
+                if (CheckWin(myTeam))
                 {
-                    int currentFinishedCount = pieces.FindAll(p => p.Team == myTeam && p.State == PieceState.Finished).Count;
-                    if (currentFinishedCount + 1 == 4)
-                    {
-                        network.Send("DONE");
-                        hasRolled = false;
-                        XuLyKetThucGame();
-                        return;
-                    }
+                    network.Send($"GAME_OVER|{myTeam}");
+                    hasRolled = false;
+                    return;
                 }
+
                 if (currentDiceValue == 6)
                 {
                     AddToChat("Bạn được đi tiếp do tung được 6!");
@@ -255,19 +282,29 @@ namespace CoCaNgua
                 }
             }
         }
-        private bool TryComputeMove(
-            QuanCo piece,
-            int diceValue,
-            out int nextPos,
-            out PieceState nextState,
-            out QuanCo enemyPiece,
-            bool allowMessage = true)
+
+        // --- SỬA 4: Logic kiểm tra thắng chính xác hơn ---
+        private bool CheckWin(TeamColor team)
+        {
+            // Lấy tất cả quân đang ở trong thang về đích
+            var myPieces = pieces.Where(p => p.Team == team && p.State == PieceState.InFinish).ToList();
+
+            // Kiểm tra xem đã lấp đầy các ô cao nhất chưa (Luật phổ biến: 6, 5, 4, 3)
+            bool has6 = myPieces.Any(p => p.CurrentPosition == 6);
+            bool has5 = myPieces.Any(p => p.CurrentPosition == 5);
+            bool has4 = myPieces.Any(p => p.CurrentPosition == 4);
+            bool has3 = myPieces.Any(p => p.CurrentPosition == 3);
+
+            return has6 && has5 && has4 && has3;
+        }
+
+        private bool TryComputeMove(QuanCo piece, int diceValue, out int nextPos, out PieceState nextState, out QuanCo enemyPiece, bool allowMessage = true)
         {
             nextPos = -1;
             nextState = piece.State;
             enemyPiece = null;
 
-            // 1. TRONG CHUỒNG (InHome) -> Ra quân
+            // 1. RA QUÂN (Đang ở nhà chờ)
             if (piece.State == PieceState.InHome)
             {
                 if (diceValue == 6)
@@ -277,98 +314,150 @@ namespace CoCaNgua
 
                     if (blocker != null && blocker.Team == piece.Team)
                     {
-                        if (allowMessage) AddToChat("Cửa chuồng đang bị quân mình chặn.");
+                        if (allowMessage) AddToChat("Cửa ra quân đang bị quân mình chặn.");
                         return false;
                     }
-
-                    if (blocker != null && blocker.Team != piece.Team)
-                        enemyPiece = blocker;
+                    if (blocker != null && blocker.Team != piece.Team) enemyPiece = blocker;
 
                     nextPos = startPos;
                     nextState = PieceState.OnTrack;
                     return true;
                 }
-                else
-                {
-                    if (allowMessage) AddToChat("Cần 6 điểm để ra quân.");
-                    return false;
-                }
+                if (allowMessage) AddToChat("Cần tung được 6 để ra quân.");
+                return false;
             }
 
-            // 2. TRÊN ĐƯỜNG ĐUA (OnTrack)
+            // 2. DI CHUYỂN TRÊN ĐƯỜNG ĐUA (OnTrack)
             else if (piece.State == PieceState.OnTrack)
             {
                 int entryPos = GetFinishEntryPosition(piece.Team);
                 int currentPos = piece.CurrentPosition;
 
+                // Nếu ĐANG ĐỨNG TẠI CỬA CHUỒNG -> Vào chuồng
+                if (currentPos == entryPos)
+                {
+                    int targetStep = diceValue; // Tung 2 vào ô 2
+                    // Kiểm tra xem ô đích đó có quân chưa
+                    var blockerInFinish = GetPieceAtPosition(targetStep, PieceState.InFinish);
+
+                    if (blockerInFinish != null)
+                    {
+                        if (allowMessage) AddToChat($"Ô số {targetStep} trong chuồng đã có quân.");
+                        return false;
+                    }
+                    nextPos = targetStep;
+                    nextState = PieceState.InFinish;
+                    return true;
+                }
+
+                // Tính khoảng cách tới cửa chuồng
                 int distanceToEntry = (entryPos - currentPos + 52) % 52;
 
-                if (diceValue > distanceToEntry && distanceToEntry < 12)
-                {
-                    int targetStepInFinish = diceValue - distanceToEntry;
+                // Xử lý trường hợp đặc biệt: Nếu distance = 0 nghĩa là đang ở entryPos (đã handle ở trên), 
+                // nhưng nếu code chạy tới đây tức là chưa tới cửa.
 
-                    if (targetStepInFinish >= 1 && targetStepInFinish <= 6)
+                // Kiểm tra vật cản trên đường đi
+                for (int i = 1; i <= diceValue; i++)
+                {
+                    int checkPos = (currentPos + i) % 52;
+                    var obstacle = GetPieceAtPosition(checkPos, PieceState.OnTrack);
+
+                    if (obstacle != null)
                     {
-                        var blocker = GetPieceAtPosition(targetStepInFinish, PieceState.InFinish);
-                        if (blocker != null)
+                        // Nếu là quân mình -> Chặn
+                        if (obstacle.Team == piece.Team)
                         {
-                            if (allowMessage) AddToChat($"Ô đích số {targetStepInFinish} đã có quân.");
+                            if (allowMessage) AddToChat("Bị quân mình chặn.");
                             return false;
                         }
-
-                        nextPos = targetStepInFinish;
-                        nextState = PieceState.InFinish;
-                        return true;
-                    }
-                    else
-                    {
-                        if (allowMessage) AddToChat("Dư bước, không thể vào chuồng (quá ô 6).");
-                        return false;
+                        // Nếu là quân địch
+                        else
+                        {
+                            // Nếu địch nằm ở đúng điểm đến -> Đá được
+                            if (i == diceValue)
+                            {
+                                enemyPiece = obstacle;
+                            }
+                            // Nếu địch nằm giữa đường -> Không nhảy qua được
+                            else
+                            {
+                                if (allowMessage) AddToChat("Không thể nhảy qua đầu quân địch.");
+                                return false;
+                            }
+                        }
                     }
                 }
-                else
+
+                // Kiểm tra có đi lố cửa chuồng không
+                if (diceValue == distanceToEntry)
                 {
-                    int tmpPos = (currentPos + diceValue) % 52;
-
-                    var blocker = GetPieceAtPosition(tmpPos, PieceState.OnTrack);
-                    if (blocker != null && blocker.Team == piece.Team)
-                    {
-                        if (allowMessage) AddToChat("Bị quân mình chặn đường.");
-                        return false;
-                    }
-
-                    if (blocker != null && blocker.Team != piece.Team)
-                        enemyPiece = blocker;
-
-                    nextPos = tmpPos;
+                    nextPos = entryPos;
                     nextState = PieceState.OnTrack;
                     return true;
                 }
-            }
-
-            // 3. ĐÃ Ở TRONG ĐÍCH (InFinish) - LOGIC LEO THANG
-            else if (piece.State == PieceState.InFinish)
-            {
-                int potentialNext = piece.CurrentPosition + diceValue;
-
-                if (potentialNext <= 6)
+                else if (diceValue < distanceToEntry)
                 {
-                    if (potentialNext < 6)
-                    {
-                        var blocker = GetPieceAtPosition(potentialNext, PieceState.InFinish);
-                        if (blocker != null)
-                        {
-                            if (allowMessage) AddToChat("Ô phía trước bị chặn.");
-                            return false;
-                        }
-                    }
-                    nextPos = potentialNext;
-                    nextState = (nextPos == 6) ? PieceState.Finished : PieceState.InFinish;
+                    nextPos = (currentPos + diceValue) % 52;
+                    nextState = PieceState.OnTrack;
                     return true;
                 }
                 else
                 {
-                    if (allowMessage) AddToChat("Không thể đi quá ô số 6.");
+                    // Nếu diceValue > distanceToEntry: Tức là đi lố qua cửa chuồng nhưng không vào được 
+                    // Logic game này bắt buộc phải dừng đúng cửa hoặc vào thẳng chuồng từ cửa
+                    if (allowMessage) AddToChat("Dư bước! Cần tung đúng số để đến cửa chuồng.");
+                    return false;
+                }
+            }
+
+            // 3. LEO THANG TRONG CHUỒNG (InFinish)
+            else if (piece.State == PieceState.InFinish)
+            {
+                // Nếu tung được số lớn hơn vị trí đang đứng -> Tính toán di chuyển
+                if (diceValue > piece.CurrentPosition)
+                {
+                    int targetStep = diceValue;
+
+                    // Kiểm tra ô đích có quân chưa
+                    var blocker = GetPieceAtPosition(targetStep, PieceState.InFinish);
+                    if (blocker != null)
+                    {
+                        // Nếu ô đích bị chặn, ta kiểm tra xem có phải do quân mình đã lấp đầy hết phía trên không
+                        if (allowMessage) AddToChat($"Ô số {targetStep} đã có quân.");
+                        return false;
+                    }
+
+                    nextPos = targetStep;
+                    nextState = PieceState.InFinish;
+                    return true;
+                }
+                else
+                {
+                    if (allowMessage)
+                    {
+                        bool isFullAbove = true;
+                        // Kiểm tra tất cả các ô phía trên vị trí hiện tại cho đến ô 6
+                        for (int i = piece.CurrentPosition + 1; i <= 6; i++)
+                        {
+                            // Nếu tìm thấy một ô trống phía trên -> Nghĩa là chưa về đích xong, vẫn còn cơ hội leo lên
+                            if (GetPieceAtPosition(i, PieceState.InFinish) == null)
+                            {
+                                isFullAbove = false;
+                                break;
+                            }
+                        }
+
+                        if (isFullAbove)
+                        {
+                            // Nếu phía trên đã kín hết quân -> Coi như đã xong
+                            AddToChat("Quân này đã về đích!");
+                        }
+                        else
+                        {
+                            // Nếu phía trên còn trống -> Báo cần tung cao hơn
+                            AddToChat($"Cần tung lớn hơn {piece.CurrentPosition} để lên bước tiếp theo!");
+                        }
+                    }
                     return false;
                 }
             }
@@ -440,7 +529,7 @@ namespace CoCaNgua
         private int GetFinishEntryPosition(TeamColor team)
         {
             int start = GetStartPosition(team);
-            return (start - 1 + 52) % 52;
+            return (start - 2 + 52) % 52;
         }
 
         private QuanCo GetPieceAtPosition(int pos, PieceState state)
@@ -448,10 +537,13 @@ namespace CoCaNgua
             return pieces.Find(p =>
                 p.CurrentPosition == pos &&
                 p.State == state &&
-                (state == PieceState.InFinish || p.Team == myTeam)
+                // Nếu đang trong chuồng, chỉ tìm quân của đội mình (vì chuồng riêng biệt)
+                // Nếu trên đường đua, tìm tất cả
+                (state == PieceState.InFinish ? p.Team == myTeam : true)
             );
         }
 
+        // --- TỌA ĐỘ BÀN CỜ (GIỮ NGUYÊN) ---
         private readonly Point[] trackPoints = new Point[52]
         {
             // Red: Index 0-12
@@ -550,7 +642,8 @@ namespace CoCaNgua
         {
             if (!string.IsNullOrWhiteSpace(txtMessage.Text))
             {
-                network.Send($"CHAT|Team {myTeam}|{txtMessage.Text}");
+                string cleanMsg = txtMessage.Text;
+                network.Send($"CHAT|Team {myTeam}|{cleanMsg}");
                 txtMessage.Clear();
             }
         }
@@ -589,34 +682,31 @@ namespace CoCaNgua
 
             foreach (TeamColor mauDoi in Enum.GetValues(typeof(TeamColor)))
             {
-                int soQuan = pieces.Count(p => p.Team == mauDoi && p.State == PieceState.Finished);
-                string tenHienThi = "";
+                var quanTrongChuong = pieces.Where(p => p.Team == mauDoi && p.State == PieceState.InFinish).ToList();
+                int soQuan = quanTrongChuong.Count;
+                int tongDiemViTri = quanTrongChuong.Sum(p => p.CurrentPosition);
 
-                if (mauDoi == myTeam)
-                {
-                    tenHienThi = "Bạn";
-                }
-                else
-                {
-                    tenHienThi = "Team " + mauDoi.ToString();
-                }
-                ketQua.Add(new Player(tenHienThi, mauDoi, soQuan));
+                string tenHienThi = (mauDoi == myTeam) ? "Bạn" : "Team " + mauDoi.ToString();
+
+                var p = new Player(tenHienThi, mauDoi, soQuan);
+                p.Score = tongDiemViTri;
+                ketQua.Add(p);
             }
 
-            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich).ToList();
+            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich)
+                           .ThenByDescending(x => x.Score)
+                           .ToList();
 
             for (int i = 0; i < ketQua.Count; i++)
             {
                 ketQua[i].ThuHang = i + 1;
             }
-            if (network != null) network.Send("DONE");
 
             this.Invoke((MethodInvoker)delegate
             {
                 RankingBoard frm = new RankingBoard();
                 frm.HienThiKetQua(ketQua);
                 frm.ShowDialog();
-
                 this.Close();
             });
         }

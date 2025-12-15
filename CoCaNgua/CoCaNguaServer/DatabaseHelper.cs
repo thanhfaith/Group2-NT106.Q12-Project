@@ -8,7 +8,7 @@ namespace CoCaNguaServer
     {
         private static string connStr =
             //@"Data Source=DESKTOP-JCO2TD6;
-            @"Data Source=DESKTOP-JCO2TD6;
+            @"Data Source=YENVY;
   Initial Catalog=GameDB;
   Integrated Security=True";
 
