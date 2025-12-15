@@ -7,8 +7,7 @@ namespace CoCaNguaServer
     internal class DatabaseHelper
     {
         private static string connStr =
-            //@"Data Source=DESKTOP-JCO2TD6;
-            @"Data Source=DESKTOP-JCO2TD6;
+            @"Data Source=LAPTOP-EDR1OHEC;
   Initial Catalog=GameDB;
   Integrated Security=True";
 

@@ -191,8 +191,7 @@ namespace CoCaNguaServer
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            Random rand = new Random();
-                            int diceValue = rand.Next(1, 7);
+                            int diceValue = RollDiceWeighted();
 
                             ServerBroadcaster.BroadcastToRoom(roomCode, $"DICE|{diceValue}");
                             Log($"ROLL -> room:{roomCode} dice:{diceValue}");
@@ -512,8 +511,8 @@ namespace CoCaNguaServer
             int[] dice = { 1, 2, 3, 4, 5, 6 };
 
             // Xác suất (%) – bạn có thể chỉnh số này
-            int[] weight = { 15, 15, 13, 12, 10, 35 };
-            // 1:5% | 2:10% | 3:15% | 4:20% | 5:20% | 6:30%
+            int[] weight = { 13, 13, 13, 13, 13, 35 };
+            // 1:13% | 2:13% | 3:13% | 4:13% | 5:13% | 6:35%
             
             int roll = diceRand.Next(1, 101); // 1 → 100
             int sum = 0;
