@@ -261,7 +261,7 @@ namespace CoCaNgua
                 piece.State = nextState;
                 UpdatePieceUI(piece);
 
-                // --- SỬA 3: Kiểm tra điều kiện thắng ---
+                // --- Kiểm tra điều kiện thắng ---
                 if (CheckWin(myTeam))
                 {
                     network.Send($"GAME_OVER|{myTeam}");
@@ -283,13 +283,13 @@ namespace CoCaNgua
             }
         }
 
-        // --- SỬA 4: Logic kiểm tra thắng chính xác hơn ---
+        // --- Logic kiểm tra thắng chính xác hơn ---
         private bool CheckWin(TeamColor team)
         {
             // Lấy tất cả quân đang ở trong thang về đích
             var myPieces = pieces.Where(p => p.Team == team && p.State == PieceState.InFinish).ToList();
 
-            // Kiểm tra xem đã lấp đầy các ô cao nhất chưa (Luật phổ biến: 6, 5, 4, 3)
+            // Kiểm tra xem đã lấp đầy các ô cao nhất chưa
             bool has6 = myPieces.Any(p => p.CurrentPosition == 6);
             bool has5 = myPieces.Any(p => p.CurrentPosition == 5);
             bool has4 = myPieces.Any(p => p.CurrentPosition == 4);
@@ -304,7 +304,7 @@ namespace CoCaNgua
             nextState = piece.State;
             enemyPiece = null;
 
-            // 1. RA QUÂN (Đang ở nhà chờ)
+            // 1. RA QUÂN
             if (piece.State == PieceState.InHome)
             {
                 if (diceValue == 6)
@@ -327,7 +327,7 @@ namespace CoCaNgua
                 return false;
             }
 
-            // 2. DI CHUYỂN TRÊN ĐƯỜNG ĐUA (OnTrack)
+            // 2. DI CHUYỂN TRÊN ĐƯỜNG ĐUA
             else if (piece.State == PieceState.OnTrack)
             {
                 int entryPos = GetFinishEntryPosition(piece.Team);
@@ -352,9 +352,6 @@ namespace CoCaNgua
 
                 // Tính khoảng cách tới cửa chuồng
                 int distanceToEntry = (entryPos - currentPos + 52) % 52;
-
-                // Xử lý trường hợp đặc biệt: Nếu distance = 0 nghĩa là đang ở entryPos (đã handle ở trên), 
-                // nhưng nếu code chạy tới đây tức là chưa tới cửa.
 
                 // Kiểm tra vật cản trên đường đi
                 for (int i = 1; i <= diceValue; i++)
@@ -403,14 +400,12 @@ namespace CoCaNgua
                 }
                 else
                 {
-                    // Nếu diceValue > distanceToEntry: Tức là đi lố qua cửa chuồng nhưng không vào được 
-                    // Logic game này bắt buộc phải dừng đúng cửa hoặc vào thẳng chuồng từ cửa
                     if (allowMessage) AddToChat("Dư bước! Cần tung đúng số để đến cửa chuồng.");
                     return false;
                 }
             }
 
-            // 3. LEO THANG TRONG CHUỒNG (InFinish)
+            // 3. LEO THANG TRONG CHUỒNG
             else if (piece.State == PieceState.InFinish)
             {
                 // Nếu tung được số lớn hơn vị trí đang đứng -> Tính toán di chuyển
@@ -537,13 +532,11 @@ namespace CoCaNgua
             return pieces.Find(p =>
                 p.CurrentPosition == pos &&
                 p.State == state &&
-                // Nếu đang trong chuồng, chỉ tìm quân của đội mình (vì chuồng riêng biệt)
-                // Nếu trên đường đua, tìm tất cả
                 (state == PieceState.InFinish ? p.Team == myTeam : true)
             );
         }
 
-        // --- TỌA ĐỘ BÀN CỜ (GIỮ NGUYÊN) ---
+        // --- TỌA ĐỘ BÀN CỜ  ---
         private readonly Point[] trackPoints = new Point[52]
         {
             // Red: Index 0-12
@@ -689,12 +682,10 @@ namespace CoCaNgua
                 string tenHienThi = (mauDoi == myTeam) ? "Bạn" : "Team " + mauDoi.ToString();
 
                 var p = new Player(tenHienThi, mauDoi, soQuan);
-                p.Score = tongDiemViTri;
                 ketQua.Add(p);
             }
 
-            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich)
-                           .ThenByDescending(x => x.Score)
+            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich) 
                            .ToList();
 
             for (int i = 0; i < ketQua.Count; i++)

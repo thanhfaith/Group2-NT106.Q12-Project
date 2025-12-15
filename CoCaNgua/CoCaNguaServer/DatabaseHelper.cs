@@ -7,8 +7,7 @@ namespace CoCaNguaServer
     internal class DatabaseHelper
     {
         private static string connStr =
-            //@"Data Source=DESKTOP-JCO2TD6;
-            @"Data Source=YENVY;
+            @"Data Source=LAPTOP-EDR1OHEC;
   Initial Catalog=GameDB;
   Integrated Security=True";
 
@@ -145,7 +144,7 @@ namespace CoCaNguaServer
                                 return true; // Đã trong phòng rồi
                             }
 
-                            // ✅ 3. THÊM CHECK SỐ LƯỢNG NGƯỜI (ví dụ tối đa 4 người)
+                            // THÊM CHECK SỐ LƯỢNG NGƯỜI (ví dụ tối đa 4 người)
                             string countSql = "SELECT COUNT(*) FROM RoomPlayers WHERE RoomId=@r";
                             SqlCommand countCmd = new SqlCommand(countSql, conn, transaction);
                             countCmd.Parameters.AddWithValue("@r", roomId);

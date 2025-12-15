@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +18,7 @@ namespace CoCaNguaServer
     {
         TcpListener listener;
         bool isRunning = false;
+        static Random diceRand = new Random();
 
         public Form1()
         {
@@ -136,7 +137,7 @@ namespace CoCaNguaServer
                         Log($"REGISTER_ROOM -> user:{userId} room:{roomCode} endpoint:{clientEndpoint} (clients in room: {clientCount})");
                     }
 
-                    // Broadcast cho tất cả trong phòng + Phân đội
+                    // START_GAME - Broadcast cho tất cả trong phòng + Phân đội
                     else if (request.StartsWith("START_GAME|"))
                     {
                         string roomCode = request.Split('|')[1].ToUpper();
@@ -175,6 +176,7 @@ namespace CoCaNguaServer
                             }
                         }
 
+                        // BẮT ĐẦU LƯỢT ĐẦU TIÊN = team đầu tiên trong activeTeams (thường là Red)
                         Thread.Sleep(200);
                         string firstTurn = activeTeams[0];
                         ServerBroadcaster.SetRoomTurn(roomCode, firstTurn);
@@ -190,7 +192,6 @@ namespace CoCaNguaServer
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            Random rand = new Random();
                             int diceValue = RollDiceWeighted();
 
                             ServerBroadcaster.BroadcastToRoom(roomCode, $"DICE|{diceValue}");
@@ -214,7 +215,7 @@ namespace CoCaNguaServer
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            // Lấy danh sách team thật sự có trong phòng
+                            // Lấy danh sách team thật sự có trong phòng (2-4 người)
                             var teamOrder = ServerBroadcaster.GetRoomTeams(roomCode);
                             if (teamOrder == null || teamOrder.Count == 0)
                                 teamOrder = new List<string> { "Red", "Green", "Yellow", "Blue" };
@@ -233,17 +234,28 @@ namespace CoCaNguaServer
                         }
                         response = "TURN_OK";
                     }
-
-
                     else if (request.StartsWith("DONE"))
                     {
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            Log($"WINNER FOUND in room {roomCode}. Broadcasting GAME_OVER immediately.");
+                            // Lưu thứ hạng vào database
+                            int rank = ServerBroadcaster.IncrementRank(roomCode);
 
-                            // Gửi lệnh GAME_OVER tới TẤT CẢ client trong phòng bao gồm cả người thắng
-                            ServerBroadcaster.BroadcastToRoom(roomCode, "GAME_OVER");
+                            // Broadcast kết quả
+                            ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|Player|{rank}");
+                            Log($"DONE -> room:{roomCode} rank:{rank}");
+
+                            // Nếu đã có đủ số người về đích, kết thúc game
+                            int totalPlayers = ServerBroadcaster.GetRoomTeams(roomCode).Count;
+                            if (totalPlayers <= 0) totalPlayers = 4;
+
+                            if (rank >= totalPlayers)
+                            {
+                                Thread.Sleep(1000);
+                                ServerBroadcaster.BroadcastToRoom(roomCode, "GAME_OVER");
+                                Log($"GAME_OVER -> room:{roomCode}");
+                            }
                         }
                         response = "DONE_OK";
                     }
@@ -254,7 +266,8 @@ namespace CoCaNguaServer
                         if (roomCode != null)
                         {
                             string message = request.Substring(5);
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{message}");
+                            // Lấy username từ database
+                            ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|Player|{message}");
                             Log($"CHAT -> room:{roomCode} msg:{message}");
                         }
                         response = "CHAT_OK";
@@ -265,6 +278,7 @@ namespace CoCaNguaServer
                         response = "Lệnh không hợp lệ.";
                     }
 
+                    // Gửi response
                     if (!string.IsNullOrEmpty(response))
                     {
                         byte[] responseData = Encoding.UTF8.GetBytes(response);
@@ -286,7 +300,6 @@ namespace CoCaNguaServer
 
         public static class ServerBroadcaster
         {
-            // Dictionary: RoomCode -> Dictionary<string (endpoint), TcpClient>
             public static Dictionary<string, Dictionary<string, TcpClient>> Rooms = new Dictionary<string, Dictionary<string, TcpClient>>();
 
             // Track client thuộc phòng nào
@@ -301,6 +314,7 @@ namespace CoCaNguaServer
 
             public static HashSet<string> StartedRooms = new HashSet<string>();
             private static object lockObj = new object();
+
             // SET/GET danh sách team theo phòng
             public static void SetRoomTeams(string roomCode, List<string> teams)
             {
@@ -317,6 +331,7 @@ namespace CoCaNguaServer
                     if (RoomTeamOrders.ContainsKey(roomCode))
                         return RoomTeamOrders[roomCode];
 
+                    // mặc định nếu chưa set
                     return new List<string> { "Red", "Green", "Yellow", "Blue" };
                 }
             }
@@ -339,6 +354,7 @@ namespace CoCaNguaServer
                         Rooms[roomCode][endpoint] = client;
                     }
 
+                    // LƯU MAPPING
                     ClientToRoom[client] = roomCode;
                 }
             }
@@ -401,6 +417,7 @@ namespace CoCaNguaServer
                                 room.Remove(endpoint);
                         }
 
+                        // Xóa mapping
                         if (ClientToRoom.ContainsKey(client))
                             ClientToRoom.Remove(client);
                     }
@@ -444,7 +461,21 @@ namespace CoCaNguaServer
                     RoomTurns[roomCode] = turn;
                 }
             }
+
+            // QUẢN LÝ XẾP HẠNG
+            public static int IncrementRank(string roomCode)
+            {
+                lock (lockObj)
+                {
+                    if (!RoomRanks.ContainsKey(roomCode))
+                        RoomRanks[roomCode] = 0;
+
+                    RoomRanks[roomCode]++;
+                    return RoomRanks[roomCode];
+                }
+            }
         }
+
         private void Log(string message)
         {
             if (InvokeRequired)
@@ -470,13 +501,14 @@ namespace CoCaNguaServer
                 Log("Server đã dừng.");
             }
         }
-        static Random diceRand = new Random();
 
         int RollDiceWeighted()
         {
             int[] dice = { 1, 2, 3, 4, 5, 6 };
-            int[] weight = { 15, 15, 13, 12, 10, 35 };
-            int roll = diceRand.Next(1, 101); 
+            int[] weight = { 13, 13, 13, 13, 13, 35 };
+            // 1:13% | 2:13% | 3:13% | 4:13% | 5:13% | 6:35%
+
+            int roll = diceRand.Next(1, 101);
             int sum = 0;
 
             for (int i = 0; i < dice.Length; i++)
@@ -488,6 +520,7 @@ namespace CoCaNguaServer
 
             return 1;
         }
+
         private void lstClients_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
