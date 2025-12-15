@@ -387,7 +387,9 @@
             Controls.Add(panel1);
             DoubleBuffered = true;
             Font = new Font("Comic Sans MS", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
+            MaximizeBox = false;
             Name = "ChessBoard";
             Text = "Vaogame";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

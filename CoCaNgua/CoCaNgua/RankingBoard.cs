@@ -29,7 +29,10 @@ namespace CoCaNgua
         public void HienThiKetQua(List<Player> danhSachKetQua)
         {
             listBox1.Items.Clear();
-            listBox1.Font = new Font("Arial", 14, FontStyle.Bold);
+            listBox1.Font = new Font("Arial", 12, FontStyle.Bold);
+
+            listBox1.Items.Add(string.Format("{0,-12} | {1,-20} | {2,-10} ", "HẠNG", "TÊN", "QUÂN"));
+            listBox1.Items.Add("-------------------------------------------------------------------");
 
             foreach (Player p in danhSachKetQua)
             {
@@ -38,11 +41,13 @@ namespace CoCaNgua
                 {
                     case 1: danhHieu = "VÔ ĐỊCH 🏆"; break;
                     case 2: danhHieu = "Á QUÂN 🥈"; break;
-                    case 3: danhHieu = "HẠNG BA 🥉"; break;
+                    case 3: danhHieu = "HẠNG 3 🥉"; break;
                     case 4: danhHieu = "HẠNG BÉT 🐢"; break;
                 }
-
-                string dongHienThi = $"{danhHieu.PadRight(12)} | {p.Ten} ({p.Doi}) | {p.SoQuanVeDich} quân";
+                string dongHienThi = string.Format("{0,-12} | {1,-20} | {2,-10}",
+                    danhHieu,
+                    $"{p.Ten} ({p.Doi})",
+                    $"{p.SoQuanVeDich} về");
 
                 listBox1.Items.Add(dongHienThi);
             }
