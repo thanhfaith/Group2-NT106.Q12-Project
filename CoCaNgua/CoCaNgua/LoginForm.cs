@@ -32,7 +32,16 @@ namespace CoCaNgua
 
             if (response.StartsWith("LOGIN_OK|"))
             {
+                string[] parts = response.Split('|');
                 Session.UserId = int.Parse(response.Split('|')[1]);
+                if (parts.Length > 2)
+                {
+                    Session.Username = parts[2];
+                }
+                else
+                {
+                    Session.Username = usernameOrEmail; // Fallback
+                }
                 MessageBox.Show("Đăng nhập thành công!");
 
                 // Connect persistent network once here (if chưa)

@@ -7,7 +7,10 @@ namespace CoCaNguaServer
     internal class DatabaseHelper
     {
         private static string connStr =
-            @"Data Source=LAPTOP-EDR1OHEC;
+        //          @"Data Source=LAPTOP-EDR1OHEC;
+        //Initial Catalog=GameDB;
+        //Integrated Security=True";
+        @"Data Source=DESKTOP-9Q6P0AS\MSSQLSERVER01;
   Initial Catalog=GameDB;
   Integrated Security=True";
 
@@ -219,6 +222,52 @@ namespace CoCaNguaServer
 
                 object result = cmd.ExecuteScalar();
                 return result == null ? -1 : Convert.ToInt32(result);
+            }
+        }
+        public static string GetUsername(int userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
+                    string sql = "SELECT Username FROM Users WHERE UserId = @userId";
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? result.ToString() : "Player";
+                }
+            }
+            catch
+            {
+                return "Player";
+            }
+        }
+
+        // ✅ THÊM METHOD MỚI - LẤY USERNAME + USERID KẾT HỢP
+        public static (int userId, string username) GetUserInfo(string usernameOrEmail, string passwordHash)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                string sql = @"SELECT UserId, Username FROM Users 
+                       WHERE (Username=@u OR Email=@u) AND Password=@p";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@u", usernameOrEmail);
+                cmd.Parameters.AddWithValue("@p", passwordHash);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32(0);
+                        string username = reader.GetString(1);
+                        return (userId, username);
+                    }
+                }
+
+                return (-1, "");
             }
         }
     }

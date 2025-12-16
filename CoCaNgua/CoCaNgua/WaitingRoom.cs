@@ -75,7 +75,7 @@ namespace CoCaNgua
                     {
                         try
                         {
-                            ChessBoard cb = new ChessBoard(network);
+                            ChessBoard cb = new ChessBoard(network, roomCode);
                             cb.Show();
                             this.Close();
                         }
@@ -89,7 +89,7 @@ namespace CoCaNgua
                 {
                     try
                     {
-                        ChessBoard cb = new ChessBoard(network);
+                        ChessBoard cb = new ChessBoard(network, roomCode);
                         cb.Show();
                         this.Close();
                     }
