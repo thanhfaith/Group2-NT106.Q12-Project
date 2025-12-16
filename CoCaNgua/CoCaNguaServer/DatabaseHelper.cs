@@ -7,12 +7,8 @@ namespace CoCaNguaServer
     internal class DatabaseHelper
     {
         private static string connStr =
-        //          @"Data Source=LAPTOP-EDR1OHEC;
-        //Initial Catalog=GameDB;
-        //Integrated Security=True";
-        @"Data Source=DESKTOP-9Q6P0AS\MSSQLSERVER01;
-  Initial Catalog=GameDB;
-  Integrated Security=True";
+            @"Data Source=LAPTOP-EDR1OHEC; Initial Catalog=GameDB; Integrated Security=True";
+            //@"Data Source=DESKTOP-9Q6P0AS\MSSQLSERVER01; Initial Catalog=GameDB; Integrated Security=True";
 
         private static readonly object joinRoomLock = new object();
 

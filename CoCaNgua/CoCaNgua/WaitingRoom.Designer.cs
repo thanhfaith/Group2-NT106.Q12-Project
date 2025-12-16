@@ -51,7 +51,7 @@ namespace CoCaNgua
             lblRoomCode.Location = new Point(130, 62);
             lblRoomCode.Margin = new Padding(5, 0, 5, 0);
             lblRoomCode.Name = "lblRoomCode";
-            lblRoomCode.Size = new Size(149, 41);
+            lblRoomCode.Size = new Size(123, 33);
             lblRoomCode.TabIndex = 0;
             lblRoomCode.Text = "Mã phòng ";
             // 
@@ -81,11 +81,11 @@ namespace CoCaNgua
             // lstPlayers
             // 
             lstPlayers.FormattingEnabled = true;
-            lstPlayers.ItemHeight = 39;
+            lstPlayers.ItemHeight = 31;
             lstPlayers.Location = new Point(18, 72);
             lstPlayers.Margin = new Padding(3, 4, 3, 4);
             lstPlayers.Name = "lstPlayers";
-            lstPlayers.Size = new Size(436, 277);
+            lstPlayers.Size = new Size(436, 252);
             lstPlayers.TabIndex = 0;
             // 
             // btnStartGame
@@ -99,13 +99,13 @@ namespace CoCaNgua
             btnStartGame.Name = "btnStartGame";
             btnStartGame.Size = new Size(138, 66);
             btnStartGame.TabIndex = 3;
-            btnStartGame.Text = "Vào game ";
+            btnStartGame.Text = "BẮT ĐẦU";
             btnStartGame.UseVisualStyleBackColor = false;
             btnStartGame.Click += btnStartGame_Click;
             // 
-            // r
+            // WaitingRoom
             // 
-            AutoScaleDimensions = new SizeF(17F, 39F);
+            AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_15_221556;
             BackgroundImageLayout = ImageLayout.Stretch;
@@ -118,7 +118,7 @@ namespace CoCaNgua
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ControlText;
             Margin = new Padding(5);
-            Name = "r";
+            Name = "WaitingRoom";
             Text = "Taophong";
             Load += WaitingRoom_Load;
             groupBox1.ResumeLayout(false);

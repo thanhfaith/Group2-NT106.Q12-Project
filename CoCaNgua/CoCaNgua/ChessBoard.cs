@@ -205,16 +205,52 @@ namespace CoCaNgua
                             break;
 
                         case "CHAT":
-
-                            if (parts.Length >= 3)
+                            // server gửi: CHAT|Team|Username|Message
+                            if (parts.Length >= 4)
                             {
-                                string sender = parts[1];
-                                string content = string.Join("|", parts.Skip(2));
+                                string team = parts[1];
+                                string sender = parts[2];
+                                string content = string.Join("|", parts.Skip(3));
 
-                                // Không hiện lại tin của mình
                                 if (sender != Session.Username)
+                                    AddChatMessage($"({team}) {sender}: {content}");
+                            }
+                            break;
+
+                        case "NAMES":
+                            // Ẩn hết trước
+                            lblRedName.Visible = false;
+                            lblGreenName.Visible = false;
+                            lblYellowName.Visible = false;
+                            lblBlueName.Visible = false;
+
+                            // NAMES|Red:abc|Green:def|...
+                            for (int i = 1; i < parts.Length; i++)
+                            {
+                                var kv = parts[i].Split(':');
+                                if (kv.Length != 2) continue;
+
+                                string team = kv[0];
+                                string name = kv[1];
+
+                                switch (team)
                                 {
-                                    AddChatMessage($"{sender}: {content}");
+                                    case "Red":
+                                        lblRedName.Text = $"(Red) {name}";
+                                        lblRedName.Visible = true;
+                                        break;
+                                    case "Green":
+                                        lblGreenName.Text = $"(Green) {name}";
+                                        lblGreenName.Visible = true;
+                                        break;
+                                    case "Yellow":
+                                        lblYellowName.Text = $"(Yellow) {name}";
+                                        lblYellowName.Visible = true;
+                                        break;
+                                    case "Blue":
+                                        lblBlueName.Text = $"(Blue) {name}";
+                                        lblBlueName.Visible = true;
+                                        break;
                                 }
                             }
                             break;

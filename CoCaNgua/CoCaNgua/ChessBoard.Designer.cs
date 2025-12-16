@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChessBoard));
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
+            lblYellowName = new Label();
+            lblBlueName = new Label();
+            lblGreenName = new Label();
+            lblRedName = new Label();
             green4 = new PictureBox();
             green3 = new PictureBox();
             green2 = new PictureBox();
@@ -90,6 +94,10 @@
             // 
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(lblYellowName);
+            panel1.Controls.Add(lblBlueName);
+            panel1.Controls.Add(lblGreenName);
+            panel1.Controls.Add(lblRedName);
             panel1.Controls.Add(green4);
             panel1.Controls.Add(green3);
             panel1.Controls.Add(green2);
@@ -111,6 +119,46 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(686, 654);
             panel1.TabIndex = 0;
+            // 
+            // lblYellowName
+            // 
+            lblYellowName.AutoSize = true;
+            lblYellowName.BackColor = Color.Transparent;
+            lblYellowName.Location = new Point(422, 401);
+            lblYellowName.Name = "lblYellowName";
+            lblYellowName.Size = new Size(57, 24);
+            lblYellowName.TabIndex = 27;
+            lblYellowName.Text = "label1";
+            // 
+            // lblBlueName
+            // 
+            lblBlueName.AutoSize = true;
+            lblBlueName.BackColor = Color.Transparent;
+            lblBlueName.Location = new Point(19, 401);
+            lblBlueName.Name = "lblBlueName";
+            lblBlueName.Size = new Size(57, 24);
+            lblBlueName.TabIndex = 26;
+            lblBlueName.Text = "label1";
+            // 
+            // lblGreenName
+            // 
+            lblGreenName.AutoSize = true;
+            lblGreenName.BackColor = Color.Transparent;
+            lblGreenName.Location = new Point(422, 18);
+            lblGreenName.Name = "lblGreenName";
+            lblGreenName.Size = new Size(57, 24);
+            lblGreenName.TabIndex = 25;
+            lblGreenName.Text = "label1";
+            // 
+            // lblRedName
+            // 
+            lblRedName.AutoSize = true;
+            lblRedName.BackColor = Color.Transparent;
+            lblRedName.Location = new Point(19, 18);
+            lblRedName.Name = "lblRedName";
+            lblRedName.Size = new Size(57, 24);
+            lblRedName.TabIndex = 24;
+            lblRedName.Text = "label1";
             // 
             // green4
             // 
@@ -419,6 +467,7 @@
             Text = "Vaogame";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)green4).EndInit();
             ((System.ComponentModel.ISupportInitialize)green3).EndInit();
             ((System.ComponentModel.ISupportInitialize)green2).EndInit();
@@ -467,5 +516,9 @@
         private RichTextBox rtbChat;
         private Button btnSend;
         private TextBox tbChat;
+        private Label lblYellowName;
+        private Label lblBlueName;
+        private Label lblGreenName;
+        private Label lblRedName;
     }
 }

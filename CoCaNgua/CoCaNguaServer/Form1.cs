@@ -96,9 +96,11 @@ namespace CoCaNguaServer
 
                             if (userId > 0)
                             {
+                                ServerBroadcaster.SetClientUsername(client, username); // ✅ thêm dòng này
                                 response = $"LOGIN_OK|{userId}|{username}";
                                 Log($"LOGIN -> user:{username} (id:{userId})");
                             }
+
                             else
                             {
                                 response = "LOGIN_FAIL";
@@ -134,15 +136,13 @@ namespace CoCaNguaServer
                         int userId = int.Parse(p[1]);
                         string roomCode = p[2].ToUpper();
 
-                        string clientEndpoint = client.Client.RemoteEndPoint.ToString();
+                        // ✅ BỔ SUNG: set username cho đúng TcpClient đang ở phòng
+                        string username = DatabaseHelper.GetUsername(userId);
+                        ServerBroadcaster.SetClientUsername(client, username);
 
                         ServerBroadcaster.AddClientToRoom(roomCode, client);
 
-                        int clientCount = ServerBroadcaster.GetRoomClientCount(roomCode);
-
                         response = "REGISTERED";
-
-                        Log($"REGISTER_ROOM -> user:{userId} room:{roomCode} endpoint:{clientEndpoint} (clients in room: {clientCount})");
                     }
 
                     // START_GAME - Broadcast cho tất cả trong phòng + Phân đội
@@ -176,6 +176,7 @@ namespace CoCaNguaServer
                             {
                                 byte[] assignData = Encoding.UTF8.GetBytes($"ASSIGN|{teams[i]}");
                                 clients[i].GetStream().Write(assignData, 0, assignData.Length);
+                                ServerBroadcaster.SetClientTeam(clients[i], teams[i]);
                                 Log($"ASSIGN -> room:{roomCode} client:{i} team:{teams[i]}");
                             }
                             catch (Exception ex)
@@ -183,6 +184,17 @@ namespace CoCaNguaServer
                                 Log($"ASSIGN Error: {ex.Message}");
                             }
                         }
+
+                        var nameParts = new List<string> { "NAMES" };
+                        for (int i = 0; i < teamCount; i++)
+                        {
+                            string team = teams[i];
+                            string uname = ServerBroadcaster.GetClientUsername(clients[i]);
+                            nameParts.Add($"{team}:{uname}");
+                        }
+                        ServerBroadcaster.BroadcastToRoom(roomCode, string.Join("|", nameParts));
+                        Log($"NAMES -> room:{roomCode} {string.Join("|", nameParts)}");
+
 
                         // BẮT ĐẦU LƯỢT ĐẦU TIÊN = team đầu tiên trong activeTeams (thường là Red)
                         Thread.Sleep(200);
@@ -280,7 +292,8 @@ namespace CoCaNguaServer
                                 string message = parts[2];
 
                                 // Broadcast cho TẤT CẢ clients trong phòng
-                                ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{senderName}|{message}");
+                                string team = ServerBroadcaster.GetClientTeam(client);
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{team}|{senderName}|{message}");
                                 Log($"CHAT -> room:{roomCode} from:{senderName} msg:{message}");
                             }
                         }
@@ -328,6 +341,30 @@ namespace CoCaNguaServer
 
             public static HashSet<string> StartedRooms = new HashSet<string>();
             private static object lockObj = new object();
+
+            public static Dictionary<TcpClient, string> ClientToTeam = new Dictionary<TcpClient, string>();
+
+            public static void SetClientTeam(TcpClient client, string team)
+            {
+                lock (lockObj) ClientToTeam[client] = team;
+            }
+
+            public static string GetClientTeam(TcpClient client)
+            {
+                lock (lockObj) return ClientToTeam.ContainsKey(client) ? ClientToTeam[client] : "Unknown";
+            }
+
+            public static Dictionary<TcpClient, string> ClientToUsername = new Dictionary<TcpClient, string>();
+
+            public static void SetClientUsername(TcpClient client, string username)
+            {
+                lock (lockObj) ClientToUsername[client] = username;
+            }
+
+            public static string GetClientUsername(TcpClient client)
+            {
+                lock (lockObj) return ClientToUsername.ContainsKey(client) ? ClientToUsername[client] : "Player";
+            }
 
             // SET/GET danh sách team theo phòng
             public static void SetRoomTeams(string roomCode, List<string> teams)
@@ -431,13 +468,22 @@ namespace CoCaNguaServer
                                 room.Remove(endpoint);
                         }
 
-                        // Xóa mapping
+                        // Xóa mapping phòng
                         if (ClientToRoom.ContainsKey(client))
                             ClientToRoom.Remove(client);
+
+                        // ✅ XÓA TEAM
+                        if (ClientToTeam.ContainsKey(client))
+                            ClientToTeam.Remove(client);
+
+                        // ✅ XÓA USERNAME
+                        if (ClientToUsername.ContainsKey(client))
+                            ClientToUsername.Remove(client);
                     }
                     catch { }
                 }
             }
+
 
             public static int GetRoomClientCount(string roomCode)
             {

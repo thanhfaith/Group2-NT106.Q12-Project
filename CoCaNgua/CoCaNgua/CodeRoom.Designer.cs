@@ -86,9 +86,9 @@
             label1.BackColor = Color.Transparent;
             label1.Location = new Point(367, 374);
             label1.Name = "label1";
-            label1.Size = new Size(116, 31);
+            label1.Size = new Size(121, 31);
             label1.TabIndex = 5;
-            label1.Text = "BẮT ĐẦU";
+            label1.Text = "Vào phòng";
             // 
             // CodeRoom
             // 
