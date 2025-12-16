@@ -17,11 +17,13 @@ namespace CoCaNgua
         TeamColor currentTurn;
         int currentDiceValue = 0;
         bool hasRolled = false;
-
-        public ChessBoard(NetworkHelper existingNetwork)
+        private ChatForm chatForm;
+        private string currentRoomCode;
+        public ChessBoard(NetworkHelper existingNetwork, string roomCode = "")
         {
             InitializeComponent();
             this.network = existingNetwork;
+            this.currentRoomCode = roomCode;
             if (this.network != null)
             {
                 this.network.OnMessageReceived += HandleNetworkMessage;
@@ -82,7 +84,7 @@ namespace CoCaNgua
 
         private void HandleNetworkMessage(string msg)
         {
-            if (this.IsDisposed) return; 
+            if (this.IsDisposed) return;
 
             this.Invoke((MethodInvoker)delegate
             {
@@ -204,12 +206,7 @@ namespace CoCaNgua
                             break;
 
                         case "CHAT":
-                            if (parts.Length >= 3)
-                            {
-                                string senderName = parts[1];
-                                string content = string.Join("|", parts.Skip(2));
-                                AddToChat($"[CHAT] {senderName}: {content}");
-                            }
+                           
                             break;
 
                         case "ERROR":
@@ -631,15 +628,7 @@ namespace CoCaNgua
             return new Point(0, 0);
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(txtMessage.Text))
-            {
-                string cleanMsg = txtMessage.Text;
-                network.Send($"CHAT|Team {myTeam}|{cleanMsg}");
-                txtMessage.Clear();
-            }
-        }
+
 
         private void ShowDiceImage(int value)
         {
@@ -685,7 +674,7 @@ namespace CoCaNgua
                 ketQua.Add(p);
             }
 
-            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich) 
+            ketQua = ketQua.OrderByDescending(x => x.SoQuanVeDich)
                            .ToList();
 
             for (int i = 0; i < ketQua.Count; i++)
@@ -708,6 +697,20 @@ namespace CoCaNgua
             {
                 network.Send("ROLL");
                 btnDice.Enabled = false;
+            }
+        }
+
+        private void btnChat_Click(object sender, EventArgs e)
+        {
+            if (chatForm == null || chatForm.IsDisposed)
+            {
+                chatForm = new ChatForm(network, currentRoomCode);
+                chatForm.Show();
+            }
+            else
+            {
+                chatForm.BringToFront();
+                chatForm.Focus();
             }
         }
     }

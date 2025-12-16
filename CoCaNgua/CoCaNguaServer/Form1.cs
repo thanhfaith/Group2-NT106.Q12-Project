@@ -92,10 +92,18 @@ namespace CoCaNguaServer
                         var parts = request.Split('|');
                         if (parts.Length == 3)
                         {
-                            int userId = DatabaseHelper.GetUserId(parts[1], parts[2]);
-                            response = userId > 0
-                                ? $"LOGIN_OK|{userId}"
-                                : "LOGIN_FAIL";
+                            var (userId, username) = DatabaseHelper.GetUserInfo(parts[1], parts[2]);
+
+                            if (userId > 0)
+                            {
+                                response = $"LOGIN_OK|{userId}|{username}";
+                                Log($"LOGIN -> user:{username} (id:{userId})");
+                            }
+                            else
+                            {
+                                response = "LOGIN_FAIL";
+                                Log($"LOGIN_FAIL -> username/email:{parts[1]}");
+                            }
                         }
                     }
                     else if (request.StartsWith("CREATE_ROOM|"))
@@ -265,10 +273,16 @@ namespace CoCaNguaServer
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            string message = request.Substring(5);
-                            // Lấy username từ database
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|Player|{message}");
-                            Log($"CHAT -> room:{roomCode} msg:{message}");
+                            var parts = request.Split(new[] { '|' }, 3);
+                            if (parts.Length >= 3)
+                            {
+                                string senderName = parts[1]; // Username từ client gửi lên
+                                string message = parts[2];
+
+                                // Broadcast cho TẤT CẢ clients trong phòng
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{senderName}|{message}");
+                                Log($"CHAT -> room:{roomCode} from:{senderName} msg:{message}");
+                            }
                         }
                         response = "CHAT_OK";
                     }
