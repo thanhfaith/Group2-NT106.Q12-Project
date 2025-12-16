@@ -259,26 +259,24 @@ namespace CoCaNguaServer
                         string roomCode = ServerBroadcaster.GetClientRoom(client);
                         if (roomCode != null)
                         {
-                            // Lưu thứ hạng vào database
                             int rank = ServerBroadcaster.IncrementRank(roomCode);
 
-                            // Broadcast kết quả
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|Player|{rank}");
-                            Log($"DONE -> room:{roomCode} rank:{rank}");
+                            string winnerTeam = ServerBroadcaster.GetClientTeam(client);
 
-                            // Nếu đã có đủ số người về đích, kết thúc game
-                            int totalPlayers = ServerBroadcaster.GetRoomTeams(roomCode).Count;
-                            if (totalPlayers <= 0) totalPlayers = 4;
+                            // log / rank message (tuỳ bạn giữ hay bỏ)
+                            ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|{winnerTeam}|{rank}");
+                            Log($"DONE -> room:{roomCode} team:{winnerTeam} rank:{rank}");
 
-                            if (rank >= totalPlayers)
+                            // ✅ kết thúc ngay khi có đội đầu tiên win
+                            if (rank == 1)
                             {
-                                Thread.Sleep(1000);
-                                ServerBroadcaster.BroadcastToRoom(roomCode, "GAME_OVER");
-                                Log($"GAME_OVER -> room:{roomCode}");
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"GAME_OVER|{winnerTeam}");
+                                Log($"GAME_OVER -> room:{roomCode} winner:{winnerTeam}");
                             }
                         }
                         response = "DONE_OK";
                     }
+
 
                     else if (request.StartsWith("CHAT|"))
                     {
