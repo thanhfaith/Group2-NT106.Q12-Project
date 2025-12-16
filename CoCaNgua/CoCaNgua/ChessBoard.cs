@@ -307,8 +307,9 @@ namespace CoCaNgua
                 // --- Kiểm tra điều kiện thắng ---
                 if (CheckWin(myTeam))
                 {
-                    network.Send($"GAME_OVER|{myTeam}");
+                    network.Send("DONE");     // ✅ báo server kết thúc
                     hasRolled = false;
+                    btnDice.Enabled = false;
                     return;
                 }
 
