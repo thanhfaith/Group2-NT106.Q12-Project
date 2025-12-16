@@ -38,7 +38,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Salmon;
-            label1.Location = new Point(209, 9);
+            label1.Location = new Point(432, 15);
             label1.Name = "label1";
             label1.Size = new Size(140, 38);
             label1.TabIndex = 0;
@@ -47,10 +47,10 @@
             // richTextBox1
             // 
             richTextBox1.BackColor = SystemColors.Info;
-            richTextBox1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(43, 53);
+            richTextBox1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBox1.Location = new Point(45, 66);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(472, 472);
+            richTextBox1.Size = new Size(890, 472);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
             // 
@@ -59,7 +59,7 @@
             button1.BackColor = Color.Pink;
             button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.Tomato;
-            button1.Location = new Point(209, 544);
+            button1.Location = new Point(434, 554);
             button1.Name = "button1";
             button1.Size = new Size(124, 49);
             button1.TabIndex = 2;
@@ -72,7 +72,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Aquamarine;
-            ClientSize = new Size(566, 605);
+            ClientSize = new Size(984, 619);
             Controls.Add(button1);
             Controls.Add(richTextBox1);
             Controls.Add(label1);
