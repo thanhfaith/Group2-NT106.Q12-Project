@@ -17,7 +17,6 @@ namespace CoCaNgua
         TeamColor currentTurn;
         int currentDiceValue = 0;
         bool hasRolled = false;
-        private ChatForm chatForm;
         private string currentRoomCode;
         public ChessBoard(NetworkHelper existingNetwork, string roomCode = "")
         {
@@ -206,7 +205,18 @@ namespace CoCaNgua
                             break;
 
                         case "CHAT":
-                           
+
+                            if (parts.Length >= 3)
+                            {
+                                string sender = parts[1];
+                                string content = string.Join("|", parts.Skip(2));
+
+                                // Không hiện lại tin của mình
+                                if (sender != Session.Username)
+                                {
+                                    AddChatMessage($"{sender}: {content}");
+                                }
+                            }
                             break;
 
                         case "ERROR":
@@ -699,19 +709,46 @@ namespace CoCaNgua
                 btnDice.Enabled = false;
             }
         }
-
-        private void btnChat_Click(object sender, EventArgs e)
+        private void SendChatMessage()
         {
-            if (chatForm == null || chatForm.IsDisposed)
+            string message = tbChat.Text.Trim();
+            if (string.IsNullOrEmpty(message)) return;
+
+            if (network != null && network.IsConnected)
             {
-                chatForm = new ChatForm(network, currentRoomCode);
-                chatForm.Show();
+                network.Send($"CHAT|{Session.Username}|{message}");
+
+                // Hiển thị tin nhắn của mình vào rtbChat
+                AddChatMessage($"Bạn: {message}");
+
+                tbChat.Clear();
+                tbChat.Focus();
             }
             else
             {
-                chatForm.BringToFront();
-                chatForm.Focus();
+                AddChatMessage("⚠️ Không có kết nối tới server!");
             }
+        }
+
+        private void AddChatMessage(string content)
+        {
+            if (rtbChat.IsDisposed) return;
+
+            if (rtbChat.InvokeRequired)
+            {
+                rtbChat.Invoke(new Action(() => AddChatMessage(content)));
+                return;
+            }
+
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            rtbChat.AppendText($"[{time}] {content}{Environment.NewLine}");
+            rtbChat.ScrollToCaret();
+        }
+
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            SendChatMessage();
         }
     }
 }

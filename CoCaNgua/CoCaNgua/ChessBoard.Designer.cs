@@ -49,8 +49,11 @@
             red4 = new PictureBox();
             btnDice = new Button();
             groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            btnSend = new Button();
+            tbChat = new TextBox();
+            rtbChat = new RichTextBox();
             rtbChatLog = new RichTextBox();
-            btnChat = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)green4).BeginInit();
@@ -70,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)blue1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)red4).BeginInit();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -332,38 +336,68 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.LavenderBlush;
-            groupBox1.Controls.Add(btnChat);
+            groupBox1.Controls.Add(groupBox2);
             groupBox1.Controls.Add(rtbChatLog);
-            groupBox1.Location = new Point(733, 170);
+            groupBox1.Location = new Point(733, 149);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(522, 495);
+            groupBox1.Size = new Size(522, 516);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin game";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(btnSend);
+            groupBox2.Controls.Add(tbChat);
+            groupBox2.Controls.Add(rtbChat);
+            groupBox2.Location = new Point(6, 186);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(508, 324);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Chat";
+            // 
+            // btnSend
+            // 
+            btnSend.BackColor = Color.LightSkyBlue;
+            btnSend.Location = new Point(447, 278);
+            btnSend.Name = "btnSend";
+            btnSend.Size = new Size(50, 36);
+            btnSend.TabIndex = 4;
+            btnSend.Text = "Gửi";
+            btnSend.UseVisualStyleBackColor = false;
+            btnSend.Click += btnSend_Click;
+            // 
+            // tbChat
+            // 
+            tbChat.BackColor = Color.LightSkyBlue;
+            tbChat.Location = new Point(10, 278);
+            tbChat.Multiline = true;
+            tbChat.Name = "tbChat";
+            tbChat.Size = new Size(427, 34);
+            tbChat.TabIndex = 3;
+            // 
+            // rtbChat
+            // 
+            rtbChat.BackColor = Color.FloralWhite;
+            rtbChat.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            rtbChat.Location = new Point(10, 30);
+            rtbChat.Name = "rtbChat";
+            rtbChat.ReadOnly = true;
+            rtbChat.Size = new Size(489, 242);
+            rtbChat.TabIndex = 2;
+            rtbChat.Text = "";
             // 
             // rtbChatLog
             // 
             rtbChatLog.BackColor = Color.FloralWhite;
             rtbChatLog.Font = new Font("Times New Roman", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            rtbChatLog.Location = new Point(16, 92);
+            rtbChatLog.Location = new Point(16, 30);
             rtbChatLog.Name = "rtbChatLog";
             rtbChatLog.ReadOnly = true;
-            rtbChatLog.Size = new Size(489, 383);
+            rtbChatLog.Size = new Size(489, 144);
             rtbChatLog.TabIndex = 0;
             rtbChatLog.Text = "";
-            // 
-            // btnChat
-            // 
-            btnChat.BackgroundImage = Properties.Resources.Anh_Chat;
-            btnChat.BackgroundImageLayout = ImageLayout.Stretch;
-            btnChat.FlatStyle = FlatStyle.Popup;
-            btnChat.Location = new Point(435, 26);
-            btnChat.Margin = new Padding(4);
-            btnChat.Name = "btnChat";
-            btnChat.Size = new Size(70, 59);
-            btnChat.TabIndex = 4;
-            btnChat.UseVisualStyleBackColor = true;
-            btnChat.Click += btnChat_Click;
             // 
             // ChessBoard
             // 
@@ -402,6 +436,8 @@
             ((System.ComponentModel.ISupportInitialize)blue1).EndInit();
             ((System.ComponentModel.ISupportInitialize)red4).EndInit();
             groupBox1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -427,6 +463,9 @@
         private PictureBox green2;
         private GroupBox groupBox1;
         private RichTextBox rtbChatLog;
-        private Button btnChat;
+        private GroupBox groupBox2;
+        private RichTextBox rtbChat;
+        private Button btnSend;
+        private TextBox tbChat;
     }
 }
