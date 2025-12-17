@@ -47,7 +47,7 @@ namespace CoCaNgua
                 // Connect persistent network once here (if chưa)
                 if (!Session.Network.IsConnected)
                 {
-                    bool ok = Session.Network.Connect("127.0.0.1", 8888);
+                    bool ok = Session.Network.Connect(ServerConfig.Host, ServerConfig.Port);
                     if (!ok)
                     {
                         MessageBox.Show("Không thể kết nối tới server (persistent).");
@@ -72,7 +72,7 @@ namespace CoCaNgua
         {
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     NetworkStream stream = client.GetStream();
                     byte[] buffer = Encoding.UTF8.GetBytes(data);

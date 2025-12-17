@@ -205,7 +205,7 @@ namespace CoCaNgua
         {
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     client.ReceiveTimeout = 3000;
                     client.SendTimeout = 3000;
@@ -236,7 +236,7 @@ namespace CoCaNgua
 
             AppendLog("[INFO] 🔌 Đang kết nối tới server...");
 
-            bool ok = network.Connect("127.0.0.1", 8888);
+            bool ok = network.Connect(ServerConfig.Host, ServerConfig.Port);
             if (!ok)
             {
                 MessageBox.Show("Không thể kết nối tới server!");

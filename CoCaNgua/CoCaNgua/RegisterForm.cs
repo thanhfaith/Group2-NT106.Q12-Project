@@ -91,7 +91,7 @@ namespace CoCaNgua
         {
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     NetworkStream stream = client.GetStream();
                     byte[] buffer = Encoding.UTF8.GetBytes(data);
