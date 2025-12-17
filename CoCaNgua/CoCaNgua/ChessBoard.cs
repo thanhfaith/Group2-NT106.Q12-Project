@@ -21,6 +21,9 @@ namespace CoCaNgua
         public ChessBoard(NetworkHelper existingNetwork, string roomCode = "")
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            SoundManager.Init();
+            SoundManager.StartBgm();
             this.network = existingNetwork;
             this.currentRoomCode = roomCode;
             if (this.network != null)
@@ -121,6 +124,7 @@ namespace CoCaNgua
                         case "DICE":
                             currentDiceValue = int.Parse(parts[1]);
                             ShowDiceImage(currentDiceValue);
+                            SoundManager.Dice();
                             AddToChat($"[XÚC XẮC] {currentTurn} tung được [{currentDiceValue}] điểm.");
 
                             if (currentTurn == myTeam)
@@ -166,22 +170,38 @@ namespace CoCaNgua
                             break;
 
                         case "MOVE":
-                            int pId = int.Parse(parts[1]);
-                            int newPos = int.Parse(parts[2]);
-                            PieceState newState = (PieceState)Enum.Parse(typeof(PieceState), parts[3]);
-
-                            var p = pieces.Find(x => x.Id == pId);
-
-                            if (p != null)
                             {
-                                if (newState == PieceState.InHome && p.State != PieceState.InHome)
-                                    AddToChat($"Quân {p.Team} đã bị ĐÁ về chuồng!");
+                                int pId = int.Parse(parts[1]);
+                                int newPos = int.Parse(parts[2]);
+                                PieceState newState = (PieceState)Enum.Parse(typeof(PieceState), parts[3]);
 
-                                p.CurrentPosition = newPos;
-                                p.State = newState;
-                                UpdatePieceUI(p);
+                                var p = pieces.Find(x => x.Id == pId);
+                                if (p != null)
+                                {
+                                    PieceState oldState = p.State;
+                                    int oldPos = p.CurrentPosition;
+
+                                    // Update
+                                    p.CurrentPosition = newPos;
+                                    p.State = newState;
+                                    UpdatePieceUI(p);
+
+                                    // SOUND: ưu tiên Kick
+                                    if (newState == PieceState.InHome && newPos == -1)
+                                    {
+                                        SoundManager.Kick(); // ✅ người bị đá luôn nghe
+                                    }
+                                    else if (oldState == PieceState.InHome && newState == PieceState.OnTrack)
+                                    {
+                                        SoundManager.Spawn();
+                                    }
+                                    else if (oldPos != newPos)
+                                    {
+                                        SoundManager.Move();
+                                    }
+                                }
+                                break;
                             }
-                            break;
 
                         case "RANK":
                             AddToChat($"KẾT QUẢ: Đội {parts[1]} về đích - Hạng {parts[2]}!");
@@ -285,6 +305,7 @@ namespace CoCaNgua
                 // Xử lý đá quân 
                 if (enemyPiece != null)
                 {
+                    SoundManager.Kick(); // ✅ thêm dòng này
                     network.Send($"MOVE|{enemyPiece.Id}|-1|InHome");
                     AddToChat($"⚔️ Bạn đã đá quân đội {enemyPiece.Team}!");
 
@@ -787,5 +808,25 @@ namespace CoCaNgua
         {
             SendChatMessage();
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            SoundManager.StopBgm();
+            base.OnFormClosing(e);
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.KeyCode == Keys.M)
+            {
+                SoundManager.ToggleMute();
+
+                if (SoundManager.Muted)
+                    AddToChat("🔇 Đã tắt âm thanh");
+                else
+                    AddToChat("🔊 Đã bật âm thanh");
+            }
+        }
+
     }
 }
