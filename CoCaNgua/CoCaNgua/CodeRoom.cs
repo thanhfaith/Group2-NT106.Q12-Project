@@ -56,7 +56,7 @@ namespace CoCaNgua
         {
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     client.ReceiveTimeout = 5000;
                     client.SendTimeout = 5000;

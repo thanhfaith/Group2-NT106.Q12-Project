@@ -8,7 +8,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<Content Include="sound\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
     <COMReference Include="WMPLib">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
@@ -36,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="sound\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
