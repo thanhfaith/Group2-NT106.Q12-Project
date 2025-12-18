@@ -37,9 +37,10 @@
             btnLogin.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
             btnLogin.Cursor = Cursors.Hand;
-            btnLogin.FlatStyle = FlatStyle.Popup;
-            btnLogin.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogin.Location = new Point(361, 216);
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Times New Roman", 16.2F);
+            btnLogin.Location = new Point(364, 216);
             btnLogin.Margin = new Padding(5);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(198, 74);
@@ -53,14 +54,15 @@
             btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
             btnRegister.Cursor = Cursors.Hand;
-            btnRegister.FlatStyle = FlatStyle.Popup;
-            btnRegister.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRegister.Location = new Point(361, 300);
+            btnRegister.FlatAppearance.BorderSize = 0;
+            btnRegister.FlatStyle = FlatStyle.Flat;
+            btnRegister.Font = new Font("Times New Roman", 16.2F);
+            btnRegister.Location = new Point(364, 300);
             btnRegister.Margin = new Padding(5);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(198, 74);
             btnRegister.TabIndex = 3;
-            btnRegister.Text = "Đăng kí ";
+            btnRegister.Text = "Đăng ký";
             btnRegister.UseVisualStyleBackColor = true;
             btnRegister.Click += btnRegister_Click;
             // 

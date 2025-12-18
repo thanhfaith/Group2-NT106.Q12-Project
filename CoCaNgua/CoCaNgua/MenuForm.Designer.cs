@@ -37,9 +37,10 @@
             btnRule.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnRule.BackgroundImageLayout = ImageLayout.Stretch;
             btnRule.Cursor = Cursors.Hand;
-            btnRule.FlatStyle = FlatStyle.Popup;
-            btnRule.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRule.Location = new Point(387, 219);
+            btnRule.FlatAppearance.BorderSize = 0;
+            btnRule.FlatStyle = FlatStyle.Flat;
+            btnRule.Font = new Font("Times New Roman", 16.2F);
+            btnRule.Location = new Point(387, 213);
             btnRule.Margin = new Padding(5);
             btnRule.Name = "btnRule";
             btnRule.Size = new Size(198, 74);
@@ -53,9 +54,10 @@
             btnPlay.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
             btnPlay.BackgroundImageLayout = ImageLayout.Stretch;
             btnPlay.Cursor = Cursors.Hand;
-            btnPlay.FlatStyle = FlatStyle.Popup;
-            btnPlay.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPlay.Location = new Point(387, 303);
+            btnPlay.FlatAppearance.BorderSize = 0;
+            btnPlay.FlatStyle = FlatStyle.Flat;
+            btnPlay.Font = new Font("Times New Roman", 16.2F);
+            btnPlay.Location = new Point(387, 297);
             btnPlay.Margin = new Padding(5);
             btnPlay.Name = "btnPlay";
             btnPlay.Size = new Size(198, 74);

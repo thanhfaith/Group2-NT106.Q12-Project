@@ -20,9 +20,11 @@ BEGIN
     (
         UserId      INT IDENTITY(1,1) PRIMARY KEY,
         Username    NVARCHAR(50) NOT NULL UNIQUE,
-        Password    NVARCHAR(64) NOT NULL,     -- hash SHA256
+        Password    VARCHAR(64) NOT NULL,      -- hash SHA256
         Email       NVARCHAR(100) NULL UNIQUE,
-        CreatedAt   DATETIME2 DEFAULT SYSUTCDATETIME()
+        CreatedAt   DATETIME2 DEFAULT GETDATE(),
+        ResetToken  NVARCHAR(10) NULL,
+        TokenExpiry DATETIME2 NULL              
     );
 END
 GO
@@ -117,11 +119,4 @@ SELECT
 FROM Users u
 LEFT JOIN Matches m ON u.UserId = m.WinnerUserId
 GROUP BY u.UserId, u.Username;
-GO
--------------------------------------------------------------------
----LƯU MÃ RESET VÀ THỜI GIAN HẾT HẠN 
--------------------------------------------------------------------
-ALTER TABLE Users 
-ADD ResetToken NVARCHAR(10) NULL,
-    TokenExpiry DATETIME2 NULL;   
 GO

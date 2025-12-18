@@ -33,6 +33,7 @@ namespace CoCaNgua
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaitingRoom));
             lblRoomCode = new Label();
             txtRoomCode = new TextBox();
             groupBox1 = new GroupBox();
@@ -48,32 +49,30 @@ namespace CoCaNgua
             lblRoomCode.BackColor = Color.MistyRose;
             lblRoomCode.BorderStyle = BorderStyle.FixedSingle;
             lblRoomCode.Cursor = Cursors.No;
-            lblRoomCode.Location = new Point(130, 62);
+            lblRoomCode.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRoomCode.Location = new Point(212, 24);
             lblRoomCode.Margin = new Padding(5, 0, 5, 0);
             lblRoomCode.Name = "lblRoomCode";
-            lblRoomCode.Size = new Size(123, 33);
+            lblRoomCode.Size = new Size(137, 35);
             lblRoomCode.TabIndex = 0;
             lblRoomCode.Text = "Mã phòng ";
             // 
             // txtRoomCode
             // 
             txtRoomCode.BackColor = Color.FloralWhite;
-            txtRoomCode.Location = new Point(280, 51);
-            txtRoomCode.Margin = new Padding(3, 4, 3, 4);
-            txtRoomCode.Multiline = true;
+            txtRoomCode.Location = new Point(380, 25);
             txtRoomCode.Name = "txtRoomCode";
-            txtRoomCode.Size = new Size(199, 48);
+            txtRoomCode.Size = new Size(185, 34);
             txtRoomCode.TabIndex = 1;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.MistyRose;
             groupBox1.Controls.Add(lstPlayers);
-            groupBox1.Location = new Point(93, 140);
-            groupBox1.Margin = new Padding(3, 4, 3, 4);
+            groupBox1.Font = new Font("Times New Roman", 13.8F);
+            groupBox1.Location = new Point(187, 98);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 4, 3, 4);
-            groupBox1.Size = new Size(472, 429);
+            groupBox1.Size = new Size(451, 307);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách các thành viên";
@@ -81,23 +80,24 @@ namespace CoCaNgua
             // lstPlayers
             // 
             lstPlayers.FormattingEnabled = true;
-            lstPlayers.ItemHeight = 31;
-            lstPlayers.Location = new Point(18, 72);
-            lstPlayers.Margin = new Padding(3, 4, 3, 4);
+            lstPlayers.ItemHeight = 26;
+            lstPlayers.Location = new Point(21, 48);
             lstPlayers.Name = "lstPlayers";
-            lstPlayers.Size = new Size(436, 252);
+            lstPlayers.Size = new Size(409, 238);
             lstPlayers.TabIndex = 0;
+            lstPlayers.SelectedIndexChanged += lstPlayers_SelectedIndexChanged;
             // 
             // btnStartGame
             // 
             btnStartGame.BackColor = Color.DimGray;
-            btnStartGame.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_010746;
+            btnStartGame.BackgroundImage = (Image)resources.GetObject("btnStartGame.BackgroundImage");
             btnStartGame.BackgroundImageLayout = ImageLayout.Stretch;
-            btnStartGame.FlatStyle = FlatStyle.Popup;
-            btnStartGame.Location = new Point(249, 581);
-            btnStartGame.Margin = new Padding(3, 4, 3, 4);
+            btnStartGame.FlatAppearance.BorderSize = 0;
+            btnStartGame.FlatStyle = FlatStyle.Flat;
+            btnStartGame.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnStartGame.Location = new Point(316, 423);
             btnStartGame.Name = "btnStartGame";
-            btnStartGame.Size = new Size(138, 66);
+            btnStartGame.Size = new Size(183, 67);
             btnStartGame.TabIndex = 3;
             btnStartGame.Text = "BẮT ĐẦU";
             btnStartGame.UseVisualStyleBackColor = false;
@@ -105,19 +105,19 @@ namespace CoCaNgua
             // 
             // WaitingRoom
             // 
-            AutoScaleDimensions = new SizeF(14F, 31F);
+            AutoScaleDimensions = new SizeF(13F, 26F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.Screenshot_2025_11_15_221556;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(634, 656);
+            ClientSize = new Size(826, 494);
             Controls.Add(btnStartGame);
             Controls.Add(groupBox1);
             Controls.Add(txtRoomCode);
             Controls.Add(lblRoomCode);
             DoubleBuffered = true;
-            Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 13.8F);
             ForeColor = SystemColors.ControlText;
-            Margin = new Padding(5);
+            Margin = new Padding(5, 4, 5, 4);
             Name = "WaitingRoom";
             Text = "Taophong";
             Load += WaitingRoom_Load;

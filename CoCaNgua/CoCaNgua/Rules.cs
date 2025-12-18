@@ -24,10 +24,10 @@ namespace CoCaNgua
             Font fontDam = new Font(richTextBox1.Font, FontStyle.Bold);
             Font fontThuong = new Font(richTextBox1.Font, FontStyle.Regular);
 
-            richTextBox1.SelectionFont = fontDam; 
+            richTextBox1.SelectionFont = fontDam;
             richTextBox1.AppendText("1. Số lượng người chơi\n");
 
-            richTextBox1.SelectionFont = fontThuong; 
+            richTextBox1.SelectionFont = fontThuong;
             richTextBox1.AppendText(
                 "  • Người chơi: Từ 2-4 người (4 đội: Đỏ, Xanh Lá, Vàng, Xanh Dương).\n" +
                 "  • Số quân: Mỗi đội có 4 quân cờ.\n" +
@@ -92,6 +92,11 @@ namespace CoCaNgua
             this.Hide();
             MenuForm f = new MenuForm();
             f.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
