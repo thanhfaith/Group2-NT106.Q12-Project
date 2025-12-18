@@ -14,15 +14,13 @@ namespace CoCaNgua
         {
             string inputEmail = txtEmail.Text.Trim();
 
-            // 1. Kiểm tra đầu vào cơ bản tại Client
             if (string.IsNullOrEmpty(inputEmail) || !inputEmail.Contains("@"))
             {
                 MessageBox.Show("Vui lòng nhập Email hợp lệ!");
                 return;
             }
 
-            // 2. Gửi yêu cầu "FORGOT_PASSWORD" lên Server
-            // Lưu ý: Hàm SendQuick phải tự động thêm \n ở cuối để Server nhận biết kết thúc lệnh.
+            // Gửi yêu cầu "FORGOT_PASSWORD" lên Server
             string response = SendQuick($"FORGOT_PASSWORD|{inputEmail}");
 
             // 3. Xử lý phản hồi từ Server trả về
@@ -30,7 +28,6 @@ namespace CoCaNgua
             {
                 MessageBox.Show("Mã xác thực đã được gửi qua Email của bạn!");
 
-                // Chuyển sang Form nhập mã OTP và mật khẩu mới
                 NewPassword f = new NewPassword(inputEmail);
                 f.Show();
                 this.Hide();
@@ -44,8 +41,6 @@ namespace CoCaNgua
                 MessageBox.Show("Lỗi kết nối Server hoặc không thể gửi mail lúc này!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        // Tái sử dụng hàm SendQuick từ LoginForm (hoặc đưa vào một class chung)
         private string SendQuick(string message)
         {
             try
@@ -67,6 +62,11 @@ namespace CoCaNgua
             {
                 return "ERROR|" + ex.Message;
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

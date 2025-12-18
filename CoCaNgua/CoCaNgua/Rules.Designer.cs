@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rules));
             label1 = new Label();
             richTextBox1 = new RichTextBox();
             button1 = new Button();
@@ -36,32 +37,38 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Salmon;
-            label1.Location = new Point(432, 15);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Times New Roman", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DarkBlue;
+            label1.Location = new Point(425, 34);
             label1.Name = "label1";
-            label1.Size = new Size(140, 38);
+            label1.Size = new Size(228, 42);
             label1.TabIndex = 0;
-            label1.Text = "Luật chơi";
+            label1.Text = "LUẬT CHƠI";
+            label1.Click += label1_Click;
             // 
             // richTextBox1
             // 
             richTextBox1.BackColor = SystemColors.Info;
             richTextBox1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(45, 66);
+            richTextBox1.Location = new Point(87, 99);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(890, 472);
+            richTextBox1.Size = new Size(869, 399);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
             // 
             // button1
             // 
             button1.BackColor = Color.Pink;
-            button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.Tomato;
-            button1.Location = new Point(434, 554);
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.BackgroundImageLayout = ImageLayout.Stretch;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.Black;
+            button1.Location = new Point(425, 536);
             button1.Name = "button1";
-            button1.Size = new Size(124, 49);
+            button1.Size = new Size(194, 71);
             button1.TabIndex = 2;
             button1.Text = "Tiếp tục chơi";
             button1.UseVisualStyleBackColor = false;
@@ -72,10 +79,13 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Aquamarine;
-            ClientSize = new Size(984, 619);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(1034, 619);
             Controls.Add(button1);
             Controls.Add(richTextBox1);
             Controls.Add(label1);
+            DoubleBuffered = true;
             Name = "Rules";
             Text = "Rules";
             ResumeLayout(false);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             btn_Start = new Button();
             btn_Stop = new Button();
             lstClients = new ListBox();
@@ -37,54 +38,75 @@
             // 
             // btn_Start
             // 
-            btn_Start.Location = new Point(12, 12);
+            btn_Start.BackColor = Color.SteelBlue;
+            btn_Start.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_Start.FlatAppearance.BorderSize = 0;
+            btn_Start.FlatStyle = FlatStyle.Flat;
+            btn_Start.Font = new Font("Times New Roman", 12F);
+            btn_Start.ForeColor = Color.White;
+            btn_Start.Location = new Point(12, 63);
             btn_Start.Name = "btn_Start";
-            btn_Start.Size = new Size(97, 68);
+            btn_Start.Size = new Size(107, 48);
             btn_Start.TabIndex = 0;
             btn_Start.Text = "Start";
-            btn_Start.UseVisualStyleBackColor = true;
+            btn_Start.UseVisualStyleBackColor = false;
             btn_Start.Click += btn_Start_Click;
             // 
             // btn_Stop
             // 
-            btn_Stop.Location = new Point(12, 86);
+            btn_Stop.BackColor = Color.SteelBlue;
+            btn_Stop.BackgroundImageLayout = ImageLayout.Stretch;
+            btn_Stop.FlatAppearance.BorderSize = 0;
+            btn_Stop.FlatStyle = FlatStyle.Flat;
+            btn_Stop.Font = new Font("Times New Roman", 12F);
+            btn_Stop.ForeColor = Color.White;
+            btn_Stop.Location = new Point(12, 131);
             btn_Stop.Name = "btn_Stop";
-            btn_Stop.Size = new Size(97, 70);
+            btn_Stop.Size = new Size(107, 48);
             btn_Stop.TabIndex = 1;
             btn_Stop.Text = "Stop";
-            btn_Stop.UseVisualStyleBackColor = true;
+            btn_Stop.UseVisualStyleBackColor = false;
             btn_Stop.Click += btn_Stop_Click;
             // 
             // lstClients
             // 
+            lstClients.BackColor = Color.PowderBlue;
+            lstClients.Font = new Font("Times New Roman", 12F);
             lstClients.FormattingEnabled = true;
-            lstClients.Location = new Point(115, 12);
+            lstClients.ItemHeight = 22;
+            lstClients.Location = new Point(141, 54);
             lstClients.Name = "lstClients";
-            lstClients.Size = new Size(318, 144);
+            lstClients.Size = new Size(318, 136);
             lstClients.TabIndex = 2;
             // 
             // lb_status
             // 
             lb_status.AutoSize = true;
-            lb_status.Location = new Point(12, 169);
+            lb_status.BackColor = Color.Transparent;
+            lb_status.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lb_status.Location = new Point(25, 212);
             lb_status.Name = "lb_status";
-            lb_status.Size = new Size(47, 20);
+            lb_status.Size = new Size(79, 33);
             lb_status.TabIndex = 3;
             lb_status.Text = "status";
             // 
             // lstLog
             // 
+            lstLog.BackColor = Color.PowderBlue;
+            lstLog.Font = new Font("Times New Roman", 12F);
             lstLog.FormattingEnabled = true;
-            lstLog.Location = new Point(12, 202);
+            lstLog.ItemHeight = 22;
+            lstLog.Location = new Point(25, 248);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(421, 144);
+            lstLog.Size = new Size(434, 158);
             lstLog.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(445, 359);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(500, 504);
             Controls.Add(lstLog);
             Controls.Add(lb_status);
             Controls.Add(lstClients);

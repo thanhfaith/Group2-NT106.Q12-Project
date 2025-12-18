@@ -67,7 +67,6 @@ namespace CoCaNgua
                 using (var client = new System.Net.Sockets.TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     var stream = client.GetStream();
-                    // Lưu ý cộng thêm \n để Server nhận biết kết thúc dòng (line-based protocol)
                     byte[] data = Encoding.UTF8.GetBytes(message + "\n");
                     stream.Write(data, 0, data.Length);
                     stream.Flush();

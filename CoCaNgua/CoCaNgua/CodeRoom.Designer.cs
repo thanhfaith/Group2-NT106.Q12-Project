@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodeRoom));
             label2 = new Label();
             txtRoomCode = new TextBox();
             btnCreateRoom = new Button();
@@ -39,30 +40,34 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Location = new Point(166, 233);
+            label2.Font = new Font("Times New Roman", 16.2F);
+            label2.Location = new Point(165, 239);
             label2.Name = "label2";
-            label2.Size = new Size(121, 31);
+            label2.Size = new Size(135, 33);
             label2.TabIndex = 1;
             label2.Text = "Mã phòng ";
             // 
             // txtRoomCode
             // 
             txtRoomCode.BackColor = Color.LightGoldenrodYellow;
-            txtRoomCode.Location = new Point(322, 222);
+            txtRoomCode.Location = new Point(318, 232);
             txtRoomCode.Margin = new Padding(3, 4, 3, 4);
-            txtRoomCode.Multiline = true;
             txtRoomCode.Name = "txtRoomCode";
-            txtRoomCode.Size = new Size(217, 50);
+            txtRoomCode.Size = new Size(217, 40);
             txtRoomCode.TabIndex = 2;
             // 
             // btnCreateRoom
             // 
             btnCreateRoom.BackColor = Color.Cyan;
-            btnCreateRoom.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013600;
-            btnCreateRoom.Location = new Point(582, 222);
+            btnCreateRoom.BackgroundImage = (Image)resources.GetObject("btnCreateRoom.BackgroundImage");
+            btnCreateRoom.BackgroundImageLayout = ImageLayout.Stretch;
+            btnCreateRoom.FlatAppearance.BorderSize = 0;
+            btnCreateRoom.FlatStyle = FlatStyle.Flat;
+            btnCreateRoom.Font = new Font("Times New Roman", 16.2F);
+            btnCreateRoom.Location = new Point(596, 226);
             btnCreateRoom.Margin = new Padding(3, 4, 3, 4);
             btnCreateRoom.Name = "btnCreateRoom";
-            btnCreateRoom.Size = new Size(191, 51);
+            btnCreateRoom.Size = new Size(159, 57);
             btnCreateRoom.TabIndex = 3;
             btnCreateRoom.Text = "Tạo phòng ";
             btnCreateRoom.UseVisualStyleBackColor = false;
@@ -72,10 +77,12 @@
             // 
             btnJoinRoom.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_214511;
             btnJoinRoom.BackgroundImageLayout = ImageLayout.Stretch;
-            btnJoinRoom.Location = new Point(391, 310);
+            btnJoinRoom.FlatAppearance.BorderSize = 0;
+            btnJoinRoom.FlatStyle = FlatStyle.Flat;
+            btnJoinRoom.Location = new Point(393, 310);
             btnJoinRoom.Margin = new Padding(3, 4, 3, 4);
             btnJoinRoom.Name = "btnJoinRoom";
-            btnJoinRoom.Size = new Size(67, 60);
+            btnJoinRoom.Size = new Size(73, 60);
             btnJoinRoom.TabIndex = 4;
             btnJoinRoom.UseVisualStyleBackColor = true;
             btnJoinRoom.Click += btnJoinRoom_Click;
@@ -84,9 +91,10 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(367, 374);
+            label1.Font = new Font("Times New Roman", 16.2F);
+            label1.Location = new Point(358, 374);
             label1.Name = "label1";
-            label1.Size = new Size(121, 31);
+            label1.Size = new Size(137, 33);
             label1.TabIndex = 5;
             label1.Text = "Vào phòng";
             // 
@@ -95,9 +103,9 @@
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
-            BackgroundImage = Properties.Resources.Screenshot_2025_11_15_013300;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(866, 562);
+            ClientSize = new Size(867, 548);
             Controls.Add(label1);
             Controls.Add(btnJoinRoom);
             Controls.Add(btnCreateRoom);

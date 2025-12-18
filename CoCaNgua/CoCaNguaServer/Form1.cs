@@ -33,7 +33,7 @@ namespace CoCaNguaServer
                 listener = new TcpListener(IPAddress.Any, 8888);
                 listener.Start();
                 isRunning = true;
-                lb_status.Text = "🟢 Server đang chạy...";
+                lb_status.Text = "Server đang chạy...";
                 Thread thread = new Thread(ListenForClients);
                 thread.Start();
             }
@@ -210,9 +210,9 @@ namespace CoCaNguaServer
                             {
                                 try
                                 {
-                                    byte[] assignData = Encoding.UTF8.GetBytes($"ASSIGN|{teams[i]}\n"); // ✅ THÊM \n
+                                    byte[] assignData = Encoding.UTF8.GetBytes($"ASSIGN|{teams[i]}\n"); // THÊM \n
                                     clients[i].GetStream().Write(assignData, 0, assignData.Length);
-                                    clients[i].GetStream().Flush(); // ✅ THÊM FLUSH
+                                    clients[i].GetStream().Flush(); // THÊM FLUSH
                                     ServerBroadcaster.SetClientTeam(clients[i], teams[i]);
                                     Log($"ASSIGN -> room:{roomCode} client:{i} team:{teams[i]}");
                                 }
@@ -249,7 +249,7 @@ namespace CoCaNguaServer
                                 ServerBroadcaster.BroadcastToRoom(roomCode, $"DICE|{diceValue}");
                                 Log($"ROLL -> room:{roomCode} dice:{diceValue}");
                             }
-                            // ✅ KHÔNG GỬI RESPONSE
+                            // KHÔNG GỬI RESPONSE
                         }
                         else if (request.StartsWith("MOVE|"))
                         {
@@ -259,7 +259,7 @@ namespace CoCaNguaServer
                                 ServerBroadcaster.BroadcastToRoom(roomCode, request);
                                 Log($"MOVE -> room:{roomCode} data:{request}");
                             }
-                            // ✅ KHÔNG GỬI RESPONSE
+                            // KHÔNG GỬI RESPONSE
                         }
                         else if (request.StartsWith("END_TURN"))
                         {
@@ -281,7 +281,7 @@ namespace CoCaNguaServer
                                 ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{nextTurn}");
                                 Log($"END_TURN -> room:{roomCode} next turn: {nextTurn} (players={teamOrder.Count})");
                             }
-                            // ✅ KHÔNG GỬI RESPONSE
+                            // KHÔNG GỬI RESPONSE
                         }
                         else if (request.StartsWith("DONE"))
                         {
@@ -300,7 +300,7 @@ namespace CoCaNguaServer
                                     Log($"GAME_OVER -> room:{roomCode} winner:{winnerTeam}");
                                 }
                             }
-                            // ✅ KHÔNG GỬI RESPONSE
+                            // KHÔNG GỬI RESPONSE
                         }
                         else if (request.StartsWith("CHAT|"))
                         {
@@ -318,19 +318,19 @@ namespace CoCaNguaServer
                                     Log($"CHAT -> room:{roomCode} from:{senderName} msg:{message}");
                                 }
                             }
-                            // ✅ KHÔNG GỬI RESPONSE
+                            // KHÔNG GỬI RESPONSE
                         }
                         else
                         {
                             response = "Lệnh không hợp lệ.";
                         }
 
-                        // ✅ GỬI RESPONSE VỚI DELIMITER
+                        // GỬI RESPONSE VỚI DELIMITER
                         if (!string.IsNullOrEmpty(response))
                         {
                             byte[] responseData = Encoding.UTF8.GetBytes(response + "\n");
                             stream.Write(responseData, 0, responseData.Length);
-                            stream.Flush(); // ✅ THÊM FLUSH
+                            stream.Flush(); // THÊM FLUSH
                         }
                     }
 
@@ -498,11 +498,11 @@ namespace CoCaNguaServer
                         if (ClientToRoom.ContainsKey(client))
                             ClientToRoom.Remove(client);
 
-                        // ✅ XÓA TEAM
+                        // XÓA TEAM
                         if (ClientToTeam.ContainsKey(client))
                             ClientToTeam.Remove(client);
 
-                        // ✅ XÓA USERNAME
+                        // XÓA USERNAME
                         if (ClientToUsername.ContainsKey(client))
                             ClientToUsername.Remove(client);
                     }
@@ -583,7 +583,7 @@ namespace CoCaNguaServer
             {
                 isRunning = false;
                 listener.Stop();
-                lb_status.Text = "🔴 Server đã dừng.";
+                lb_status.Text = " Server đã dừng.";
                 Log("Server đã dừng.");
             }
         }

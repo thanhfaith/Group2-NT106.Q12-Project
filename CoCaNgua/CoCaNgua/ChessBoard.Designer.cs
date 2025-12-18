@@ -124,9 +124,10 @@
             // 
             lblYellowName.AutoSize = true;
             lblYellowName.BackColor = Color.Transparent;
+            lblYellowName.Font = new Font("Times New Roman", 13.8F);
             lblYellowName.Location = new Point(422, 401);
             lblYellowName.Name = "lblYellowName";
-            lblYellowName.Size = new Size(57, 24);
+            lblYellowName.Size = new Size(67, 26);
             lblYellowName.TabIndex = 27;
             lblYellowName.Text = "label1";
             // 
@@ -134,9 +135,10 @@
             // 
             lblBlueName.AutoSize = true;
             lblBlueName.BackColor = Color.Transparent;
+            lblBlueName.Font = new Font("Times New Roman", 13.8F);
             lblBlueName.Location = new Point(19, 401);
             lblBlueName.Name = "lblBlueName";
-            lblBlueName.Size = new Size(57, 24);
+            lblBlueName.Size = new Size(67, 26);
             lblBlueName.TabIndex = 26;
             lblBlueName.Text = "label1";
             // 
@@ -144,9 +146,10 @@
             // 
             lblGreenName.AutoSize = true;
             lblGreenName.BackColor = Color.Transparent;
+            lblGreenName.Font = new Font("Times New Roman", 13.8F);
             lblGreenName.Location = new Point(422, 18);
             lblGreenName.Name = "lblGreenName";
-            lblGreenName.Size = new Size(57, 24);
+            lblGreenName.Size = new Size(67, 26);
             lblGreenName.TabIndex = 25;
             lblGreenName.Text = "label1";
             // 
@@ -154,9 +157,10 @@
             // 
             lblRedName.AutoSize = true;
             lblRedName.BackColor = Color.Transparent;
+            lblRedName.Font = new Font("Times New Roman", 13.8F);
             lblRedName.Location = new Point(19, 18);
             lblRedName.Name = "lblRedName";
-            lblRedName.Size = new Size(57, 24);
+            lblRedName.Size = new Size(67, 26);
             lblRedName.TabIndex = 24;
             lblRedName.Text = "label1";
             // 
@@ -372,7 +376,8 @@
             // 
             btnDice.BackgroundImage = Properties.Resources.Screenshot_2025_11_15_225802;
             btnDice.BackgroundImageLayout = ImageLayout.Stretch;
-            btnDice.FlatStyle = FlatStyle.Popup;
+            btnDice.FlatAppearance.BorderSize = 0;
+            btnDice.FlatStyle = FlatStyle.Flat;
             btnDice.Location = new Point(1076, 55);
             btnDice.Margin = new Padding(4);
             btnDice.Name = "btnDice";
@@ -386,6 +391,7 @@
             groupBox1.BackColor = Color.LavenderBlush;
             groupBox1.Controls.Add(groupBox2);
             groupBox1.Controls.Add(rtbChatLog);
+            groupBox1.Font = new Font("Times New Roman", 13.8F);
             groupBox1.Location = new Point(733, 149);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(522, 516);
@@ -398,6 +404,7 @@
             groupBox2.Controls.Add(btnSend);
             groupBox2.Controls.Add(tbChat);
             groupBox2.Controls.Add(rtbChat);
+            groupBox2.Font = new Font("Times New Roman", 13.8F);
             groupBox2.Location = new Point(6, 186);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(508, 324);
@@ -408,9 +415,10 @@
             // btnSend
             // 
             btnSend.BackColor = Color.LightSkyBlue;
-            btnSend.Location = new Point(447, 278);
+            btnSend.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSend.Location = new Point(443, 278);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(50, 36);
+            btnSend.Size = new Size(59, 36);
             btnSend.TabIndex = 4;
             btnSend.Text = "Gửi";
             btnSend.UseVisualStyleBackColor = false;

@@ -274,5 +274,10 @@ namespace CoCaNgua
 
             base.OnFormClosing(e);
         }
+
+        private void lstPlayers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

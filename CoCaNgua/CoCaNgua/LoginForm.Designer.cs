@@ -41,9 +41,10 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Location = new Point(140, 42);
+            label1.Font = new Font("Times New Roman", 16.2F);
+            label1.Location = new Point(12, 77);
             label1.Name = "label1";
-            label1.Size = new Size(167, 31);
+            label1.Size = new Size(175, 33);
             label1.TabIndex = 0;
             label1.Text = "Tên tài khoản:";
             // 
@@ -51,9 +52,10 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Location = new Point(140, 103);
+            label2.Font = new Font("Times New Roman", 16.2F);
+            label2.Location = new Point(12, 138);
             label2.Name = "label2";
-            label2.Size = new Size(122, 31);
+            label2.Size = new Size(129, 33);
             label2.TabIndex = 1;
             label2.Text = "Mật khẩu:";
             // 
@@ -62,10 +64,12 @@
             btnLogin.BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222956;
             btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
             btnLogin.Cursor = Cursors.Hand;
-            btnLogin.FlatStyle = FlatStyle.Popup;
-            btnLogin.Location = new Point(410, 164);
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Times New Roman", 16.2F);
+            btnLogin.Location = new Point(292, 240);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(180, 49);
+            btnLogin.Size = new Size(184, 57);
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Đăng nhập ";
             btnLogin.UseVisualStyleBackColor = true;
@@ -73,28 +77,28 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(343, 39);
-            txtUsername.Multiline = true;
+            txtUsername.Location = new Point(194, 68);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(304, 43);
+            txtUsername.Size = new Size(370, 40);
             txtUsername.TabIndex = 3;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(343, 100);
-            txtPassword.Multiline = true;
+            txtPassword.Location = new Point(194, 129);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(304, 43);
+            txtPassword.Size = new Size(370, 40);
             txtPassword.TabIndex = 4;
             // 
             // linkToRegister
             // 
             linkToRegister.AutoSize = true;
             linkToRegister.BackColor = Color.Transparent;
-            linkToRegister.Location = new Point(140, 242);
+            linkToRegister.Font = new Font("Times New Roman", 12F);
+            linkToRegister.LinkColor = Color.OrangeRed;
+            linkToRegister.Location = new Point(194, 198);
             linkToRegister.Name = "linkToRegister";
-            linkToRegister.Size = new Size(204, 31);
+            linkToRegister.Size = new Size(151, 22);
             linkToRegister.TabIndex = 6;
             linkToRegister.TabStop = true;
             linkToRegister.Text = "Đăng ký tài khoản";
@@ -104,9 +108,11 @@
             // 
             llblQuenMatKhau.AutoSize = true;
             llblQuenMatKhau.BackColor = Color.Transparent;
-            llblQuenMatKhau.Location = new Point(458, 242);
+            llblQuenMatKhau.Font = new Font("Times New Roman", 12F);
+            llblQuenMatKhau.LinkColor = Color.OrangeRed;
+            llblQuenMatKhau.Location = new Point(420, 198);
             llblQuenMatKhau.Name = "llblQuenMatKhau";
-            llblQuenMatKhau.Size = new Size(189, 31);
+            llblQuenMatKhau.Size = new Size(134, 22);
             llblQuenMatKhau.TabIndex = 7;
             llblQuenMatKhau.TabStop = true;
             llblQuenMatKhau.Text = "Quên mật khẩu?";
@@ -117,8 +123,8 @@
             AutoScaleDimensions = new SizeF(14F, 31F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222745;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(794, 325);
+            BackgroundImageLayout = ImageLayout.Zoom;
+            ClientSize = new Size(603, 338);
             Controls.Add(llblQuenMatKhau);
             Controls.Add(linkToRegister);
             Controls.Add(txtPassword);
@@ -130,7 +136,7 @@
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(5);
             Name = "LoginForm";
-            Text = "DangNhap";
+            Text = "Đăng nhập";
             ResumeLayout(false);
             PerformLayout();
         }
