@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -63,19 +64,16 @@ namespace CoCaNguaServer
             {
                 NetworkStream stream = client.GetStream();
                 byte[] buffer = new byte[2048];
-                StringBuilder messageBuffer = new StringBuilder(); // ✅ THÊM DÒNG NÀY
+                StringBuilder messageBuffer = new StringBuilder(); 
 
-                // PERSISTENT CONNECTION - Đọc liên tục
                 while (client.Connected)
                 {
                     int byteCount = stream.Read(buffer, 0, buffer.Length);
                     if (byteCount == 0) break;
 
-                    // ✅ THAY THẾ ĐOẠN NÀY
                     string data = Encoding.UTF8.GetString(buffer, 0, byteCount);
                     messageBuffer.Append(data);
 
-                    // Tách message bằng \n
                     string allData = messageBuffer.ToString();
                     int newlineIndex;
 
@@ -88,7 +86,7 @@ namespace CoCaNguaServer
 
                         string response = "";
 
-                        // === XỬ LÝ CÁC LỆNH (GIỮ NGUYÊN CODE CŨ) ===
+                        // === XỬ LÝ CÁC LỆNH ===
                         if (request.StartsWith("REGISTER|"))
                         {
                             string[] parts = request.Split('|');
@@ -121,6 +119,42 @@ namespace CoCaNguaServer
                                     response = "LOGIN_FAIL";
                                     Log($"LOGIN_FAIL -> username/email:{parts[1]}");
                                 }
+                            }
+                        }
+                        else if (request.StartsWith("FORGOT_PASSWORD|"))
+                        {
+                            string email = request.Split('|')[1];
+                            string otp = diceRand.Next(100000, 999999).ToString();
+
+                            if (DatabaseHelper.VerifyEmailAndSaveOTP(email, otp))
+                            {
+                                SendOTPEmail(email, otp);
+                                response = "FORGOT_OK";
+                                Log($"FORGOT_PASS -> Gửi OTP cho {email}");
+                            }
+                            else
+                            {
+                                response = "FORGOT_NOT_FOUND";
+                                Log($"FORGOT_PASS_FAIL -> Không tìm thấy email {email}");
+                            }
+                        }
+                        else if (request.StartsWith("RESET_PASSWORD|"))
+                        {
+                            string[] parts = request.Split('|');
+                            string email = parts[1];
+                            string otp = parts[2];
+                            string newPassHash = parts[3];
+
+                            bool success = DatabaseHelper.ServerResetPassword(email, otp, newPassHash);
+                            if (success)
+                            {
+                                response = "RESET_OK";
+                                Log($"RESET_PASS_SUCCESS -> Email: {email}");
+                            }
+                            else
+                            {
+                                response = "RESET_FAILED";
+                                Log($"RESET_PASS_FAIL -> OTP sai hoặc hết hạn: {email}");
                             }
                         }
                         else if (request.StartsWith("CREATE_ROOM|"))
@@ -571,6 +605,51 @@ namespace CoCaNguaServer
             }
 
             return 1;
+        }
+
+        private void SendOTPEmail(string toEmail, string otp)
+        {
+            string fromEmail = "24520209@gm.uit.edu.vn";
+            string appPassword = "xris kypu atzs zqsk";
+            string displayName = "Game Cờ Cá Ngựa";
+
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(fromEmail, displayName);
+                mail.To.Add(toEmail);
+                mail.Subject = "Mã xác thực đặt lại mật khẩu";
+
+                mail.Body = $@"
+<div style='font-family: ""Times New Roman"", Times, serif; color: #000000; padding: 30px; border: 1px solid #ccc; line-height: 1.6;'>
+    <h2 style='text-align: center; color: #003366;'>XÁC THỰC TÀI KHOẢN</h2>
+    <hr/>
+    <p>Bạn đang thực hiện yêu cầu lấy lại mật khẩu cho tài khoản tại <b>Game Cờ Cá Ngựa</b>.</p>
+    
+    <div style='text-align: center; margin: 30px 0;'>
+        <p style='font-size: 18px;'>Mã xác thực (OTP) của bạn là:</p>
+        <span style='font-size: 36px; font-weight: bold; color: #ff0000; border: 2px dashed #ff0000; padding: 10px 20px;'>
+            {otp}
+        </span>
+    </div>
+    <p style='font-size: 14px;'><i>(*) Lưu ý: Mã này có giá trị sử dụng trong vòng <b>5 phút</b>. Vui lòng không cung cấp mã này cho bất kỳ ai.</i></p>
+    <br/>
+</div>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential(fromEmail, appPassword),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+                Log($"[EMAIL] Đã gửi OTP thành công tới: {toEmail}");
+            }
+            catch (Exception ex)
+            {
+                Log($"[EMAIL ERROR] Lỗi gửi mail: {ex.Message}");
+            }
         }
 
         private void lstClients_SelectedIndexChanged(object sender, EventArgs e)
