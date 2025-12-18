@@ -63,252 +63,246 @@ namespace CoCaNguaServer
             {
                 NetworkStream stream = client.GetStream();
                 byte[] buffer = new byte[2048];
+                StringBuilder messageBuffer = new StringBuilder(); // ✅ THÊM DÒNG NÀY
 
                 // PERSISTENT CONNECTION - Đọc liên tục
                 while (client.Connected)
                 {
                     int byteCount = stream.Read(buffer, 0, buffer.Length);
-                    if (byteCount == 0) break; // Client ngắt kết nối
+                    if (byteCount == 0) break;
 
-                    string request = Encoding.UTF8.GetString(buffer, 0, byteCount);
-                    string response = "";
+                    // ✅ THAY THẾ ĐOẠN NÀY
+                    string data = Encoding.UTF8.GetString(buffer, 0, byteCount);
+                    messageBuffer.Append(data);
 
-                    if (request.StartsWith("REGISTER|"))
+                    // Tách message bằng \n
+                    string allData = messageBuffer.ToString();
+                    int newlineIndex;
+
+                    while ((newlineIndex = allData.IndexOf('\n')) >= 0)
                     {
-                        string[] parts = request.Split('|');
-                        if (parts.Length == 4)
-                        {
-                            string username = parts[1];
-                            string email = parts[2];
-                            string passwordHash = parts[3];
+                        string request = allData.Substring(0, newlineIndex).Trim();
+                        allData = allData.Substring(newlineIndex + 1);
 
-                            bool success = DatabaseHelper.RegisterUser(username, email, passwordHash);
-                            response = success ? "Đăng ký thành công!" : "Username hoặc email đã tồn tại!";
+                        if (string.IsNullOrEmpty(request)) continue;
+
+                        string response = "";
+
+                        // === XỬ LÝ CÁC LỆNH (GIỮ NGUYÊN CODE CŨ) ===
+                        if (request.StartsWith("REGISTER|"))
+                        {
+                            string[] parts = request.Split('|');
+                            if (parts.Length == 4)
+                            {
+                                string username = parts[1];
+                                string email = parts[2];
+                                string passwordHash = parts[3];
+
+                                bool success = DatabaseHelper.RegisterUser(username, email, passwordHash);
+                                response = success ? "Đăng ký thành công!" : "Username hoặc email đã tồn tại!";
+                            }
+                            else response = "Dữ liệu đăng ký không hợp lệ.";
                         }
-                        else response = "Dữ liệu đăng ký không hợp lệ.";
-                    }
-                    else if (request.StartsWith("LOGIN|"))
-                    {
-                        var parts = request.Split('|');
-                        if (parts.Length == 3)
+                        else if (request.StartsWith("LOGIN|"))
                         {
-                            var (userId, username) = DatabaseHelper.GetUserInfo(parts[1], parts[2]);
-
-                            if (userId > 0)
+                            var parts = request.Split('|');
+                            if (parts.Length == 3)
                             {
-                                ServerBroadcaster.SetClientUsername(client, username); // ✅ thêm dòng này
-                                response = $"LOGIN_OK|{userId}|{username}";
-                                Log($"LOGIN -> user:{username} (id:{userId})");
-                            }
+                                var (userId, username) = DatabaseHelper.GetUserInfo(parts[1], parts[2]);
 
-                            else
-                            {
-                                response = "LOGIN_FAIL";
-                                Log($"LOGIN_FAIL -> username/email:{parts[1]}");
-                            }
-                        }
-                    }
-                    else if (request.StartsWith("CREATE_ROOM|"))
-                    {
-                        int userId = int.Parse(request.Split('|')[1]);
-                        string roomCode = DatabaseHelper.CreateRoom(userId);
-                        response = "ROOM_CREATED|" + roomCode;
-                    }
-                    else if (request.StartsWith("JOIN_ROOM|"))
-                    {
-                        var p = request.Split('|');
-                        int userId = int.Parse(p[1]);
-                        string roomCode = p[2].ToUpper();
-
-                        bool ok = DatabaseHelper.JoinRoom(roomCode, userId);
-                        response = ok ? "JOIN_OK" : "JOIN_FAIL";
-                    }
-                    else if (request.StartsWith("GET_ROOM_PLAYERS|"))
-                    {
-                        string roomCode = request.Split('|')[1].ToUpper();
-                        var players = DatabaseHelper.GetRoomPlayers(roomCode);
-                        response = string.Join(",", players);
-                    }
-                    // Client thông báo đang ở phòng nào
-                    else if (request.StartsWith("REGISTER_ROOM|"))
-                    {
-                        var p = request.Split('|');
-                        int userId = int.Parse(p[1]);
-                        string roomCode = p[2].ToUpper();
-
-                        // ✅ BỔ SUNG: set username cho đúng TcpClient đang ở phòng
-                        string username = DatabaseHelper.GetUsername(userId);
-                        ServerBroadcaster.SetClientUsername(client, username);
-
-                        ServerBroadcaster.AddClientToRoom(roomCode, client);
-
-                        response = "REGISTERED";
-                    }
-
-                    // START_GAME - Broadcast cho tất cả trong phòng + Phân đội
-                    else if (request.StartsWith("START_GAME|"))
-                    {
-                        string roomCode = request.Split('|')[1].ToUpper();
-
-                        int clientCount = ServerBroadcaster.GetRoomClientCount(roomCode);
-                        Log($"START_GAME -> room:{roomCode} broadcasting to {clientCount} clients");
-
-                        // Gửi tín hiệu START cho tất cả clients trong phòng
-                        ServerBroadcaster.BroadcastToRoom(roomCode, "START");
-
-                        // ĐỢI CLIENT MỞ CHESSBOARD (500ms)
-                        Thread.Sleep(500);
-
-                        // PHÂN ĐỘI CHO CÁC CLIENT
-                        var clients = ServerBroadcaster.Rooms[roomCode].Values.ToList();
-                        string[] teams = { "Red", "Green", "Yellow", "Blue" };
-
-                        // teamCount = số người thật (tối đa 4)
-                        int teamCount = Math.Min(clients.Count, 4);
-
-                        // Lưu danh sách team thật sự có trong phòng
-                        var activeTeams = teams.Take(teamCount).ToList();
-                        ServerBroadcaster.SetRoomTeams(roomCode, activeTeams);
-
-                        for (int i = 0; i < teamCount; i++)
-                        {
-                            try
-                            {
-                                byte[] assignData = Encoding.UTF8.GetBytes($"ASSIGN|{teams[i]}");
-                                clients[i].GetStream().Write(assignData, 0, assignData.Length);
-                                ServerBroadcaster.SetClientTeam(clients[i], teams[i]);
-                                Log($"ASSIGN -> room:{roomCode} client:{i} team:{teams[i]}");
-                            }
-                            catch (Exception ex)
-                            {
-                                Log($"ASSIGN Error: {ex.Message}");
+                                if (userId > 0)
+                                {
+                                    ServerBroadcaster.SetClientUsername(client, username);
+                                    response = $"LOGIN_OK|{userId}|{username}";
+                                    Log($"LOGIN -> user:{username} (id:{userId})");
+                                }
+                                else
+                                {
+                                    response = "LOGIN_FAIL";
+                                    Log($"LOGIN_FAIL -> username/email:{parts[1]}");
+                                }
                             }
                         }
-
-                        var nameParts = new List<string> { "NAMES" };
-                        for (int i = 0; i < teamCount; i++)
+                        else if (request.StartsWith("CREATE_ROOM|"))
                         {
-                            string team = teams[i];
-                            string uname = ServerBroadcaster.GetClientUsername(clients[i]);
-                            nameParts.Add($"{team}:{uname}");
+                            int userId = int.Parse(request.Split('|')[1]);
+                            string roomCode = DatabaseHelper.CreateRoom(userId);
+                            response = "ROOM_CREATED|" + roomCode;
                         }
-                        ServerBroadcaster.BroadcastToRoom(roomCode, string.Join("|", nameParts));
-                        Log($"NAMES -> room:{roomCode} {string.Join("|", nameParts)}");
-
-
-                        // BẮT ĐẦU LƯỢT ĐẦU TIÊN = team đầu tiên trong activeTeams (thường là Red)
-                        Thread.Sleep(200);
-                        string firstTurn = activeTeams[0];
-                        ServerBroadcaster.SetRoomTurn(roomCode, firstTurn);
-                        ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{firstTurn}");
-                        Log($"TURN -> room:{roomCode} first turn: {firstTurn}");
-                        response = "START_OK";
-                    }
-
-                    // ============= GAME LOGIC =============
-
-                    else if (request.StartsWith("ROLL"))
-                    {
-                        string roomCode = ServerBroadcaster.GetClientRoom(client);
-                        if (roomCode != null)
+                        else if (request.StartsWith("JOIN_ROOM|"))
                         {
-                            int diceValue = RollDiceWeighted();
+                            var p = request.Split('|');
+                            int userId = int.Parse(p[1]);
+                            string roomCode = p[2].ToUpper();
 
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"DICE|{diceValue}");
-                            Log($"ROLL -> room:{roomCode} dice:{diceValue}");
+                            bool ok = DatabaseHelper.JoinRoom(roomCode, userId);
+                            response = ok ? "JOIN_OK" : "JOIN_FAIL";
                         }
-                        response = "ROLL_OK";
-                    }
-
-                    else if (request.StartsWith("MOVE|"))
-                    {
-                        string roomCode = ServerBroadcaster.GetClientRoom(client);
-                        if (roomCode != null)
+                        else if (request.StartsWith("GET_ROOM_PLAYERS|"))
                         {
-                            ServerBroadcaster.BroadcastToRoom(roomCode, request);
-                            Log($"MOVE -> room:{roomCode} data:{request}");
+                            string roomCode = request.Split('|')[1].ToUpper();
+                            var players = DatabaseHelper.GetRoomPlayers(roomCode);
+                            response = string.Join(",", players);
                         }
-                        response = "MOVE_OK";
-                    }
-                    else if (request.StartsWith("END_TURN"))
-                    {
-                        string roomCode = ServerBroadcaster.GetClientRoom(client);
-                        if (roomCode != null)
+                        else if (request.StartsWith("REGISTER_ROOM|"))
                         {
-                            // Lấy danh sách team thật sự có trong phòng (2-4 người)
-                            var teamOrder = ServerBroadcaster.GetRoomTeams(roomCode);
-                            if (teamOrder == null || teamOrder.Count == 0)
-                                teamOrder = new List<string> { "Red", "Green", "Yellow", "Blue" };
+                            var p = request.Split('|');
+                            int userId = int.Parse(p[1]);
+                            string roomCode = p[2].ToUpper();
 
-                            string currentTurn = ServerBroadcaster.GetRoomTurn(roomCode);
+                            string username = DatabaseHelper.GetUsername(userId);
+                            ServerBroadcaster.SetClientUsername(client, username);
+                            ServerBroadcaster.AddClientToRoom(roomCode, client);
 
-                            int idx = teamOrder.IndexOf(currentTurn);
-                            if (idx < 0) idx = 0;
-
-                            int nextIdx = (idx + 1) % teamOrder.Count;
-                            string nextTurn = teamOrder[nextIdx];
-
-                            ServerBroadcaster.SetRoomTurn(roomCode, nextTurn);
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{nextTurn}");
-                            Log($"END_TURN -> room:{roomCode} next turn: {nextTurn} (players={teamOrder.Count})");
+                            response = "REGISTERED";
                         }
-                        response = "TURN_OK";
-                    }
-                    else if (request.StartsWith("DONE"))
-                    {
-                        string roomCode = ServerBroadcaster.GetClientRoom(client);
-                        if (roomCode != null)
+                        else if (request.StartsWith("START_GAME|"))
                         {
-                            int rank = ServerBroadcaster.IncrementRank(roomCode);
+                            string roomCode = request.Split('|')[1].ToUpper();
 
-                            string winnerTeam = ServerBroadcaster.GetClientTeam(client);
+                            int clientCount = ServerBroadcaster.GetRoomClientCount(roomCode);
+                            Log($"START_GAME -> room:{roomCode} broadcasting to {clientCount} clients");
 
-                            // log / rank message (tuỳ bạn giữ hay bỏ)
-                            ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|{winnerTeam}|{rank}");
-                            Log($"DONE -> room:{roomCode} team:{winnerTeam} rank:{rank}");
+                            ServerBroadcaster.BroadcastToRoom(roomCode, "START");
+                            Thread.Sleep(500);
 
-                            // ✅ kết thúc ngay khi có đội đầu tiên win
-                            if (rank == 1)
+                            var clients = ServerBroadcaster.Rooms[roomCode].Values.ToList();
+                            string[] teams = { "Red", "Green", "Yellow", "Blue" };
+                            int teamCount = Math.Min(clients.Count, 4);
+                            var activeTeams = teams.Take(teamCount).ToList();
+                            ServerBroadcaster.SetRoomTeams(roomCode, activeTeams);
+
+                            for (int i = 0; i < teamCount; i++)
                             {
-                                ServerBroadcaster.BroadcastToRoom(roomCode, $"GAME_OVER|{winnerTeam}");
-                                Log($"GAME_OVER -> room:{roomCode} winner:{winnerTeam}");
+                                try
+                                {
+                                    byte[] assignData = Encoding.UTF8.GetBytes($"ASSIGN|{teams[i]}\n"); // ✅ THÊM \n
+                                    clients[i].GetStream().Write(assignData, 0, assignData.Length);
+                                    clients[i].GetStream().Flush(); // ✅ THÊM FLUSH
+                                    ServerBroadcaster.SetClientTeam(clients[i], teams[i]);
+                                    Log($"ASSIGN -> room:{roomCode} client:{i} team:{teams[i]}");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log($"ASSIGN Error: {ex.Message}");
+                                }
                             }
-                        }
-                        response = "DONE_OK";
-                    }
 
-
-                    else if (request.StartsWith("CHAT|"))
-                    {
-                        string roomCode = ServerBroadcaster.GetClientRoom(client);
-                        if (roomCode != null)
-                        {
-                            var parts = request.Split(new[] { '|' }, 3);
-                            if (parts.Length >= 3)
+                            var nameParts = new List<string> { "NAMES" };
+                            for (int i = 0; i < teamCount; i++)
                             {
-                                string senderName = parts[1]; // Username từ client gửi lên
-                                string message = parts[2];
-
-                                // Broadcast cho TẤT CẢ clients trong phòng
-                                string team = ServerBroadcaster.GetClientTeam(client);
-                                ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{team}|{senderName}|{message}");
-                                Log($"CHAT -> room:{roomCode} from:{senderName} msg:{message}");
+                                string team = teams[i];
+                                string uname = ServerBroadcaster.GetClientUsername(clients[i]);
+                                nameParts.Add($"{team}:{uname}");
                             }
+                            ServerBroadcaster.BroadcastToRoom(roomCode, string.Join("|", nameParts));
+                            Log($"NAMES -> room:{roomCode} {string.Join("|", nameParts)}");
+
+                            Thread.Sleep(200);
+                            string firstTurn = activeTeams[0];
+                            ServerBroadcaster.SetRoomTurn(roomCode, firstTurn);
+                            ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{firstTurn}");
+                            Log($"TURN -> room:{roomCode} first turn: {firstTurn}");
+                            response = "START_OK";
                         }
-                        response = "CHAT_OK";
+                        // ============= GAME LOGIC ============= 
+                        else if (request.StartsWith("ROLL"))
+                        {
+                            string roomCode = ServerBroadcaster.GetClientRoom(client);
+                            if (roomCode != null)
+                            {
+                                int diceValue = RollDiceWeighted();
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"DICE|{diceValue}");
+                                Log($"ROLL -> room:{roomCode} dice:{diceValue}");
+                            }
+                            // ✅ KHÔNG GỬI RESPONSE
+                        }
+                        else if (request.StartsWith("MOVE|"))
+                        {
+                            string roomCode = ServerBroadcaster.GetClientRoom(client);
+                            if (roomCode != null)
+                            {
+                                ServerBroadcaster.BroadcastToRoom(roomCode, request);
+                                Log($"MOVE -> room:{roomCode} data:{request}");
+                            }
+                            // ✅ KHÔNG GỬI RESPONSE
+                        }
+                        else if (request.StartsWith("END_TURN"))
+                        {
+                            string roomCode = ServerBroadcaster.GetClientRoom(client);
+                            if (roomCode != null)
+                            {
+                                var teamOrder = ServerBroadcaster.GetRoomTeams(roomCode);
+                                if (teamOrder == null || teamOrder.Count == 0)
+                                    teamOrder = new List<string> { "Red", "Green", "Yellow", "Blue" };
+
+                                string currentTurn = ServerBroadcaster.GetRoomTurn(roomCode);
+                                int idx = teamOrder.IndexOf(currentTurn);
+                                if (idx < 0) idx = 0;
+
+                                int nextIdx = (idx + 1) % teamOrder.Count;
+                                string nextTurn = teamOrder[nextIdx];
+
+                                ServerBroadcaster.SetRoomTurn(roomCode, nextTurn);
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"TURN|{nextTurn}");
+                                Log($"END_TURN -> room:{roomCode} next turn: {nextTurn} (players={teamOrder.Count})");
+                            }
+                            // ✅ KHÔNG GỬI RESPONSE
+                        }
+                        else if (request.StartsWith("DONE"))
+                        {
+                            string roomCode = ServerBroadcaster.GetClientRoom(client);
+                            if (roomCode != null)
+                            {
+                                int rank = ServerBroadcaster.IncrementRank(roomCode);
+                                string winnerTeam = ServerBroadcaster.GetClientTeam(client);
+
+                                ServerBroadcaster.BroadcastToRoom(roomCode, $"RANK|{winnerTeam}|{rank}");
+                                Log($"DONE -> room:{roomCode} team:{winnerTeam} rank:{rank}");
+
+                                if (rank == 1)
+                                {
+                                    ServerBroadcaster.BroadcastToRoom(roomCode, $"GAME_OVER|{winnerTeam}");
+                                    Log($"GAME_OVER -> room:{roomCode} winner:{winnerTeam}");
+                                }
+                            }
+                            // ✅ KHÔNG GỬI RESPONSE
+                        }
+                        else if (request.StartsWith("CHAT|"))
+                        {
+                            string roomCode = ServerBroadcaster.GetClientRoom(client);
+                            if (roomCode != null)
+                            {
+                                var parts = request.Split(new[] { '|' }, 3);
+                                if (parts.Length >= 3)
+                                {
+                                    string senderName = parts[1];
+                                    string message = parts[2];
+                                    string team = ServerBroadcaster.GetClientTeam(client);
+
+                                    ServerBroadcaster.BroadcastToRoom(roomCode, $"CHAT|{team}|{senderName}|{message}");
+                                    Log($"CHAT -> room:{roomCode} from:{senderName} msg:{message}");
+                                }
+                            }
+                            // ✅ KHÔNG GỬI RESPONSE
+                        }
+                        else
+                        {
+                            response = "Lệnh không hợp lệ.";
+                        }
+
+                        // ✅ GỬI RESPONSE VỚI DELIMITER
+                        if (!string.IsNullOrEmpty(response))
+                        {
+                            byte[] responseData = Encoding.UTF8.GetBytes(response + "\n");
+                            stream.Write(responseData, 0, responseData.Length);
+                            stream.Flush(); // ✅ THÊM FLUSH
+                        }
                     }
 
-                    else
-                    {
-                        response = "Lệnh không hợp lệ.";
-                    }
-
-                    // Gửi response
-                    if (!string.IsNullOrEmpty(response))
-                    {
-                        byte[] responseData = Encoding.UTF8.GetBytes(response);
-                        stream.Write(responseData, 0, responseData.Length);
-                    }
+                    // Cập nhật buffer
+                    messageBuffer.Clear();
+                    messageBuffer.Append(allData);
                 }
             }
             catch (Exception ex)
@@ -317,7 +311,6 @@ namespace CoCaNguaServer
             }
             finally
             {
-                // Xóa client khỏi tất cả các phòng khi disconnect
                 ServerBroadcaster.RemoveClient(client);
                 client.Close();
             }
@@ -423,7 +416,7 @@ namespace CoCaNguaServer
                         StartedRooms.Add(roomCode);
                     }
 
-                    byte[] data = Encoding.UTF8.GetBytes(msg);
+                    byte[] data = Encoding.UTF8.GetBytes(msg + "\n");
                     List<string> toRemove = new List<string>();
 
                     foreach (var kvp in Rooms[roomCode])
@@ -433,6 +426,7 @@ namespace CoCaNguaServer
                             if (kvp.Value.Connected)
                             {
                                 kvp.Value.GetStream().Write(data, 0, data.Length);
+                                kvp.Value.GetStream().Flush();
                             }
                             else
                             {

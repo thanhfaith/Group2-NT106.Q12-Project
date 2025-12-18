@@ -68,24 +68,33 @@ namespace CoCaNgua
             }
         }
 
-        private string SendQuick(string data)
+        private string SendQuick(string message)
         {
             try
             {
                 using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
-                    NetworkStream stream = client.GetStream();
-                    byte[] buffer = Encoding.UTF8.GetBytes(data);
-                    stream.Write(buffer, 0, buffer.Length);
+                    client.ReceiveTimeout = 5000;
+                    client.SendTimeout = 5000;
+                    client.NoDelay = true; // ✅ THÊM
 
-                    byte[] responseBuffer = new byte[2048];
-                    int bytes = stream.Read(responseBuffer, 0, responseBuffer.Length);
-                    return Encoding.UTF8.GetString(responseBuffer, 0, bytes);
+                    NetworkStream stream = client.GetStream();
+
+                    byte[] data = Encoding.UTF8.GetBytes(message + "\n"); // ✅ THÊM \n
+                    stream.Write(data, 0, data.Length);
+                    stream.Flush(); // ✅ THÊM FLUSH
+
+                    byte[] buffer = new byte[2048];
+                    int bytes = stream.Read(buffer, 0, buffer.Length);
+
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytes);
+                    return response.Trim().Replace("\n", ""); // ✅ XÓA \n
                 }
             }
             catch (Exception ex)
             {
-                return $"ERROR|{ex.Message}";
+                MessageBox.Show($"Lỗi kết nối: {ex.Message}");
+                return "";
             }
         }
 
