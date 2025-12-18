@@ -266,5 +266,41 @@ namespace CoCaNguaServer
                 return (-1, "");
             }
         }
+
+        public static bool VerifyEmailAndSaveOTP(string email, string otp)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr)) // connStr lấy từ DatabaseHelper của bạn
+            {
+                conn.Open();
+                // Kiểm tra email tồn tại
+                string checkQuery = "SELECT COUNT(1) FROM Users WHERE Email = @Email";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@Email", email);
+                if ((int)checkCmd.ExecuteScalar() == 0) return false;
+
+                // Lưu OTP vào cột ResetToken và TokenExpiry
+                string query = "UPDATE Users SET ResetToken = @Token, TokenExpiry = DATEADD(minute, 5, GETDATE()) WHERE Email = @Email";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Token", otp);
+                cmd.Parameters.AddWithValue("@Email", email);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+        public static bool ServerResetPassword(string email, string otp, string newPasswordHash)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                string query = @"UPDATE Users 
+                         SET Password = @NewPass, ResetToken = NULL, TokenExpiry = NULL 
+                         WHERE Email = @Email AND ResetToken = @OTP AND TokenExpiry > GETDATE()";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@NewPass", newPasswordHash);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@OTP", otp);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
     }
 }
