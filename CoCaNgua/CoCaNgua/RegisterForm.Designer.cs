@@ -99,10 +99,10 @@
             btnRegister.BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222956;
             btnRegister.BackgroundImageLayout = ImageLayout.Stretch;
             btnRegister.FlatStyle = FlatStyle.Popup;
-            btnRegister.Location = new Point(419, 316);
+            btnRegister.Location = new Point(438, 314);
             btnRegister.Margin = new Padding(3, 4, 3, 4);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(271, 63);
+            btnRegister.Size = new Size(165, 55);
             btnRegister.TabIndex = 7;
             btnRegister.Text = "Đăng kí ";
             btnRegister.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             // 
             linkToLog.AutoSize = true;
             linkToLog.BackColor = Color.Transparent;
-            linkToLog.Location = new Point(566, 402);
+            linkToLog.Location = new Point(566, 386);
             linkToLog.Name = "linkToLog";
             linkToLog.Size = new Size(124, 31);
             linkToLog.TabIndex = 10;
@@ -162,7 +162,7 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
-            label6.Location = new Point(369, 402);
+            label6.Location = new Point(343, 386);
             label6.Name = "label6";
             label6.Size = new Size(191, 31);
             label6.TabIndex = 11;

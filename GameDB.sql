@@ -118,3 +118,10 @@ FROM Users u
 LEFT JOIN Matches m ON u.UserId = m.WinnerUserId
 GROUP BY u.UserId, u.Username;
 GO
+-------------------------------------------------------------------
+---LƯU MÃ RESET VÀ THỜI GIAN HẾT HẠN 
+-------------------------------------------------------------------
+ALTER TABLE Users 
+ADD ResetToken NVARCHAR(10) NULL,
+    TokenExpiry DATETIME2 NULL;   
+GO

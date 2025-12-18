@@ -39,7 +39,7 @@
             btnRule.Cursor = Cursors.Hand;
             btnRule.FlatStyle = FlatStyle.Popup;
             btnRule.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRule.Location = new Point(367, 219);
+            btnRule.Location = new Point(387, 219);
             btnRule.Margin = new Padding(5);
             btnRule.Name = "btnRule";
             btnRule.Size = new Size(198, 74);
@@ -55,7 +55,7 @@
             btnPlay.Cursor = Cursors.Hand;
             btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPlay.Location = new Point(367, 303);
+            btnPlay.Location = new Point(387, 303);
             btnPlay.Margin = new Padding(5);
             btnPlay.Name = "btnPlay";
             btnPlay.Size = new Size(198, 74);

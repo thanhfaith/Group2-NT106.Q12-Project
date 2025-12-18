@@ -116,5 +116,12 @@ namespace CoCaNgua
             f.Show();
             this.Hide();
         }
+
+        private void llblQuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CheckEmail f = new CheckEmail();
+            f.Show();
+            this.Hide();
+        }
     }
 }

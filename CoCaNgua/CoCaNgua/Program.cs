@@ -10,6 +10,7 @@
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new MenuForm());
+
         }
     }
 }
