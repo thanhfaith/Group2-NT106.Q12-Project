@@ -63,9 +63,9 @@
             btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
             btnLogin.Cursor = Cursors.Hand;
             btnLogin.FlatStyle = FlatStyle.Popup;
-            btnLogin.Location = new Point(343, 162);
+            btnLogin.Location = new Point(410, 164);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(304, 50);
+            btnLogin.Size = new Size(180, 49);
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Đăng nhập ";
             btnLogin.UseVisualStyleBackColor = true;
@@ -92,7 +92,7 @@
             // 
             linkToRegister.AutoSize = true;
             linkToRegister.BackColor = Color.Transparent;
-            linkToRegister.Location = new Point(140, 230);
+            linkToRegister.Location = new Point(140, 242);
             linkToRegister.Name = "linkToRegister";
             linkToRegister.Size = new Size(204, 31);
             linkToRegister.TabIndex = 6;
@@ -104,12 +104,13 @@
             // 
             llblQuenMatKhau.AutoSize = true;
             llblQuenMatKhau.BackColor = Color.Transparent;
-            llblQuenMatKhau.Location = new Point(458, 230);
+            llblQuenMatKhau.Location = new Point(458, 242);
             llblQuenMatKhau.Name = "llblQuenMatKhau";
             llblQuenMatKhau.Size = new Size(189, 31);
             llblQuenMatKhau.TabIndex = 7;
             llblQuenMatKhau.TabStop = true;
             llblQuenMatKhau.Text = "Quên mật khẩu?";
+            llblQuenMatKhau.LinkClicked += llblQuenMatKhau_LinkClicked;
             // 
             // LoginForm
             // 
@@ -117,7 +118,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Screenshot_2025_11_28_222745;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(794, 345);
+            ClientSize = new Size(794, 325);
             Controls.Add(llblQuenMatKhau);
             Controls.Add(linkToRegister);
             Controls.Add(txtPassword);
@@ -130,7 +131,6 @@
             Margin = new Padding(5);
             Name = "LoginForm";
             Text = "DangNhap";
-          //  Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -49,7 +49,7 @@
             // 
             llblQuit.AutoSize = true;
             llblQuit.BackColor = Color.Transparent;
-            llblQuit.Location = new Point(311, 479);
+            llblQuit.Location = new Point(330, 477);
             llblQuit.Name = "llblQuit";
             llblQuit.Size = new Size(160, 31);
             llblQuit.TabIndex = 1;

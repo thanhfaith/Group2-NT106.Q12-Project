@@ -9,7 +9,7 @@
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Rules());
+            Application.Run(new LoginForm());
         }
     }
 }
