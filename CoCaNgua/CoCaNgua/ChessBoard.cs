@@ -21,6 +21,9 @@ namespace CoCaNgua
         public ChessBoard(NetworkHelper existingNetwork, string roomCode = "")
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            SoundManager.Init();
+            SoundManager.StartBgm();
             this.network = existingNetwork;
             this.currentRoomCode = roomCode;
             if (this.network != null)
@@ -121,6 +124,7 @@ namespace CoCaNgua
                         case "DICE":
                             currentDiceValue = int.Parse(parts[1]);
                             ShowDiceImage(currentDiceValue);
+                            SoundManager.Dice();
                             AddToChat($"[XÚC XẮC] {currentTurn} tung được [{currentDiceValue}] điểm.");
 
                             if (currentTurn == myTeam)
@@ -166,22 +170,38 @@ namespace CoCaNgua
                             break;
 
                         case "MOVE":
-                            int pId = int.Parse(parts[1]);
-                            int newPos = int.Parse(parts[2]);
-                            PieceState newState = (PieceState)Enum.Parse(typeof(PieceState), parts[3]);
-
-                            var p = pieces.Find(x => x.Id == pId);
-
-                            if (p != null)
                             {
-                                if (newState == PieceState.InHome && p.State != PieceState.InHome)
-                                    AddToChat($"Quân {p.Team} đã bị ĐÁ về chuồng!");
+                                int pId = int.Parse(parts[1]);
+                                int newPos = int.Parse(parts[2]);
+                                PieceState newState = (PieceState)Enum.Parse(typeof(PieceState), parts[3]);
 
-                                p.CurrentPosition = newPos;
-                                p.State = newState;
-                                UpdatePieceUI(p);
+                                var p = pieces.Find(x => x.Id == pId);
+                                if (p != null)
+                                {
+                                    PieceState oldState = p.State;
+                                    int oldPos = p.CurrentPosition;
+
+                                    // Update
+                                    p.CurrentPosition = newPos;
+                                    p.State = newState;
+                                    UpdatePieceUI(p);
+
+                                    // SOUND: ưu tiên Kick
+                                    if (newState == PieceState.InHome && newPos == -1)
+                                    {
+                                        SoundManager.Kick(); // ✅ người bị đá luôn nghe
+                                    }
+                                    else if (oldState == PieceState.InHome && newState == PieceState.OnTrack)
+                                    {
+                                        SoundManager.Spawn();
+                                    }
+                                    else if (oldPos != newPos)
+                                    {
+                                        SoundManager.Move();
+                                    }
+                                }
+                                break;
                             }
-                            break;
 
                         case "RANK":
                             AddToChat($"KẾT QUẢ: Đội {parts[1]} về đích - Hạng {parts[2]}!");
@@ -278,52 +298,42 @@ namespace CoCaNgua
             QuanCo enemyPiece;
 
             // Kiểm tra nước đi
-            if (TryComputeMove(piece, currentDiceValue, out nextPos, out nextState, out enemyPiece, allowMessage: true))
+            if (!TryComputeMove(piece, currentDiceValue, out nextPos, out nextState, out enemyPiece, allowMessage: true))
+                return;
+
+            btnDice.Enabled = false;
+
+            // ❗ KHÔNG phát âm ở đây
+            // ❗ KHÔNG update UI/state ở đây
+            // Chỉ gửi lệnh cho server, rồi chờ server broadcast MOVE về (case "MOVE" sẽ update + phát âm)
+
+            // Nếu có đá quân thì gửi lệnh đá trước
+            if (enemyPiece != null)
             {
-                btnDice.Enabled = false;
+                network.Send($"MOVE|{enemyPiece.Id}|-1|InHome");
+                AddToChat($"⚔️ Bạn đã đá quân đội {enemyPiece.Team}!");
+                await Task.Delay(50); // nhỏ thôi cho ổn định thứ tự gửi (tuỳ chọn)
+            }
 
-                // Xử lý đá quân 
-                if (enemyPiece != null)
-                {
-                    network.Send($"MOVE|{enemyPiece.Id}|-1|InHome");
-                    AddToChat($"⚔️ Bạn đã đá quân đội {enemyPiece.Team}!");
+            // Gửi lệnh di chuyển quân mình
+            network.Send($"MOVE|{piece.Id}|{nextPos}|{nextState}");
 
-                    // Cập nhật giao diện quân bị đá ngay lập tức
-                    enemyPiece.CurrentPosition = -1;
-                    enemyPiece.State = PieceState.InHome;
-                    UpdatePieceUI(enemyPiece);
+            // --- Kiểm tra điều kiện thắng ---
+            // ⚠️ CheckWin ở client có thể lệch nếu bạn vừa bỏ update local.
+            // Cách an toàn: để server kiểm tra và gửi GAME_OVER/RANK.
+            // Tạm thời: bỏ check win ở đây để tránh sai.
+            // if (CheckWin(myTeam)) { network.Send("DONE"); ... }  // ❌ bỏ
 
-                    await Task.Delay(100);
-                }
-
-                // Gửi lệnh di chuyển quân mình
-                network.Send($"MOVE|{piece.Id}|{nextPos}|{nextState}");
-
-                // Cập nhật giao diện quân mình
-                piece.CurrentPosition = nextPos;
-                piece.State = nextState;
-                UpdatePieceUI(piece);
-
-                // --- Kiểm tra điều kiện thắng ---
-                if (CheckWin(myTeam))
-                {
-                    network.Send("DONE");     // ✅ báo server kết thúc
-                    hasRolled = false;
-                    btnDice.Enabled = false;
-                    return;
-                }
-
-                if (currentDiceValue == 6)
-                {
-                    AddToChat("Bạn được đi tiếp do tung được 6!");
-                    hasRolled = false;
-                    btnDice.Enabled = true;
-                }
-                else
-                {
-                    await Task.Delay(200);
-                    network.Send("END_TURN");
-                }
+            if (currentDiceValue == 6)
+            {
+                AddToChat("Bạn được đi tiếp do tung được 6!");
+                hasRolled = false;
+                btnDice.Enabled = true;
+            }
+            else
+            {
+                await Task.Delay(200);
+                network.Send("END_TURN");
             }
         }
 
@@ -787,5 +797,25 @@ namespace CoCaNgua
         {
             SendChatMessage();
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            SoundManager.StopBgm();
+            base.OnFormClosing(e);
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.KeyCode == Keys.M)
+            {
+                SoundManager.ToggleMute();
+
+                if (SoundManager.Muted)
+                    AddToChat("🔇 Đã tắt âm thanh");
+                else
+                    AddToChat("🔊 Đã bật âm thanh");
+            }
+        }
+
     }
 }

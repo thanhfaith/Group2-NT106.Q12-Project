@@ -205,20 +205,23 @@ namespace CoCaNgua
         {
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 8888))
+                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
                 {
                     client.ReceiveTimeout = 3000;
                     client.SendTimeout = 3000;
+                    client.NoDelay = true; // ✅ THÊM
 
                     NetworkStream stream = client.GetStream();
 
-                    byte[] data = Encoding.UTF8.GetBytes(msg);
+                    byte[] data = Encoding.UTF8.GetBytes(msg + "\n"); // ✅ THÊM \n
                     stream.Write(data, 0, data.Length);
+                    stream.Flush(); // ✅ THÊM FLUSH
 
                     byte[] buffer = new byte[2048];
                     int bytes = stream.Read(buffer, 0, buffer.Length);
 
-                    return Encoding.UTF8.GetString(buffer, 0, bytes);
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytes);
+                    return response.Trim().Replace("\n", ""); // ✅ XÓA \n
                 }
             }
             catch (Exception ex)
@@ -236,7 +239,7 @@ namespace CoCaNgua
 
             AppendLog("[INFO] 🔌 Đang kết nối tới server...");
 
-            bool ok = network.Connect("127.0.0.1", 8888);
+            bool ok = network.Connect(ServerConfig.Host, ServerConfig.Port);
             if (!ok)
             {
                 MessageBox.Show("Không thể kết nối tới server!");

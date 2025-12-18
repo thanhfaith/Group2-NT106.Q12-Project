@@ -11,10 +11,9 @@ namespace CoCaNgua
         private TcpClient client;
         private NetworkStream stream;
         private Thread receiveThread;
+        private StringBuilder messageBuffer = new StringBuilder(); // ✅ THÊM BUFFER
 
-        // Sự kiện để bắn tin nhắn về cho Form (ChessBoard, Menu,...) xử lý
         public event Action<string> OnMessageReceived;
-
         public bool IsConnected => client != null && client.Connected;
 
         public NetworkHelper()
@@ -28,14 +27,14 @@ namespace CoCaNgua
             {
                 if (client != null && client.Connected) return true;
 
-                // Nếu client đã bị đóng, tạo mới
                 if (client == null || !client.Connected)
                     client = new TcpClient();
 
                 client.Connect(ip, port);
+                client.NoDelay = true; // ✅ DISABLE NAGLE'S ALGORITHM
+
                 stream = client.GetStream();
 
-                // Start receive loop once
                 if (receiveThread == null || !receiveThread.IsAlive)
                 {
                     receiveThread = new Thread(ReceiveLoop);
@@ -58,8 +57,9 @@ namespace CoCaNgua
             {
                 if (client != null && client.Connected && stream != null)
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(message);
+                    byte[] data = Encoding.UTF8.GetBytes(message + "\n"); // ✅ THÊM \n
                     stream.Write(data, 0, data.Length);
+                    stream.Flush(); // ✅ FORCE GỬI NGAY
                 }
             }
             catch (Exception ex)
@@ -78,13 +78,33 @@ namespace CoCaNgua
                 try
                 {
                     int bytesRead = stream.Read(buffer, 0, buffer.Length);
-
                     if (bytesRead > 0)
                     {
-                        string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        string data = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        messageBuffer.Append(data);
 
-                        // Fire event (subscriber should marshal to UI thread if needed)
-                        try { OnMessageReceived?.Invoke(message); } catch { }
+                        // ✅ TÁCH MESSAGE BẰNG \n
+                        string allData = messageBuffer.ToString();
+                        int newlineIndex;
+
+                        while ((newlineIndex = allData.IndexOf('\n')) >= 0)
+                        {
+                            string message = allData.Substring(0, newlineIndex).Trim();
+                            allData = allData.Substring(newlineIndex + 1);
+
+                            if (!string.IsNullOrEmpty(message))
+                            {
+                                try
+                                {
+                                    OnMessageReceived?.Invoke(message);
+                                }
+                                catch { }
+                            }
+                        }
+
+                        // Cập nhật buffer
+                        messageBuffer.Clear();
+                        messageBuffer.Append(allData);
                     }
                     else
                     {
