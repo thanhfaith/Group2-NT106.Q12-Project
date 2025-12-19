@@ -25,7 +25,7 @@ namespace CoCaNgua
 
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private async void btnRegister_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string email = txtEmail.Text.Trim();
@@ -64,45 +64,79 @@ namespace CoCaNgua
                 return;
             }
 
-            string hashedPassword = HashPassword(password);
-            string message = $"REGISTER|{username}|{email}|{hashedPassword}";
-            string response = SendToServer(message);
+            // ✅ Disable button để tránh click nhiều lần
+            btnRegister.Enabled = false;
+            btnRegister.Text = "Đang xử lý...";
 
-            if (!string.IsNullOrWhiteSpace(response) &&
-                response.Trim() == "Đăng ký thành công!")
+            try
             {
-                MessageBox.Show(response,
-                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string hashedPassword = HashPassword(password);
+                string message = $"REGISTER|{username}|{email}|{hashedPassword}";
 
-                LoginForm f = new LoginForm();
-                f.Show();
-                this.Close();
+                // ✅ Gọi async
+                string response = await SendToServerAsync(message);
+
+                if (!string.IsNullOrWhiteSpace(response) &&
+                    response.Trim() == "Đăng ký thành công!")
+                {
+                    MessageBox.Show(response,
+                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoginForm f = new LoginForm();
+                    f.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        string.IsNullOrWhiteSpace(response)
+                            ? "Không có phản hồi từ server!"
+                            : response,
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            finally
             {
-                MessageBox.Show(
-                    string.IsNullOrWhiteSpace(response)
-                        ? "Không có phản hồi từ server!"
-                        : response,
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // ✅ Enable lại button
+                btnRegister.Enabled = true;
+                btnRegister.Text = "Đăng ký";
             }
         }
-        private string SendToServer(string data)
+        private async Task<string> SendToServerAsync(string data)
         {
             try
             {
-                using (TcpClient client = new TcpClient(ServerConfig.Host, ServerConfig.Port))
+                using (TcpClient client = new TcpClient())
                 {
-                    NetworkStream stream = client.GetStream();
-                    byte[] buffer = Encoding.UTF8.GetBytes(data);
-                    stream.Write(buffer, 0, buffer.Length);
+                    // ✅ Connect async với timeout
+                    var connectTask = client.ConnectAsync(ServerConfig.Host, ServerConfig.Port);
+                    if (await Task.WhenAny(connectTask, Task.Delay(5000)) != connectTask)
+                    {
+                        return "Lỗi: Không thể kết nối tới server (timeout)";
+                    }
 
+                    NetworkStream stream = client.GetStream();
+
+                    // ✅ Write async
+                    byte[] buffer = Encoding.UTF8.GetBytes(data + "\n"); // THÊM \n
+                    await stream.WriteAsync(buffer, 0, buffer.Length);
+                    await stream.FlushAsync();
+
+                    // ✅ Read async với timeout
                     byte[] responseBuffer = new byte[2048];
-                    int bytes = stream.Read(responseBuffer, 0, responseBuffer.Length);
-                    string response = Encoding.UTF8.GetString(responseBuffer, 0, bytes);
+                    var readTask = stream.ReadAsync(responseBuffer, 0, responseBuffer.Length);
+
+                    if (await Task.WhenAny(readTask, Task.Delay(5000)) != readTask)
+                    {
+                        return "Lỗi: Server không phản hồi (timeout)";
+                    }
+
+                    int bytes = await readTask;
+                    string response = Encoding.UTF8.GetString(responseBuffer, 0, bytes).Trim();
 
                     if (string.IsNullOrWhiteSpace(response))
                         response = "(Không có phản hồi từ server)";
+
                     return response;
                 }
             }
@@ -111,7 +145,6 @@ namespace CoCaNgua
                 return $"Lỗi kết nối: {ex.Message}";
             }
         }
-
         private string HashPassword(string password)
         {
             using (SHA256 sha = SHA256.Create())
