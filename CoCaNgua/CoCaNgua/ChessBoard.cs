@@ -175,29 +175,33 @@ namespace CoCaNgua
                                 int newPos = int.Parse(parts[2]);
                                 PieceState newState = (PieceState)Enum.Parse(typeof(PieceState), parts[3]);
 
+                                // ✅ THÊM: Nhận flag âm thanh từ server
+                                string soundType = parts.Length > 4 ? parts[4] : "move";
+
                                 var p = pieces.Find(x => x.Id == pId);
                                 if (p != null)
                                 {
                                     PieceState oldState = p.State;
                                     int oldPos = p.CurrentPosition;
 
-                                    // Update
+                                    // Update vị trí
                                     p.CurrentPosition = newPos;
                                     p.State = newState;
                                     UpdatePieceUI(p);
 
-                                    // SOUND: ưu tiên Kick
-                                    if (newState == PieceState.InHome && newPos == -1)
+                                    // ✅ PHÁT ÂM THANH DỰA TRÊN FLAG
+                                    switch (soundType)
                                     {
-                                        SoundManager.Kick(); // ✅ người bị đá luôn nghe
-                                    }
-                                    else if (oldState == PieceState.InHome && newState == PieceState.OnTrack)
-                                    {
-                                        SoundManager.Spawn();
-                                    }
-                                    else if (oldPos != newPos)
-                                    {
-                                        SoundManager.Move();
+                                        case "kick":
+                                            SoundManager.Kick();
+                                            break;
+                                        case "spawn":
+                                            SoundManager.Spawn();
+                                            break;
+                                        case "move":
+                                            if (oldPos != newPos) // Chỉ phát khi thực sự di chuyển
+                                                SoundManager.Move();
+                                            break;
                                     }
                                 }
                                 break;
@@ -302,14 +306,14 @@ namespace CoCaNgua
             {
                 btnDice.Enabled = false;
 
-                // Xử lý đá quân 
+                // ✅ XỬ LÝ ĐÁ QUÂN - GỬI VỚI FLAG "kick"
                 if (enemyPiece != null)
                 {
-                    SoundManager.Kick(); // ✅ thêm dòng này
-                    network.Send($"MOVE|{enemyPiece.Id}|-1|InHome");
+                    // ❌ XÓA: SoundManager.Kick(); // Không phát ở đây nữa
+                    network.Send($"MOVE|{enemyPiece.Id}|-1|InHome|kick");  // ✅ Thêm flag
                     AddToChat($"⚔️ Bạn đã đá quân đội {enemyPiece.Team}!");
 
-                    // Cập nhật giao diện quân bị đá ngay lập tức
+                    // Cập nhật giao diện quân bị đá
                     enemyPiece.CurrentPosition = -1;
                     enemyPiece.State = PieceState.InHome;
                     UpdatePieceUI(enemyPiece);
@@ -317,18 +321,22 @@ namespace CoCaNgua
                     await Task.Delay(100);
                 }
 
-                // Gửi lệnh di chuyển quân mình
-                network.Send($"MOVE|{piece.Id}|{nextPos}|{nextState}");
+                // ✅ GỬI LỆNH DI CHUYỂN VỚI FLAG ÂM THANH
+                string soundFlag = (piece.State == PieceState.InHome && nextState == PieceState.OnTrack)
+                                  ? "spawn"   // Ra quân
+                                  : "move";   // Di chuyển thường
+
+                network.Send($"MOVE|{piece.Id}|{nextPos}|{nextState}|{soundFlag}");
 
                 // Cập nhật giao diện quân mình
                 piece.CurrentPosition = nextPos;
                 piece.State = nextState;
                 UpdatePieceUI(piece);
 
-                // --- Kiểm tra điều kiện thắng ---
+                // Kiểm tra điều kiện thắng
                 if (CheckWin(myTeam))
                 {
-                    network.Send("DONE");     // ✅ báo server kết thúc
+                    network.Send("DONE");
                     hasRolled = false;
                     btnDice.Enabled = false;
                     return;
