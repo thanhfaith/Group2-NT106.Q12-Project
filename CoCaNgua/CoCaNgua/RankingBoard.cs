@@ -55,7 +55,7 @@ namespace CoCaNgua
 
         private void llblQuit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MenuForm f = new MenuForm();
+            CodeRoom f = new CodeRoom();
             f.Show();
             this.Close();
         }

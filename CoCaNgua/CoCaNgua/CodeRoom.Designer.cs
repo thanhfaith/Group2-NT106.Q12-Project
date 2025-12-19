@@ -34,6 +34,7 @@
             btnCreateRoom = new Button();
             btnJoinRoom = new Button();
             label1 = new Label();
+            btnLogout = new Button();
             SuspendLayout();
             // 
             // label2
@@ -98,6 +99,18 @@
             label1.TabIndex = 5;
             label1.Text = "Vào phòng";
             // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.IndianRed;
+            btnLogout.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.Location = new Point(783, 12);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(72, 70);
+            btnLogout.TabIndex = 6;
+            btnLogout.Text = "Đăng xuất";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
             // CodeRoom
             // 
             AutoScaleDimensions = new SizeF(14F, 31F);
@@ -106,6 +119,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(867, 548);
+            Controls.Add(btnLogout);
             Controls.Add(label1);
             Controls.Add(btnJoinRoom);
             Controls.Add(btnCreateRoom);
@@ -126,5 +140,6 @@
         private Button btnCreateRoom;
         private Button btnJoinRoom;
         private Label label1;
+        private Button btnLogout;
     }
 }

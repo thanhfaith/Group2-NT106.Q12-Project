@@ -51,13 +51,13 @@
             // 
             llblQuit.AutoSize = true;
             llblQuit.BackColor = Color.Transparent;
-            llblQuit.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            llblQuit.Location = new Point(374, 378);
+            llblQuit.Font = new Font("Comic Sans MS", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            llblQuit.Location = new Point(406, 383);
             llblQuit.Name = "llblQuit";
-            llblQuit.Size = new Size(170, 33);
+            llblQuit.Size = new Size(84, 29);
             llblQuit.TabIndex = 1;
             llblQuit.TabStop = true;
-            llblQuit.Text = "Về Trang Chủ";
+            llblQuit.Text = "Trở Về";
             llblQuit.LinkClicked += llblQuit_LinkClicked;
             // 
             // RankingBoard

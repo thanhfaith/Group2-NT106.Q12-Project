@@ -81,5 +81,34 @@ namespace CoCaNgua
                 return "";
             }
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            // (tuỳ chọn) hỏi xác nhận
+            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?",
+                "Xác nhận", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            try
+            {
+                // 🔴 quan trọng: ngắt kết nối server
+                Session.Network?.Disconnect();
+            }
+            catch { }
+
+            // reset session
+            Session.Username = null;
+            Session.UserId = 0;
+
+            // quay về login
+            new LoginForm().Show();
+            this.Close(); // đóng CodeRoom
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            try { Session.Network?.Disconnect(); } catch { }
+            base.OnFormClosing(e);
+        }
     }
 }
