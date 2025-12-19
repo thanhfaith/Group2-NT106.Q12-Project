@@ -591,7 +591,7 @@ namespace CoCaNguaServer
         int RollDiceWeighted()
         {
             int[] dice = { 1, 2, 3, 4, 5, 6 };
-            int[] weight = { 13, 13, 13, 13, 13, 35 };
+            int[] weight = { 20, 10, 10, 10, 10, 40 };
             // 1:13% | 2:13% | 3:13% | 4:13% | 5:13% | 6:35%
 
             int roll = diceRand.Next(1, 101);
