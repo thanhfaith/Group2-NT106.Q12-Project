@@ -113,7 +113,7 @@
             Controls.Add(btn_Stop);
             Controls.Add(btn_Start);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Server";
             ResumeLayout(false);
             PerformLayout();
         }

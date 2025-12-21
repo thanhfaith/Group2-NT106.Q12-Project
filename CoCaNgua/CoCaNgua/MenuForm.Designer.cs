@@ -75,7 +75,7 @@
             Controls.Add(btnRule);
             Controls.Add(btnPlay);
             Name = "MenuForm";
-            Text = "MenuForm";
+            Text = "Tùy chọn";
             ResumeLayout(false);
         }
 

@@ -75,7 +75,7 @@
             Controls.Add(btnLogin);
             Controls.Add(btnRegister);
             Name = "StartGame";
-            Text = "StartGame";
+            Text = "Đăng nhập/Đăng Ký";
             ResumeLayout(false);
         }
 

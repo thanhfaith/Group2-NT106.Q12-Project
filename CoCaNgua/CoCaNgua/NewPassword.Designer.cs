@@ -138,7 +138,7 @@
             Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 5, 4, 5);
             Name = "NewPassword";
-            Text = "NewPassword";
+            Text = "Đặt lại mật khẩu";
             ResumeLayout(false);
             PerformLayout();
         }

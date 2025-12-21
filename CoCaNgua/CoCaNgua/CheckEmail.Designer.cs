@@ -101,7 +101,7 @@
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4, 3, 4, 3);
             Name = "CheckEmail";
-            Text = "CheckEmail";
+            Text = "Xác thực tài khoản";
             ResumeLayout(false);
             PerformLayout();
         }

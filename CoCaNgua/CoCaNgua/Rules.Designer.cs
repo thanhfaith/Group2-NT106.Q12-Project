@@ -87,7 +87,7 @@
             Controls.Add(label1);
             DoubleBuffered = true;
             Name = "Rules";
-            Text = "Rules";
+            Text = "Luật chơi";
             ResumeLayout(false);
             PerformLayout();
         }

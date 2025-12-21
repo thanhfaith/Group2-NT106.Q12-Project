@@ -129,7 +129,7 @@
             Font = new Font("Comic Sans MS", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(5);
             Name = "CodeRoom";
-            Text = "Online";
+            Text = "Tạo phòng/Tham gia";
             ResumeLayout(false);
             PerformLayout();
         }

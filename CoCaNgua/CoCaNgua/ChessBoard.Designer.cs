@@ -472,7 +472,7 @@
             Margin = new Padding(4);
             MaximizeBox = false;
             Name = "ChessBoard";
-            Text = "Vaogame";
+            Text = "Bàn cờ";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

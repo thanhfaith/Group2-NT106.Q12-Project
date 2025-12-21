@@ -119,7 +119,7 @@ namespace CoCaNgua
             ForeColor = SystemColors.ControlText;
             Margin = new Padding(5, 4, 5, 4);
             Name = "WaitingRoom";
-            Text = "Taophong";
+            Text = "Phòng đợi";
             Load += WaitingRoom_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);

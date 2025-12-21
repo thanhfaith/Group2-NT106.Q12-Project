@@ -7,6 +7,13 @@ namespace CoCaNguaServer
     internal class DatabaseHelper
     {
         private static string connStr =
+            /*@"Server=tcp:cocangua-sql-server.database.windows.net,1433;
+            Initial Catalog=GameDB;
+            User ID=sqladmin;
+            Password=Th@nh08032006;
+            Encrypt=True;
+            TrustServerCertificate=False;
+            Connection Timeout=30;";*/
             @"Data Source=LAPTOP-EDR1OHEC; Initial Catalog=GameDB; Integrated Security=True";
             //@"Data Source=YENVY; Initial Catalog=GameDB; Integrated Security=True";
             //@"Data Source=DESKTOP-9Q6P0AS\MSSQLSERVER01; Initial Catalog=GameDB; Integrated Security=True";
